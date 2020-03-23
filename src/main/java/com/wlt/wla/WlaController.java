@@ -11,7 +11,13 @@ public class WlaController {
 
     @GetMapping("")
     @ResponseBody
-    private String homePage() {
+    private String helloPage() {
         return "Hello";
+    }
+
+    @GetMapping("/home")
+    @ResponseBody
+    private String homePage() {
+        return "Home";
     }
 }

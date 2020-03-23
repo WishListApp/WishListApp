@@ -40,8 +40,8 @@
         </predecessors>
       </task>
     </task>
-    <task id="7" name="Collect requirements" note="" work="316800" start="20200324T000000Z" end="20200330T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="8" name="Functional requirements" note="" work="172800" start="20200324T000000Z" end="20200327T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="7" name="Collect requirements" note="" work="345600" start="20200324T000000Z" end="20200330T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="8" name="Functional requirements" note="" work="201600" start="20200324T000000Z" end="20200327T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <task id="9" name="User" note="" work="43200" start="20200324T000000Z" end="20200324T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <task id="10" name="User creation" note="" work="14400" start="20200324T000000Z" end="20200324T120000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
             <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
@@ -59,7 +59,7 @@
             </predecessors>
           </task>
         </task>
-        <task id="13" name="Wishlist" note="" work="72000" start="20200325T000000Z" end="20200326T120000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="13" name="Wishlist" note="" work="100800" start="20200325T000000Z" end="20200326T170000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
           <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
           <task id="14" name="Whishlist" note="" work="14400" start="20200325T000000Z" end="20200325T120000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
             <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
@@ -74,12 +74,12 @@
               <predecessor id="1" predecessor-id="14" type="FS"/>
             </predecessors>
           </task>
-          <task id="17" name="Additional product info" note="" work="14400" start="20200325T120000Z" end="20200325T170000Z" work-start="20200325T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="17" name="Additional product info" note="" work="28800" start="20200325T120000Z" end="20200325T170000Z" work-start="20200325T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
             <predecessors>
               <predecessor id="1" predecessor-id="14" type="FS"/>
             </predecessors>
           </task>
-          <task id="18" name="Shopping cart" note="" work="14400" start="20200325T170000Z" end="20200326T120000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="18" name="Shopping cart" note="" work="28800" start="20200325T170000Z" end="20200326T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
             <predecessors>
               <predecessor id="1" predecessor-id="17" type="FS"/>
             </predecessors>
@@ -127,25 +127,25 @@
         </predecessors>
       </task>
     </task>
-    <task id="29" name="Development" note="" work="230400" start="20200324T000000Z" end="20200401T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="29" name="Development" note="" work="921600" start="20200324T000000Z" end="20200401T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
       <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
-      <task id="30" name="Development of system" note="" work="172800" start="20200324T000000Z" end="20200331T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="30" name="Development of system" note="" work="864000" start="20200324T000000Z" end="20200331T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
       </task>
       <task id="31" name="Deployment" note="" work="57600" start="20200331T000000Z" end="20200401T170000Z" work-start="20200331T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="start-no-earlier-than" time="20200331T000000Z"/>
       </task>
     </task>
-    <task id="32" name="Testing" note="" work="230400" start="20200327T000000Z" end="20200402T170000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="33" name="Perform system testing" note="" work="144000" start="20200327T000000Z" end="20200402T170000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="32" name="Testing" note="" work="316800" start="20200327T000000Z" end="20200402T170000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="33" name="Perform system testing" note="" work="144000" start="20200327T000000Z" end="20200331T120000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="start-no-earlier-than" time="20200327T000000Z"/>
       </task>
-      <task id="34" name="Correct issues found" note="" work="86400" start="20200331T000000Z" end="20200402T170000Z" work-start="20200331T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="34" name="Correct issues found" note="" work="172800" start="20200331T000000Z" end="20200402T170000Z" work-start="20200331T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="start-no-earlier-than" time="20200331T000000Z"/>
       </task>
     </task>
-    <task id="35" name="Project presentation" note="" work="30600" start="20200402T000000Z" end="20200403T083000Z" work-start="20200402T080000Z" percent-complete="60" priority="0" type="normal" scheduling="fixed-work">
-      <task id="36" name="Prepare presentation" note="" work="28800" start="20200402T000000Z" end="20200402T170000Z" work-start="20200402T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="35" name="Project presentation" note="" work="59400" start="20200402T000000Z" end="20200403T083000Z" work-start="20200402T080000Z" percent-complete="60" priority="0" type="normal" scheduling="fixed-work">
+      <task id="36" name="Prepare presentation" note="" work="57600" start="20200402T000000Z" end="20200402T170000Z" work-start="20200402T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <constraint type="start-no-earlier-than" time="20200402T000000Z"/>
       </task>
       <task id="37" name="Present result" note="" work="1200" start="20200402T170000Z" end="20200403T082000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
@@ -165,11 +165,46 @@
   </tasks>
   <resource-groups/>
   <resources>
-    <resource id="1" name="Maksims" short-name="TmEu" type="1" units="0" email="" note="" std-rate="10"/>
-    <resource id="2" name="Vlad" short-name="7NUL" type="1" units="0" email="" note="" std-rate="10"/>
-    <resource id="3" name="Raimonds" short-name="aHcv" type="1" units="0" email="" note="" std-rate="10"/>
-    <resource id="4" name="Ivo" short-name="G8So" type="1" units="0" email="" note="" std-rate="10"/>
-    <resource id="5" name="Kirils" short-name="s3OP" type="1" units="0" email="" note="" std-rate="10"/>
+    <resource id="1" name="Maksims" short-name="" type="1" units="0" email="" note="" std-rate="100"/>
+    <resource id="2" name="Vlad" short-name="" type="1" units="0" email="" note="" std-rate="100"/>
+    <resource id="3" name="Raimonds" short-name="" type="1" units="0" email="" note="" std-rate="100"/>
+    <resource id="4" name="Ivo" short-name="" type="1" units="0" email="" note="" std-rate="100"/>
+    <resource id="5" name="Kirils" short-name="" type="1" units="0" email="" note="" std-rate="100"/>
   </resources>
-  <allocations/>
+  <allocations>
+    <allocation task-id="33" resource-id="1" units="100"/>
+    <allocation task-id="12" resource-id="1" units="100"/>
+    <allocation task-id="11" resource-id="1" units="100"/>
+    <allocation task-id="24" resource-id="1" units="100"/>
+    <allocation task-id="23" resource-id="1" units="100"/>
+    <allocation task-id="30" resource-id="1" units="100"/>
+    <allocation task-id="10" resource-id="1" units="100"/>
+    <allocation task-id="38" resource-id="2" units="100"/>
+    <allocation task-id="37" resource-id="2" units="100"/>
+    <allocation task-id="31" resource-id="2" units="100"/>
+    <allocation task-id="30" resource-id="2" units="100"/>
+    <allocation task-id="6" resource-id="2" units="100"/>
+    <allocation task-id="5" resource-id="2" units="100"/>
+    <allocation task-id="4" resource-id="2" units="100"/>
+    <allocation task-id="3" resource-id="2" units="100"/>
+    <allocation task-id="18" resource-id="3" units="100"/>
+    <allocation task-id="33" resource-id="3" units="100"/>
+    <allocation task-id="36" resource-id="3" units="100"/>
+    <allocation task-id="21" resource-id="3" units="100"/>
+    <allocation task-id="20" resource-id="3" units="100"/>
+    <allocation task-id="17" resource-id="3" units="100"/>
+    <allocation task-id="30" resource-id="3" units="100"/>
+    <allocation task-id="34" resource-id="4" units="100"/>
+    <allocation task-id="36" resource-id="4" units="100"/>
+    <allocation task-id="17" resource-id="4" units="100"/>
+    <allocation task-id="16" resource-id="4" units="100"/>
+    <allocation task-id="15" resource-id="4" units="100"/>
+    <allocation task-id="14" resource-id="4" units="100"/>
+    <allocation task-id="30" resource-id="4" units="100"/>
+    <allocation task-id="34" resource-id="5" units="100"/>
+    <allocation task-id="28" resource-id="5" units="100"/>
+    <allocation task-id="27" resource-id="5" units="100"/>
+    <allocation task-id="26" resource-id="5" units="100"/>
+    <allocation task-id="30" resource-id="5" units="100"/>
+  </allocations>
 </project>

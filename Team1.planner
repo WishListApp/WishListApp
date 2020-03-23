@@ -20,84 +20,156 @@
     </calendar>
   </calendars>
   <tasks>
-    <task id="1" name="Team Project" note="" work="255600" start="20200323T000000Z" end="20200401T110000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-      <task id="2" name="Create Initial plan" note="" work="14400" start="20200323T000000Z" end="20200323T120000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      <task id="3" name="Collect requirements" note="" work="16200" start="20200323T120000Z" end="20200323T143000Z" work-start="20200323T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <task id="4" name="Functional requirements" note="" work="14400" start="20200323T133000Z" end="20200323T143000Z" work-start="20200323T133000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="5" name="Authentification" note="" work="3600" start="20200323T133000Z" end="20200323T143000Z" work-start="20200323T133000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <predecessors>
-              <predecessor id="1" predecessor-id="10" type="FS"/>
-            </predecessors>
-          </task>
-          <task id="6" name="User's balance" note="" work="3600" start="20200323T133000Z" end="20200323T143000Z" work-start="20200323T133000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <predecessors>
-              <predecessor id="1" predecessor-id="10" type="FS"/>
-            </predecessors>
-          </task>
-          <task id="7" name="Wishlist" note="" work="3600" start="20200323T133000Z" end="20200323T143000Z" work-start="20200323T133000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <predecessors>
-              <predecessor id="1" predecessor-id="10" type="FS"/>
-            </predecessors>
-          </task>
-          <task id="8" name="Notifications" note="" work="3600" start="20200323T133000Z" end="20200323T143000Z" work-start="20200323T133000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <predecessors>
-              <predecessor id="1" predecessor-id="10" type="FS"/>
-            </predecessors>
-          </task>
-        </task>
-        <task id="9" name="Technical requirements" note="" work="1800" start="20200323T120000Z" end="20200323T133000Z" work-start="20200323T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-          <task id="10" name="prepare MySql Database" note="" work="1800" start="20200323T120000Z" end="20200323T133000Z" work-start="20200323T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-            <predecessors>
-              <predecessor id="1" predecessor-id="2" type="FS"/>
-            </predecessors>
-          </task>
-        </task>
-      </task>
-      <task id="11" name="Prepare system design" note="" work="28800" start="20200323T143000Z" end="20200324T143000Z" work-start="20200323T143000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+    <task id="1" name="Wish List App" note="" work="0" start="20200323T000000Z" end="20200323T000000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work"/>
+    <task id="2" name="Create initial team plan" note="" work="57600" start="20200323T000000Z" end="20200323T170000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20200323T000000Z"/>
+      <task id="3" name="Establishment of group" note="" work="14400" start="20200323T000000Z" end="20200323T120000Z" work-start="20200323T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
+      <task id="4" name="Discuss communucation channels" note="" work="14400" start="20200323T120000Z" end="20200323T170000Z" work-start="20200323T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
-          <predecessor id="1" predecessor-id="4" type="FS"/>
+          <predecessor id="1" predecessor-id="3" type="FS"/>
         </predecessors>
       </task>
-      <task id="12" name="Implement" note="" work="144000" start="20200324T143000Z" end="20200331T143000Z" work-start="20200324T143000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="5" name="Create project diagram" note="" work="14400" start="20200323T120000Z" end="20200323T170000Z" work-start="20200323T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
-          <predecessor id="1" predecessor-id="11" type="FS"/>
+          <predecessor id="1" predecessor-id="3" type="FS"/>
         </predecessors>
       </task>
-      <task id="13" name="Deployment" note="" work="3600" start="20200331T143000Z" end="20200331T153000Z" work-start="20200331T143000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="6" name="Create common project repository" note="" work="14400" start="20200323T120000Z" end="20200323T170000Z" work-start="20200323T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
         <predecessors>
-          <predecessor id="1" predecessor-id="12" type="FS"/>
-        </predecessors>
-      </task>
-      <task id="14" name="Testing" note="" work="32400" start="20200331T153000Z" end="20200401T103000Z" work-start="20200331T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <predecessors>
-          <predecessor id="1" predecessor-id="13" type="FS"/>
-        </predecessors>
-        <task id="15" name="Perform system testing" note="" work="14400" start="20200331T153000Z" end="20200401T103000Z" work-start="20200331T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="16" name="Document issues found" note="" work="3600" start="20200331T153000Z" end="20200331T163000Z" work-start="20200331T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-        <task id="17" name="Correct issues found" note="" work="14400" start="20200331T153000Z" end="20200401T103000Z" work-start="20200331T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work"/>
-      </task>
-      <task id="18" name="Prepare presentation" note="" work="14400" start="20200331T153000Z" end="20200401T103000Z" work-start="20200331T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <predecessors>
-          <predecessor id="1" predecessor-id="13" type="FS"/>
-        </predecessors>
-      </task>
-      <task id="19" name="Present results" note="" work="1800" start="20200401T103000Z" end="20200401T110000Z" work-start="20200401T103000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
-        <predecessors>
-          <predecessor id="1" predecessor-id="18" type="FS"/>
+          <predecessor id="1" predecessor-id="3" type="FS"/>
         </predecessors>
       </task>
     </task>
-    <task id="20" name="Finish project" note="" work="0" start="20200403T000000Z" end="20200403T000000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
-      <constraint type="must-start-on" time="20200403T000000Z"/>
+    <task id="7" name="Collect requirements" note="" work="316800" start="20200324T000000Z" end="20200330T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="8" name="Functional requirements" note="" work="172800" start="20200324T000000Z" end="20200327T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="9" name="User" note="" work="43200" start="20200324T000000Z" end="20200324T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <task id="10" name="User creation" note="" work="14400" start="20200324T000000Z" end="20200324T120000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+          </task>
+          <task id="11" name="Authentification/validation" note="" work="14400" start="20200324T120000Z" end="20200324T170000Z" work-start="20200324T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="10" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="12" name="User's balance report" note="" work="14400" start="20200324T120000Z" end="20200324T170000Z" work-start="20200324T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="10" type="FS"/>
+            </predecessors>
+          </task>
+        </task>
+        <task id="13" name="Wishlist" note="" work="72000" start="20200325T000000Z" end="20200326T120000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+          <task id="14" name="Whishlist" note="" work="14400" start="20200325T000000Z" end="20200325T120000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
+          </task>
+          <task id="15" name="Itemization" note="" work="14400" start="20200325T120000Z" end="20200325T170000Z" work-start="20200325T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="14" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="16" name="Item sets" note="" work="14400" start="20200325T120000Z" end="20200325T170000Z" work-start="20200325T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="14" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="17" name="Additional product info" note="" work="14400" start="20200325T120000Z" end="20200325T170000Z" work-start="20200325T120000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="14" type="FS"/>
+            </predecessors>
+          </task>
+          <task id="18" name="Shopping cart" note="" work="14400" start="20200325T170000Z" end="20200326T120000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <predecessors>
+              <predecessor id="1" predecessor-id="17" type="FS"/>
+            </predecessors>
+          </task>
+        </task>
+        <task id="19" name="Notifications" note="" work="57600" start="20200326T000000Z" end="20200327T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
+          <task id="20" name="Notifications of balance" note="" work="28800" start="20200326T000000Z" end="20200326T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="start-no-earlier-than" time="20200326T000000Z"/>
+          </task>
+          <task id="21" name="Notifications of purchase" note="" work="28800" start="20200326T170000Z" end="20200327T170000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+            <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
+            <predecessors>
+              <predecessor id="1" predecessor-id="20" type="FS"/>
+            </predecessors>
+          </task>
+        </task>
+      </task>
+      <task id="22" name="Technical requirements" note="" work="144000" start="20200324T000000Z" end="20200330T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="23" name="Prepare MySQL database" note="" work="115200" start="20200324T000000Z" end="20200327T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+        </task>
+        <task id="24" name="Record customer sales" note="" work="28800" start="20200327T170000Z" end="20200330T170000Z" work-start="20200330T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="23" type="FS"/>
+          </predecessors>
+        </task>
+      </task>
+    </task>
+    <task id="25" name="Prepare system design" note="" work="86400" start="20200324T000000Z" end="20200326T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+      <task id="26" name="Design database" note="" work="28800" start="20200324T000000Z" end="20200324T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+      </task>
+      <task id="27" name="Software design" note="" work="28800" start="20200325T000000Z" end="20200325T170000Z" work-start="20200325T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
+        <predecessors>
+          <predecessor id="1" predecessor-id="26" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="28" name="Interface design" note="" work="28800" start="20200325T170000Z" end="20200326T170000Z" work-start="20200326T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
+        <predecessors>
+          <predecessor id="1" predecessor-id="27" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="29" name="Development" note="" work="230400" start="20200324T000000Z" end="20200401T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="start-no-earlier-than" time="20200325T000000Z"/>
+      <task id="30" name="Development of system" note="" work="172800" start="20200324T000000Z" end="20200331T170000Z" work-start="20200324T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200324T000000Z"/>
+      </task>
+      <task id="31" name="Deployment" note="" work="57600" start="20200331T000000Z" end="20200401T170000Z" work-start="20200331T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200331T000000Z"/>
+      </task>
+    </task>
+    <task id="32" name="Testing" note="" work="230400" start="20200327T000000Z" end="20200402T170000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="33" name="Perform system testing" note="" work="144000" start="20200327T000000Z" end="20200402T170000Z" work-start="20200327T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200327T000000Z"/>
+      </task>
+      <task id="34" name="Correct issues found" note="" work="86400" start="20200331T000000Z" end="20200402T170000Z" work-start="20200331T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200331T000000Z"/>
+      </task>
+    </task>
+    <task id="35" name="Project presentation" note="" work="30600" start="20200402T000000Z" end="20200403T083000Z" work-start="20200402T080000Z" percent-complete="60" priority="0" type="normal" scheduling="fixed-work">
+      <task id="36" name="Prepare presentation" note="" work="28800" start="20200402T000000Z" end="20200402T170000Z" work-start="20200402T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <constraint type="start-no-earlier-than" time="20200402T000000Z"/>
+      </task>
+      <task id="37" name="Present result" note="" work="1200" start="20200402T170000Z" end="20200403T082000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="36" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="38" name="Q&amp;A session" note="" work="600" start="20200403T082000Z" end="20200403T083000Z" work-start="20200403T082000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="37" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="39" name="End of project" note="" work="0" start="20200403T000000Z" end="20200403T000000Z" work-start="20200403T080000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="start-no-earlier-than" time="20200403T000000Z"/>
     </task>
   </tasks>
   <resource-groups/>
   <resources>
-    <resource id="1" name="Maksims" short-name="" type="1" units="0" email="m@samsonovs.lv" note="" std-rate="0"/>
-    <resource id="2" name="Vlad" short-name="" type="1" units="0" email="zimnikovvladislav@gmail.com" note="" std-rate="0"/>
-    <resource id="3" name="Raimonds" short-name="" type="1" units="0" email="raimondsvilde@gmail.com " note="" std-rate="0"/>
-    <resource id="4" name="Ivo" short-name="" type="1" units="0" email="indrxon@gmail.com" note="" std-rate="0"/>
-    <resource id="5" name="Kirils" short-name="" type="1" units="0" email="" note="" std-rate="0"/>
+    <resource id="1" name="Maksims" short-name="TmEu" type="1" units="0" email="" note="" std-rate="10"/>
+    <resource id="2" name="Vlad" short-name="7NUL" type="1" units="0" email="" note="" std-rate="10"/>
+    <resource id="3" name="Raimonds" short-name="aHcv" type="1" units="0" email="" note="" std-rate="10"/>
+    <resource id="4" name="Ivo" short-name="G8So" type="1" units="0" email="" note="" std-rate="10"/>
+    <resource id="5" name="Kirils" short-name="s3OP" type="1" units="0" email="" note="" std-rate="10"/>
   </resources>
   <allocations/>
 </project>

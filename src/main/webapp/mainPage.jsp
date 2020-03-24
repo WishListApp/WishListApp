@@ -10,11 +10,16 @@
 </head>
 <body>
 <header>
-    <h1 class="header">Wish List</h1>
+    <div class="header_left">
+        <h1 class="header">Wish List</h1>
+    </div>
+    <div class="header_right">
+        Welcome, ${pageContext.request.userPrincipal.name}!</br>
+        Balance: 1024.48$ </br>
+        <a onclick="document.forms['logoutForm'].submit()">Logout</a> </br>
+    </div>
 </header>
-<div class="balance">
-    <h2>Balance: 1024.48$</h2>
-</div>
+
 <div class="menu_bar">
     <ul>
         <li><a href="./mainPage" class="active">Home</a></li>

@@ -2,9 +2,22 @@ body {
     padding-top: 0;
 }
 
-.balance {
+.header_right {
+    margin-right: 10%;
     float: right;
+    text-align: left;
+}
+.header_left {
+    margin-top: 5px;
+    margin-left: 10%;
+    float: left;
+}
 
+
+
+.menu_bar {
+    width: 25%;
+    height: auto;
 }
 
 h2 {

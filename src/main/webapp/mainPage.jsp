@@ -17,10 +17,10 @@
 </div>
 <div class="menu_bar">
     <ul>
-        <li><a href="">Home</a></li>
+        <li><a href="./mainPage" class="active">Home</a></li>
         <li><a href="">Balance</a></li>
-        <li><a href="">Add Item</a></li>
-        <li><a href="">Delete Item</a></li>
+        <li><a href="./addItem">Add Item</a></li>
+        <li><a href="   ">Delete Item</a></li>
     </ul>
 </div>
 </body>

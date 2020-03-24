@@ -23,6 +23,11 @@ li a:hover {
     color: white;
 }
 
+.active {
+    background-color: #3294af;
+    color: white;
+}
+
 .balance {
     text-align: center;
 }
@@ -30,7 +35,6 @@ li a:hover {
 h1 {
     margin-top: 0;
     margin-bottom: 0;
-
 }
 
 header {

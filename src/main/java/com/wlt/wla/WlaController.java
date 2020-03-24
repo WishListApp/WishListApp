@@ -10,14 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WlaController {
 
     @GetMapping("")
-    @ResponseBody
     private String helloPage() {
-        return "Hello";
+        return "redirect:/mainPage";
     }
 
-    @GetMapping("/home")
-    @ResponseBody
-    private String homePage() {
-        return "Home";
-    }
 }

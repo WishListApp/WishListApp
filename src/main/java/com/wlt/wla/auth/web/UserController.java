@@ -68,5 +68,10 @@ public class UserController {
     public String mainPage(Model model) {
         return "mainPage";
     }
+
+    @PostMapping("/addItem")
+    public String addItem() {
+
+    }
 }
 

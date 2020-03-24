@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="./resources/css/addItem.css">
 </head>
 <body>
+    <h3><a href="./mainPage">Back</a></h3>
+    <h2>Add Item</h2>
 <div>
-    <form action="" class="form-signin">
+    <form action="" method="post" class="form-signin">
         <label> Name:
             <input type="text" name="name" class="form-control">
         </label>
@@ -38,7 +40,7 @@
             <input type="text" name="store_page" class="form-control">
         </label>
         <br>
-        <input type="submit" value="Add Item">
+        <input type="submit" value="Add Item" class="btn-success">
     </form>
 </div>
 </body>

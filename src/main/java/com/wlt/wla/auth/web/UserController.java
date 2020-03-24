@@ -68,6 +68,10 @@ public class UserController {
     public String mainPage(Model model) {
         return "mainPage";
     }
-    
+
+    @GetMapping({"/", "/balance"})
+    public String balance(Model model) {
+        return "balance";
+    }
 }
 

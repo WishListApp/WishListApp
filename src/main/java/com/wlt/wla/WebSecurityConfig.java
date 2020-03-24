@@ -38,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
                 .permitAll();
     }
+    
+    
 
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {

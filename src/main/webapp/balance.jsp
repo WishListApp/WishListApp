@@ -37,6 +37,10 @@
         </select></label>
 
         <label>Set up value of income: <input type="number" class="form-control" min="0"></label>
+        <label>Select currency: <select name="currency" id="currency">
+            <option value="dollar">$</option>
+            <option value="euro">&euro;</option>
+        </select></label>
     </form>
 </div>
 </body>

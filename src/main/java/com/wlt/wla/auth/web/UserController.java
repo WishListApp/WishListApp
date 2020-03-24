@@ -58,5 +58,15 @@ public class UserController {
     public String welcome(Model model) {
         return "welcome";
     }
+
+    @GetMapping({"/", "/addItem"})
+    public String addItem(Model model) {
+        return "addItem";
+    }
+
+    @GetMapping({"/", "/mainPage"})
+    public String mainPage(Model model) {
+        return "mainPage";
+    }
 }
 

@@ -22,7 +22,7 @@
 		<ul>
 			<li><a href="http://localhost:8080/home">Home</a></li>
 			<li><a href="http://localhost:8080/balance">Balance</a></li>
-			<li><a href="http://localhost:8080/addItem" class="active">Add
+			<li><a href="http://localhost:8080/add" class="active">Add
 					Item</a></li>
 			<li><a href="">Delete Item</a></li>
 		</ul>

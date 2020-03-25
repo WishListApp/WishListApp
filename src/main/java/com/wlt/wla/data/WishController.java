@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.wlt.wla.data.WishListDao;
-import com.wlt.wla.data.DBWishItems;
-import com.wlt.wla.data.DBCatItems;
-
+import com.wlt.wla.data.*;
 @Controller
 public class WishController {
 	
@@ -22,6 +19,8 @@ public class WishController {
 
 		List<DBCatItems> CatEmp = empDao.CatEmp();
 		model.addObject("CatEmp", CatEmp);
+		List<DBPriorities> PriorEmp = empDao.PriorEmp();
+		model.addObject("PriorEmp", PriorEmp);
 		model.setViewName("addItem");
 
 		return model;

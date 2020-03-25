@@ -43,9 +43,10 @@
 			</select>
 			</label> <br> <label> Priority: <select name="priority"
 				id="priority">
-					<option value="0">Top</option>
-					<option value="1">Middle</option>
-					<option value="2">Low</option>
+					<c:forEach var="emp" items="${PriorEmp}" varStatus="status">
+						<option value=${emp.id}>${emp.name}</option>
+
+					</c:forEach>
 			</select>
 			</label> <br> <label>Price: <input type="number" name="price"
 				id="price" class="form-control" min="0">

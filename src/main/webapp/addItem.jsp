@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -28,6 +29,24 @@
 	</div>
 
 	<div>
+	
+	
+        <form:form method="POST" modelAttribute="userForm" class="form-signin">
+            <h2 class="form-signin-heading">Add Item</h2>
+            <spring:bind path="name">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="text" path="name" class="form-control" placeholder="Item Name"
+                                autofocus="true"></form:input>
+                    <form:errors path="name"></form:errors>
+                </div>
+            </spring:bind>
+
+
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        </form:form>
+	
+	
 		<form action="" method="post" class="form-signin">
 			<label> Name: <input type="text" name="name"
 				class="form-control">
@@ -48,7 +67,8 @@
 
 					</c:forEach>
 			</select>
-			</label> <br> <label>Price: <input type="number" name="price"
+			   <%-- TODO Need to check if decimal input! --%>
+			</label> <br> <label>Price: <input type="text" name="price"
 				id="price" class="form-control" min="0">
 			</label> <label> Store Page: <input type="text" name="store_page"
 				class="form-control">

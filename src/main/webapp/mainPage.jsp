@@ -16,7 +16,7 @@
 <body>
 	<header>
 		<div class="header_left">
-			<a href=http://localhost:8080/home><img src="./resources/img/logo.png" height="60"></a>
+			<a href=http://localhost:8080/home><img src="./resources/img/logo.png" height="70"></a>
 		</div>
 		<div class="header_right">
 			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>

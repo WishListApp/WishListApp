@@ -116,8 +116,6 @@ public class WishListDaoImpl implements WishListDao {
 			System.err.println(e.getMessage());
 		}
 
-		System.out.println("userId: " + userId);
-
 		float balance = 0;
 
 		query = "SELECT SUM(balance_changes ) as total\n" +
@@ -129,8 +127,6 @@ public class WishListDaoImpl implements WishListDao {
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-
-		System.out.println("Balance: " + balance);
 
 		return balance;
 	}

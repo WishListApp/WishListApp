@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class UserController {
     @Autowired
@@ -63,11 +65,6 @@ public class UserController {
     public String addItem(Model model) {
         return "addItem";
     }
-
-//    @GetMapping({"/", "/mainPage"})
-//    public String mainPage(Model model) {
-//        return "mainPage";
-//    }
 
     @GetMapping({"/", "/balance"})
     public String balance(Model model) {

@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" content="">
-<title>Wish List</title>
-<link rel="stylesheet" href="./resources/css/normalize.css">
-<link href="./resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="./resources/css/common.css" rel="stylesheet">
-<link rel="stylesheet" href="./resources/css/mainPage.css">
+    <meta charset="UTF-8">
+    <title>Wish List</title>
+    <link rel="stylesheet" href="./resources/css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./resources/css/common.css" rel="stylesheet">
+    <link rel="stylesheet" href="./resources/css/mainPage.css">
 </head>
 <body>
 	<header>
@@ -19,7 +20,9 @@
 		</div>
 		<div class="header_right">
 			Welcome, ${pageContext.request.userPrincipal.name}!<br>
-			Balance: 1024.48$ <br>
+			Balance: 1024.48$
+			<a href="./balance"><span class="glyphicon glyphicon-cog"></span></a>
+			<br>
 			<form id="logoutForm" method="POST" action="${contextPath}/logout">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			</form>

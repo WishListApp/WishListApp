@@ -1,6 +1,6 @@
 package com.wlt.wla.data;
 
-public class WishItems {
+public class DBWishItems {
 	private String name;
 	private int id;
 	private float price;

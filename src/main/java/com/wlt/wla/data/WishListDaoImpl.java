@@ -9,7 +9,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.wlt.wla.data.WishItems;
+import com.wlt.wla.data.DBWishItems;
+import com.wlt.wla.data.DBCatItems;
 
 public class WishListDaoImpl implements WishListDao {
 
@@ -20,26 +21,49 @@ public class WishListDaoImpl implements WishListDao {
 	}
 
 	@Override
-	public List<WishItems> WlistEmp() {
+	public List<DBCatItems> CatEmp() {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 
-		List<WishItems> list = jdbcTemp.query(
+		List<DBCatItems> list = jdbcTemp.query(
+			"SELECT * from item_cat ORDER BY id ASC",
+				new RowMapper<DBCatItems>() {
+
+					@Override
+					public DBCatItems mapRow(ResultSet rs, int rowNum) throws SQLException {
+						DBCatItems emp = new DBCatItems();
+
+						emp.setName(rs.getString("name"));
+						emp.setId(rs.getInt("id"));
+						return emp;
+					}
+
+				});
+
+		return list;
+	}
+	
+	
+	@Override
+	public List<DBWishItems> WlistEmp() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+
+		List<DBWishItems> list = jdbcTemp.query(
 			"SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" + 
 			"FROM `wishlist_items` , priority, user, item_cat\n" + 
 			"WHERE priority.id = wishlist_items.priority\n" + 
 			"AND user.username = '"+currentPrincipalName+"'\n" + 
 			"AND item_cat.id = wishlist_items.cat_id\n" + 
 			"AND user.id = user_id\n" + 
-			"ORDER BY priority DESC\n" + 
-			"LIMIT 0 , 30\n" + 
-			"",
-				new RowMapper<WishItems>() {
+			"ORDER BY priority DESC\n",
+				new RowMapper<DBWishItems>() {
 
 					@Override
-					public WishItems mapRow(ResultSet rs, int rowNum) throws SQLException {
-						WishItems emp = new WishItems();
+					public DBWishItems mapRow(ResultSet rs, int rowNum) throws SQLException {
+						DBWishItems emp = new DBWishItems();
 
 						emp.setName(rs.getString("name"));
 						emp.setGroup(rs.getInt("cat_id"));
@@ -56,5 +80,6 @@ public class WishListDaoImpl implements WishListDao {
 
 		return list;
 	}
+
 
 }

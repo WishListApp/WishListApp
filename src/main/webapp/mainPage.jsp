@@ -21,9 +21,10 @@
 		<div class="header_right">
 			Welcome, ${pageContext.request.userPrincipal.name}!<br>
 			Balance: 1024.48$ <br>
-			<a
-					href="<c:url value="/logout" />"
-					onclick="document.forms['logoutForm'].submit()">Logout</a> <br>
+			<form id="logoutForm" method="POST" action="${contextPath}/logout">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			</form>
+			<a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a> <br>
 		</div>
 	</header>
 

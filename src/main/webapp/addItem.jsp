@@ -17,7 +17,6 @@
 <link rel="stylesheet" href="./resources/css/addItem.css">
 </head>
 <body>
-	<h2>Add Item</h2>
 	<div class="menu_bar">
 		<ul>
 			<li><a href="http://localhost:8080/home">Home</a></li>
@@ -31,7 +30,7 @@
 	<div>
 	
 	
-        <form:form method="POST" modelAttribute="userForm" class="form-signin">
+        <form:form method="POST" modelAttribute="addItemForm" class="form-signin">
             <h2 class="form-signin-heading">Add Item</h2>
             <spring:bind path="name">
                 <div class="form-group ${status.error ? 'has-error' : ''}">

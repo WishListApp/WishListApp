@@ -16,10 +16,6 @@
     <link rel="stylesheet" href="./resources/css/balance.css">
 </head>
 <body>
-<header>
-    <h2>Balance</h2>
-</header>
-
 <div class="menu_bar">
     <ul>
         <li><a href="http://localhost:8080/home">Home</a></li>
@@ -30,9 +26,17 @@
 </div>
 
 <div>
-    <form action="" method="post" class="form-signin">
-        <label>Set balance value: <input type="number" class="form-control" min="0"></label>
-    </form>
+    <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
+    <h2 class="form-signin-heading">Alter Balance</h2>
+    <spring:bind path="balanceChange">
+        <div class="form-group ${status.error ? 'has-error' : ''}">
+            <form:input type="number" step="0.01" path="balanceChange" class="form-control" placeholder="Value to add/subtract"
+                        autofocus="true"></form:input>
+            <form:errors path="balanceChange"></form:errors>
+        </div>
+    </spring:bind>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+    </form:form>
 
     <form action="" method="post" class="form-signin">
         <label>Enable balance auto-increment: <input type="checkbox"></label>

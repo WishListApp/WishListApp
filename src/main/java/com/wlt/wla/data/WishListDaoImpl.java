@@ -103,8 +103,7 @@ public class WishListDaoImpl implements WishListDao {
 		return list;
 	}
 
-	@Override
-	public float getBalance() {
+	public int getUserId() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 		int userId = 0;
@@ -115,10 +114,17 @@ public class WishListDaoImpl implements WishListDao {
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
+		return userId;
+	}
+
+	@Override
+	public float getBalance() {
+
+		int userId = getUserId();
 
 		float balance = 0;
 
-		query = "SELECT SUM(balance_changes ) as total\n" +
+		String query = "SELECT SUM(balance_changes ) as total\n" +
 				"FROM dr_wishlist.balance\n" +
 				"WHERE user_id=?";
 

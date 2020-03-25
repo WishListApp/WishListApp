@@ -9,4 +9,6 @@ public interface WishListDao {
 	public List<DBCatItems> CatEmp();
 	public List<DBPriorities> PriorEmp();
 
+	public float getBalance();
+
 }

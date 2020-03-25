@@ -13,7 +13,7 @@ public class WishController {
 	
 	@Autowired
 	private WishListDao empDao;
-	
+
 	@RequestMapping(value = "/add")
 	public ModelAndView listCat(ModelAndView model) throws IOException {
 
@@ -29,13 +29,13 @@ public class WishController {
 	@RequestMapping(value = "/home")
 	public ModelAndView listEmp(ModelAndView model) throws IOException {
 
+		float balance = empDao.getBalance();
+		model.addObject("balance", balance);
 		List<DBWishItems> WlistEmp = empDao.WlistEmp();
 		model.addObject("WlistEmp", WlistEmp);
 		model.setViewName("mainPage");
 
 		return model;
 	}
-	
-	
 
 }

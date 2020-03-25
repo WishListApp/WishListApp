@@ -103,5 +103,36 @@ public class WishListDaoImpl implements WishListDao {
 		return list;
 	}
 
+	@Override
+	public float getBalance() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		int userId = 0;
+		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+
+		try {
+			userId = jdbcTemp.queryForObject(query, new Object[]{currentPrincipalName}, Integer.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		System.out.println("userId: " + userId);
+
+		float balance = 0;
+
+		query = "SELECT SUM(balance_changes ) as total\n" +
+				"FROM dr_wishlist.balance\n" +
+				"WHERE user_id=?";
+
+		try {
+			balance = jdbcTemp.queryForObject(query, new Object[]{userId}, Float.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		System.out.println("Balance: " + balance);
+
+		return balance;
+	}
 
 }

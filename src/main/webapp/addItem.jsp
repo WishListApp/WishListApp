@@ -21,7 +21,7 @@
 		<ul>
 			<li><a href="http://localhost:8080/home">Home</a></li>
 			<li><a href="http://localhost:8080/balance">Balance</a></li>
-			<li><a href="http://localhost:8080/addItem" class="active">Add
+			<li><a href="http://localhost:8080/add" class="active">Add
 					Item</a></li>
 			<li><a href="">Delete Item</a></li>
 		</ul>
@@ -49,7 +49,7 @@
 					</c:forEach>
 			</select>
 			</label> <br> <label>Price: <input type="number" name="price"
-				id="price" class="form-control" min="0">
+				id="price" class="form-control" min="0" step="0.01">
 			</label> <label> Store Page: <input type="text" name="store_page"
 				class="form-control">
 			</label> <br> <input type="submit" value="Add Item" class="btn-success">

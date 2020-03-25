@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.wlt.wla.data.*;
@@ -15,15 +16,16 @@ public class WishController {
 	private WishListDao empDao;
 
 	@RequestMapping(value = "/add")
-	public ModelAndView listCat(ModelAndView model) throws IOException {
+	public ModelAndView listCat(ModelAndView modelAndView, Model model) throws IOException {
 
 		List<DBCatItems> CatEmp = empDao.CatEmp();
-		model.addObject("CatEmp", CatEmp);
+		modelAndView.addObject("CatEmp", CatEmp);
 		List<DBPriorities> PriorEmp = empDao.PriorEmp();
-		model.addObject("PriorEmp", PriorEmp);
-		model.setViewName("addItem");
+		modelAndView.addObject("PriorEmp", PriorEmp);
+		modelAndView.setViewName("addItem");
+		model.addAttribute("addItemForm", new DBWishItems());
 
-		return model;
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/home")
@@ -34,6 +36,7 @@ public class WishController {
 		List<DBWishItems> WlistEmp = empDao.WlistEmp();
 		model.addObject("WlistEmp", WlistEmp);
 		model.setViewName("mainPage");
+
 
 		return model;
 	}

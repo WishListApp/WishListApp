@@ -37,24 +37,15 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@GetMapping("/add")
-	public String add(Model model) {
-		// TODO need to change next line from registration form!
-		model.addAttribute("addItemForm", new DBWishItems());
-
-		return "addItem";
-	}
+//	@GetMapping("/add")
+//	public String add(Model model) {
+//		// TODO need to change next line from registration form!
+//
+//		return "addItem";
+//	}
 
     @PostMapping("/add")
     public String add(@ModelAttribute("addItemForm") DBWishItems item, BindingResult bindingResult) {
-        // Validate input! and if error stay on page
-//    	userValidator.validate(userForm, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return "addItem";
-//        }
-
-
-        //insert in db
         String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `type`, `priority`, `price`) VALUES (NULL, 3, '5', '"+item.getName()+"', '3', '1', '33');";
         jdbcTemp.execute(sql);
 

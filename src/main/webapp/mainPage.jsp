@@ -20,9 +20,9 @@
 		</div>
 		<div class="header_right">
 			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: 1024.48$</div>
+			<div>Balance: ${balance}</div>
 			<div>
-			<a href="./balance"><span class="">
+			<a href="http://localhost:8080/balance">
 			<button type="button" class="btn btn-default btn-xs">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
             </button>

@@ -8,9 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import com.wlt.wla.data.DBWishItems;
-import com.wlt.wla.data.DBCatItems;
+import com.wlt.wla.data.*;
 
 public class WishListDaoImpl implements WishListDao {
 
@@ -33,6 +31,30 @@ public class WishListDaoImpl implements WishListDao {
 					@Override
 					public DBCatItems mapRow(ResultSet rs, int rowNum) throws SQLException {
 						DBCatItems emp = new DBCatItems();
+
+						emp.setName(rs.getString("name"));
+						emp.setId(rs.getInt("id"));
+						return emp;
+					}
+
+				});
+
+		return list;
+	}
+	
+	@Override
+	public List<DBPriorities> PriorEmp() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+
+		List<DBPriorities> list = jdbcTemp.query(
+			"SELECT * from priority ORDER BY id ASC",
+				new RowMapper<DBPriorities>() {
+
+					@Override
+					public DBPriorities mapRow(ResultSet rs, int rowNum) throws SQLException {
+						DBPriorities emp = new DBPriorities();
 
 						emp.setName(rs.getString("name"));
 						emp.setId(rs.getInt("id"));
@@ -81,5 +103,36 @@ public class WishListDaoImpl implements WishListDao {
 		return list;
 	}
 
+	@Override
+	public float getBalance() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		int userId = 0;
+		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+
+		try {
+			userId = jdbcTemp.queryForObject(query, new Object[]{currentPrincipalName}, Integer.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		System.out.println("userId: " + userId);
+
+		float balance = 0;
+
+		query = "SELECT SUM(balance_changes ) as total\n" +
+				"FROM dr_wishlist.balance\n" +
+				"WHERE user_id=?";
+
+		try {
+			balance = jdbcTemp.queryForObject(query, new Object[]{userId}, Float.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		System.out.println("Balance: " + balance);
+
+		return balance;
+	}
 
 }

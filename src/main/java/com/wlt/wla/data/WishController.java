@@ -20,6 +20,8 @@ public class WishController {
 	public ModelAndView listEmployee(ModelAndView model) throws IOException {
 
 		List<WishItems> WlistEmp = empDao.WlistEmp();
+		float balance = empDao.getBalance();
+		model.addObject("balance", balance);
 		model.addObject("WlistEmp", WlistEmp);
 		model.setViewName("mainPage");
 

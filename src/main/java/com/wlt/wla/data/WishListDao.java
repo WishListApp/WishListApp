@@ -7,4 +7,6 @@ public interface WishListDao {
 
 	public List<WishItems> WlistEmp();
 
+	public float getBalance();
+
 }

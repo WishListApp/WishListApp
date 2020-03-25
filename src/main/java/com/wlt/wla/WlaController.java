@@ -11,7 +11,7 @@ public class WlaController {
 
     @GetMapping("")
     private String helloPage() {
-        return "redirect:/mainPage";
+        return "redirect:/home";
     }
 
 }

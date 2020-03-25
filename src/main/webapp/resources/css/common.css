@@ -76,3 +76,12 @@ li a:hover {
 .menu_bar {
     float: left;
 }
+
+.btn-logout {
+    color: white;
+}
+
+.btn-logout:hover {
+    background: #6e6e6e;
+    color: #b2b2b2;
+}

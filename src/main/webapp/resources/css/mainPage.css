@@ -38,3 +38,13 @@ header {
     margin-top: 0;
     height: 60px;
 }
+
+.main-div {
+    width: 900px;
+    background: #444145;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.groups {
+    background: #291d24;
+}

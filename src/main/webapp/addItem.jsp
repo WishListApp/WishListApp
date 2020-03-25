@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -15,17 +17,17 @@
 </head>
 <body>
     <h2>Add Item</h2>
-    <div class="menu_bar">
-        <ul>
-            <li><a href="./mainPage">Home</a></li>
-            <li><a href="./balance">Balance</a></li>
-            <li><a href="./addItem"  class="active">Add Item</a></li>
-            <li><a href="">Delete Item</a></li>
-        </ul>
-    </div>
+        <div class="menu_bar">
+            <ul>
+                <li><a href="http://localhost:8080/home">Home</a></li>
+                <li><a href="http://localhost:8080/balance">Balance</a></li>
+                <li><a href="http://localhost:8080/addItem"  class="active">Add Item</a></li>
+                <li><a href="">Delete Item</a></li>
+            </ul>
+        </div>
 
     <div>
-        <form action="./addItemProcess" method="post" class="form-signin">
+        <form action="" method="post" class="form-signin">
             <label> Name:
                 <input type="text" name="name" class="form-control">
             </label>

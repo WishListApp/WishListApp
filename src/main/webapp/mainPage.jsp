@@ -6,7 +6,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" content="">
 <title>Wish List</title>
 <link rel="stylesheet" href="./resources/css/normalize.css">
 <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
@@ -15,10 +15,17 @@
 </head>
 <body>
 	<header>
-		<h1 class="header">Wish List</h1>
+		<div class="header_left">
+			<h1 class="header">Wish List</h1>
+		</div>
+		<div class="header_right">
+			Welcome, ${pageContext.request.userPrincipal.name}!<br>
+			Balance: 1024.48$ <br>
+			<a
+					href="<c:url value="/logout" />"
+					onclick="document.forms['logoutForm'].submit()">Logout</a> <br>
+		</div>
 	</header>
-	<div class="balance">
-		<h2>Balance: 1024.48$</h2>
 
  
 	<table>
@@ -35,16 +42,16 @@
 		</c:forEach>
 	</table>
 
-	</div>
 	<div class="menu_bar">
 		<ul>
-			<li><a href="./mainPage" class="active">Home</a></li>
-			<li><a href="">Balance</a></li>
-			<li><a href="./addItem">Add Item</a></li>
+			<li><a href="http://localhost:8080/home" class="active">Home</a></li>
+			<li><a href="http://localhost:8080/balance">Balance</a></li>
+			<li><a href="http://localhost:8080/addItem">Add Item</a></li>
 			<li><a href="   ">Delete Item</a></li>
 		</ul>
 	</div>
 
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

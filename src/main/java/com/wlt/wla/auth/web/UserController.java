@@ -40,7 +40,7 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/mainPage";
+        return "redirect:/home";
     }
 
     @GetMapping("/login")
@@ -64,10 +64,10 @@ public class UserController {
         return "addItem";
     }
 
-    @GetMapping({"/", "/mainPage"})
-    public String mainPage(Model model) {
-        return "mainPage";
-    }
+//    @GetMapping({"/", "/mainPage"})
+//    public String mainPage(Model model) {
+//        return "mainPage";
+//    }
 
     @GetMapping({"/", "/balance"})
     public String balance(Model model) {

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,23 +16,29 @@
 <body>
 	<header>
 		<div class="header_left">
-			<a href=http://localhost:8080/home><img src="./resources/img/logo.png" height="70"></a>
+			<a href=http://localhost:8080/home><img
+				src="./resources/img/logo.png" height="70"></a>
 		</div>
 		<div class="header_right">
 			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
 			<div>Balance: ${balance}</div>
 			<div>
-			<a href="http://localhost:8080/balance">
-			<button type="button" class="btn btn-default btn-xs">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
-            </button>
+				<a href="http://localhost:8080/balance">
+					<button type="button" class="btn btn-default btn-xs">
+						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+						Settings
+					</button>
 
-			</a>
+				</a>
 			</div>
-			<div><form id="logoutForm" method="POST" action="${contextPath}/logout">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			</form>
-			<a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a></div>
+			<div>
+				<form id="logoutForm" method="POST" action="${contextPath}/logout">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
+				<a onclick="document.forms['logoutForm'].submit()"
+					class="btn-logout">Logout</a>
+			</div>
 		</div>
 	</header>
 
@@ -63,7 +69,7 @@
             <tr>
                 <td>${emp.name}</td>
                 <td>${emp.cat_name}</td>
-            	<td>${emp.priceStr}</td>
+            	<td>${emp.price}</td>
                 <td>
                     <c:if test="${emp.priority==1}">
             	        <font color=red> ${emp.priority_name} </font>

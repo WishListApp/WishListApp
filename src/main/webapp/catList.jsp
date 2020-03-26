@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="./resources/css/common.css" rel="stylesheet">
-    <link rel="stylesheet" href="./resources/css/catView.css">
+    <link rel="stylesheet" href="./resources/css/catList.css">
 </head>
 <body>
 	<header>
@@ -49,7 +49,7 @@
             <a href="">
                 <div class="grid-item">
                     <img src="https://cdn.onlinewebfonts.com/svg/img_572316.png" width="200" height="200">
-                    <p>{emp.name}</p>
+                    <p>${emp.name}</p>
                 </div>
             </a>
         </c:forEach>

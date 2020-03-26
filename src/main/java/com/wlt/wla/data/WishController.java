@@ -58,7 +58,7 @@ public class WishController {
 		model.addObject("balance", balance);
 		List<DBCatItems> CatEmp = empDao.CatEmp();
 		model.addObject("CatEmp", CatEmp);
-		model.setViewName("addItem");
+		model.setViewName("catList");
 
 		return model;
 	}

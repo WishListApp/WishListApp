@@ -7,6 +7,8 @@ import java.util.Locale;
 import javax.sql.DataSource;
 
 import com.wlt.wla.auth.model.DBWishItems;
+import com.wlt.wla.parsers.imgParsers;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
@@ -99,6 +101,12 @@ public class WishListDaoImpl implements WishListDao {
 						emp.setCat_name(rs.getString("cat_name"));
 						emp.setPriority_name(rs.getString("priority_name"));
 						emp.setUrl(rs.getString("url"));
+						//parseimg
+						imgParsers pp = new imgParsers();
+						if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+						
+						//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+						
 						return emp;
 					}
 

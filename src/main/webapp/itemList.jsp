@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,15 +73,26 @@
 				<c:forEach var="emp" items="${WlistEmp}" varStatus="status">
 					<tr>
 						<c:if test="${emp.url != ''}">
-							<td><a target=new href=${emp.url}>${emp.name}</a></td>
+							<td>
+								<div id="thumbwrap">
+
+									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
+											<c:if test="${emp.urlImg != ''}">
+												<img src="${emp.urlImg}" alt="">
+											</c:if>
+
+									</span></a>
+								</div>
+							</td>
 						</c:if>
 						<c:if test="${emp.url == ''}">
 							<td>${emp.name}</td>
 						</c:if>
 
 						<td>${emp.cat_name}</td>
-						<td>${emp.priceStr} ${currencyCode}<c:if
-								test="${emp.url != ''}">
+						<td>${emp.priceStr}${currencyCode}<c:if
+								test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
+
 								<form:form method="POST" action="${contextPath}/updatePrice"
 									items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}" />

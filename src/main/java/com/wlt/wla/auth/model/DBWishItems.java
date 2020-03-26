@@ -12,6 +12,16 @@ public class DBWishItems {
 	private String cat_name;
 	private int priority;
 	private String url;
+	private String urlImg;
+
+	public String getUrlImg() {
+		return urlImg;
+	}
+
+	public void setUrlImg(String urlImg) {
+		this.urlImg = urlImg;
+	}
+	
 	public String getUrl() {
 		return url;
 	}

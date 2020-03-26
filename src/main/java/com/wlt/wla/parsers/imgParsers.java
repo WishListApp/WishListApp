@@ -26,9 +26,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.xml.sax.SAXException;
 
-public class priceParsers {
+public class imgParsers {
 
-	public float getPriceSalidzini(String UrlString) {
+	public String getImgSalidzini(String UrlString) {
 		// Creating a HttpClient object
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		// Creating a HttpGet object
@@ -47,27 +47,21 @@ public class priceParsers {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			// if page can't be accessed return -1
-			return -1;
+			// if page can't be accessed return ""
+			return "";
 		}
 		// regex to find price in salidzini.lv
-		String rx = "itemprop=\"lowPrice\">(.*?)&nbsp;&euro;";
+		String rx = "<imgitemprop=\"image\"src=\"\\/\\/(.*?)\"";
 		Pattern p = Pattern.compile(rx);
 		Matcher matcher = p.matcher(result);
 		if (matcher.find()) {
-			float f = Float.parseFloat(matcher.group(1));
-			Double y = new Double(f);
-			// if for some reason parsed value not float return -1
-			if (y.isNaN())
-				return -1f;
-			else
-				return f;
+			return "http://"+matcher.group(1);
 		} else
-			return -1f; // if parser can't find value return -1
+			return ""; // if parser can't find value return ""
 
 	}
 
-	public float getPriceAlie(String UrlString) {
+	public float getImgAlie(String UrlString) {
 		// Creating a HttpClient object
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		// Creating a HttpGet object

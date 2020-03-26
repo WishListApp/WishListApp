@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +72,7 @@
 					<tr>
 						<td>${emp.name}</td>
 						<td>${emp.cat_name}</td>
-						<td>${emp.price}</td>
+						<td>${emp.priceStr}</td>
 						<td><c:if test="${emp.priority==1}">
 								<font color=red> ${emp.priority_name} </font>
 							</c:if> <c:if test="${emp.priority==5}">
@@ -80,14 +82,8 @@
 							</c:if></td>
 						<td>
 							<div>
-<!-- 							need to fix params in form from logout to remove -->
-								<form id="logoutForm" items="${WlistEmp}" method="POST"
-									action="${contextPath}/logout">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${emp.id}" />
-								</form>
-								<a onclick="document.forms['removeForm'].submit()"
-									class="btn-remove">Remove</a>
+								<button class="btn-danger">Remove</button>
+							</div>
 						</td>
 					</tr>
 				</c:forEach>

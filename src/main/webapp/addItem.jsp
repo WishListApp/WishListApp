@@ -54,7 +54,7 @@
 			<spring:bind path="priority">
 
 				<div class="form-group">
-					<label> Category: <select path="priority" name="priority">
+					<label> Priority: <select path="priority" name="priority">
 							<c:forEach var="emp" items="${PriorEmp}" varStatus="status">
 								<option value=${emp.id}>${emp.name}</option>
 

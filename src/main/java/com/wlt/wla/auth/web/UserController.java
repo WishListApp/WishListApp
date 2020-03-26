@@ -45,13 +45,17 @@ public class UserController {
 	
 	@GetMapping("/remove")
 	public String remove(Model model, String error, String remove) {
-		System.out.println("remove pressed");
+		//System.out.println("remove pressed");
 
 		return "redirect:/home";
 	}
 
 	@PostMapping("/remove")
-	public String removeItem() {
+	public String removeItem(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
+		
+		String sql = "DELETE FROM `dr_wishlist`.`wishlist_items` WHERE `wishlist_items`.`id` = "+item.getId();
+		jdbcTemp.execute(sql);
+		
 		return "redirect:/home";
 	}
 

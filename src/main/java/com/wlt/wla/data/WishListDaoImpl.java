@@ -140,4 +140,29 @@ public class WishListDaoImpl implements WishListDao {
 		return balance;
 	}
 
+	@Override
+	public String getCurrencyCode() {
+		int userId = getUserId();
+
+		String query = "SELECT currency_id FROM dr_wishlist.user_pref WHERE user_id = ?";
+		int currencyId = 1;
+
+		try {
+			currencyId = jdbcTemp.queryForObject(query, new Object[]{userId}, Integer.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		query = "SELECT code FROM dr_wishlist.currency WHERE id = ?";
+		String currencyCode = "None";
+
+		try {
+			currencyCode = jdbcTemp.queryForObject(query, new Object[]{currencyId}, String.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		return currencyCode;
+	}
+
 }

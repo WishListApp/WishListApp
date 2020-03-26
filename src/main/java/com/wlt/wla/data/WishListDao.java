@@ -10,5 +10,6 @@ public interface WishListDao {
 	public List<DBPriorities> PriorEmp();
 
 	public float getBalance();
+	public String getCurrencyCode();
 
 }

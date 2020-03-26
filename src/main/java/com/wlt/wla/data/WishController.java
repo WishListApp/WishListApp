@@ -17,10 +17,11 @@ public class WishController {
 	private WishListDao empDao;
 
 	@RequestMapping(value = "/add")
-	public ModelAndView listCat(ModelAndView modelAndView, Model model) throws IOException {
+	public ModelAndView listCat(ModelAndView modelAndView, Model model) {
 
 		List<DBCatItems> CatEmp = empDao.CatEmp();
 		modelAndView.addObject("CatEmp", CatEmp);
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 		List<DBPriorities> PriorEmp = empDao.PriorEmp();
 		modelAndView.addObject("PriorEmp", PriorEmp);
 		modelAndView.setViewName("addItem");
@@ -30,10 +31,10 @@ public class WishController {
 	}
 
 	@RequestMapping(value = "/home")
-	public ModelAndView listEmp(ModelAndView model) throws IOException {
+	public ModelAndView listEmp(ModelAndView model) {
 
-		float balance = empDao.getBalance();
-		model.addObject("balance", balance);
+		model.addObject("balance", empDao.getBalance());
+		model.addObject("currencyCode", empDao.getCurrencyCode());
 		List<DBWishItems> WlistEmp = empDao.WlistEmp();
 		model.addObject("WlistEmp", WlistEmp);
 		model.setViewName("mainPage");

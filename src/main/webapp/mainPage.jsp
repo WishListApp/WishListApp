@@ -73,7 +73,7 @@
 					<tr>
 						<td>${emp.name}</td>
 						<td>${emp.cat_name}</td>
-						<td>${emp.priceStr}</td>
+						<td>${emp.priceStr} ${currencyCode}</td>
 						<td><c:if test="${emp.priority==1}">
 								<font color=red> ${emp.priority_name} </font>
 							</c:if> <c:if test="${emp.priority==5}">

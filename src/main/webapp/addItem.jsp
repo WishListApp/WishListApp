@@ -68,6 +68,7 @@
 					<form:input type="number" path="price" class="form-control"
 						placeholder="Item Price" autofocus="true" min="0.01" step="0.01"></form:input>
 					<form:errors path="price"></form:errors>
+					${currencyCode}
 				</div>
 			</spring:bind>
 			<spring:bind path="url">

@@ -98,6 +98,7 @@ public class WishListDaoImpl implements WishListDao {
 						emp.setPriority(rs.getInt("priority"));
 						emp.setCat_name(rs.getString("cat_name"));
 						emp.setPriority_name(rs.getString("priority_name"));
+						emp.setUrl(rs.getString("url"));
 						return emp;
 					}
 

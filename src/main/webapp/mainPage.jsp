@@ -71,9 +71,25 @@
 			<tbody>
 				<c:forEach var="emp" items="${WlistEmp}" varStatus="status">
 					<tr>
-						<td>${emp.name}</td>
+						<c:if test="${emp.url != ''}">
+							<td><a target=new href=${emp.url}>${emp.name}</a></td>
+						</c:if>
+						<c:if test="${emp.url == ''}">
+							<td>${emp.name}</td>
+						</c:if>
+
 						<td>${emp.cat_name}</td>
-						<td>${emp.priceStr} ${currencyCode}</td>
+						<td>${emp.priceStr}${currencyCode}<c:if
+								test="${emp.url != ''}">
+								<form:form method="POST" action="${contextPath}/updatePrice"
+									items="${WlistEmp}">
+									<input type="hidden" name="id" value="${emp.id}" />
+									<input type="hidden" name="url" value="${emp.url}" />
+									<button class="btn-danger">Update Price from URL</button>
+								</form:form>
+							</c:if>
+
+						</td>
 						<td><c:if test="${emp.priority==1}">
 								<font color=red> ${emp.priority_name} </font>
 							</c:if> <c:if test="${emp.priority==5}">
@@ -83,7 +99,8 @@
 							</c:if></td>
 						<td>
 							<div>
-								<!-- TODO Add Dele prompt on JS -->
+
+
 								<form:form method="POST" action="${contextPath}/remove"
 									items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}" />

@@ -83,12 +83,13 @@
 							</c:if></td>
 						<td>
 							<div>
-<!-- TODO Add Dele prompt on JS -->
+								<!-- TODO Add Dele prompt on JS -->
 								<form:form method="POST" action="${contextPath}/remove"
 									items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}" />
 
-									<button class="btn-danger">Remove</button>
+									<button class="btn-danger"
+										onclick="return confirm('Are you sure you want to delete this item?');">Remove</button>
 								</form:form>
 							</div>
 						</td>

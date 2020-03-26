@@ -11,6 +11,15 @@ public class DBWishItems {
 	private int user_id;
 	private String cat_name;
 	private int priority;
+	private String url;
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public String getPriority_name() {
 		return priority_name;
 	}

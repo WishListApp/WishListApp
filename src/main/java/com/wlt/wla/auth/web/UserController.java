@@ -74,9 +74,9 @@ public class UserController {
 			System.err.println(e.getMessage());
 		}
 
-		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
+		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price` , url) "
 				+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
-				+ item.getPriority() + "', '" + item.getPrice() + "');";
+				+ item.getPriority() + "', '" + item.getPrice() + "','"+item.getUrl()+"');";
 		jdbcTemp.execute(sql);
 
 		return "redirect:/home";

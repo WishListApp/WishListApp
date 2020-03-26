@@ -81,7 +81,7 @@ public class WishListDaoImpl implements WishListDao {
 			"AND user.username = '"+currentPrincipalName+"'\n" + 
 			"AND item_cat.id = wishlist_items.cat_id\n" + 
 			"AND user.id = user_id\n" + 
-			"ORDER BY priority DESC\n",
+			"ORDER BY priority DESC, wishlist_items.id ASC\n",
 				new RowMapper<DBWishItems>() {
 
 					@Override

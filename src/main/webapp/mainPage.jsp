@@ -82,10 +82,9 @@
 						<td>
 							<div>
 <!-- 							need to fix params in form from logout to remove -->
-								<form id="logoutForm" items="${WlistEmp}" method="POST"
-									action="${contextPath}/logout">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${emp.id}" />
+								<form id="removeForm" items="${WlistEmp}" method="POST"
+									action="${contextPath}/remove">
+									<input type="hidden" name="id" path="id" value="${emp.id}" />
 								</form>
 								<a onclick="document.forms['removeForm'].submit()"
 									class="btn-remove">Remove</a>

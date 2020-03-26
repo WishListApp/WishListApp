@@ -4,7 +4,7 @@ import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.auth.service.SecurityService;
 import com.wlt.wla.auth.service.UserService;
-//import com.wlt.wla.auth.validator.InputValidator;
+import com.wlt.wla.auth.validator.InputValidator;
 import com.wlt.wla.auth.validator.UserValidator;
 import com.wlt.wla.data.*;
 import com.wlt.wla.data.WishListDaoImpl;
@@ -38,20 +38,20 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 	
-
+	@Autowired
+	private InputValidator InputValidator;
 
 	@PostMapping("/add")
 	public String add(@ModelAttribute("addItemForm") DBWishItems item, BindingResult bindingResult) {
 
 //Later add check for price input    	
-		//UserValidator.validate(item, bindingResult);
-//		if (bindingResult.hasErrors()) {
-//			//return "add";
-//			System.out.println("has error");
-//			//return "redirect:/home";
-//			return "addItem";
-//		} else 
-		{
+		InputValidator.validate(item, bindingResult);
+		if (bindingResult.hasErrors()) {
+			//return "add";
+			System.out.println("has error");
+			//return "redirect:/home";
+			return "addItem";
+		} else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			String currentPrincipalName = authentication.getName();
 

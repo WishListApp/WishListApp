@@ -29,13 +29,12 @@
 	<div>
 
 
-		<form:form method="POST" modelAttribute="Item"
-			class="form-signin">
+		<form:form method="POST" modelAttribute="Item" class="form-signin">
 			<!-- 			TODO Only English symbols now -->
 			<spring:bind path="name">
 				<div class="form-group">
-					<form:input type="text" required="required" path="name" class="form-control"
-						placeholder="Item Name" autofocus="true"></form:input>
+					<form:input type="text" required="required" path="name"
+						class="form-control" placeholder="Item Name" autofocus="true"></form:input>
 
 				</div>
 			</spring:bind>
@@ -69,6 +68,13 @@
 					<form:input type="number" path="price" class="form-control"
 						placeholder="Item Price" autofocus="true" min="0.01" step="0.01"></form:input>
 					<form:errors path="price"></form:errors>
+				</div>
+			</spring:bind>
+			<spring:bind path="url">
+				<div class="form-group">
+					<form:input type="text" path="url"
+						class="form-control" placeholder="Item Url" ></form:input>
+
 				</div>
 			</spring:bind>
 

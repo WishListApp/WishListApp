@@ -13,22 +13,39 @@
     <link rel="stylesheet" href="./resources/css/normalize.css">
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./resources/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="./resources/css/common.css" rel="stylesheet">
     <link rel="stylesheet" href="./resources/css/balance.css">
 </head>
 <body>
-<div class="menu_bar">
-    <ul>
-        <li><a href="http://localhost:8080/home">Home</a></li>
-        <li><a href="http://localhost:8080/balance" class="active">Balance</a></li>
-        <li><a href="http://localhost:8080/add">Add Item</a></li>
-        <li><a href="">Delete Item</a></li>
-    </ul>
-</div>
+<header>
+    <div class="header_left">
+        <a href="http://localhost:8080/home"><img src="./resources/img/logo.png" height="70"></a>
+    </div>
+    <div class="header_right">
+        <div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
+        <div>Balance: ${balance}</div>
+        <div>
+            <a href="http://localhost:8080/balance">
+                <button type="button" class="btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+                </button>
+            </a>
+        </div>
+        <div>
+            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+            <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a>
+        </div>
+    </div>
+</header>
 
 <div>
     <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
         <h2 class="form-signin-heading">Alter Balance</h2>
+
         <spring:bind path="balanceChange">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <h3>Add/Subtract to/from balance</h3>
@@ -38,24 +55,30 @@
                 <form:errors path="balanceChange"></form:errors>
             </div>
         </spring:bind>
+
         <spring:bind path="note">
             <h3>Add note to changes in balance(optional)</h3>
             <form:textarea path="note" maxlength="200" rows="10" cols="10" cssClass="form-control"></form:textarea>
         </spring:bind>
-        <form:select path="updateChoice" cssClass="bootstrap-select" cssStyle="height: 40px; width: 100%; margin-top: 10px;">
+
+        <form:select required="true" path="updateChoice" cssClass="bootstrap-select"
+                     cssStyle="height: 40px; width: 100%; margin-top: 10px;">
             <form:option value="" disabled="true" selected="true">Choose update option</form:option>
             <form:option value="none">None</form:option>
             <form:option value="hourly">Hourly</form:option>
             <form:option value="weekly">Weekly</form:option>
             <form:option value="monthly">Monthly</form:option>
         </form:select>
-        <form:select path="currency" cssClass="bootstrap-select" cssStyle="height: 40px; width: 100%; margin-top: 10px;">
+
+        <form:select required="true" path="currency" cssClass="bootstrap-select"
+                     cssStyle="height: 40px; width: 100%; margin-top: 10px;">
             <form:option value="" disabled="true" selected="true">Choose your currency</form:option>
             <form:option value="euro">&euro;</form:option>
             <form:option value="dollar">$</form:option>
             <form:option value="rub">&#8381;</form:option>
             <form:option value="diamonds">&#9672;</form:option>
         </form:select>
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>
 

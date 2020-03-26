@@ -28,8 +28,6 @@ public class UserController {
 		jdbcTemp = new JdbcTemplate(dataSource);
 	}
 
-
-
 	@Autowired
 	private UserService userService;
 
@@ -55,7 +53,7 @@ public class UserController {
 		String sql = "DELETE FROM `dr_wishlist`.`wishlist_items` WHERE `wishlist_items`.`id` = " + item.getId();
 		jdbcTemp.execute(sql);
 
-		return "redirect:/home";
+		return "redirect:/itemList";
 	}
 
 	@GetMapping("/updatePrice")
@@ -81,7 +79,7 @@ public class UserController {
 			
 			System.out.println("price cannot be received");
 		}
-		return "redirect:/home";
+		return "redirect:/itemList";
 	}
 
 	@PostMapping("/add")
@@ -104,14 +102,8 @@ public class UserController {
 				+ item.getPriority() + "', '" + item.getPrice() + "','" + item.getUrl() + "');";
 		jdbcTemp.execute(sql);
 
-		return "redirect:/home";
+		return "redirect:/itemList";
 
-	}
-
-	@GetMapping("/balance")
-	public String balance(Model model) {
-		model.addAttribute("BalanceForm", new Balance());
-		return "balance";
 	}
 
 	@PostMapping("/balance")

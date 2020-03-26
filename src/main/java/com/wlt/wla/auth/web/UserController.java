@@ -70,17 +70,21 @@ public class UserController {
 	@PostMapping("/updatePrice")
 	public String updatePrice(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
 		priceParsers pp = new priceParsers();
-		float f = pp.getPriceSalidzini(item.getUrl());
+		float f=-1;
+		String url=item.getUrl();
+		
+		if (url.contains("www.salidzini.lv")) f = pp.getPriceSalidzini(item.getUrl());
+		if (url.contains("www.aliexpress.com")) f = pp.getPriceAlie(item.getUrl());
+		
 		if (f>0f) {
 			String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `price` = '"+f+"' WHERE `wishlist_items`.`id` ="+item.getId();
 			jdbcTemp.execute(sql);
 		}
 		else {
-//			ObjectError myError = new ObjectError("PRICE_UNAW", "price cannot be received");
-//			bindingResult.addError(myError);
 			
 			System.out.println("price cannot be received");
 		}
+		
 		return "redirect:/home";
 	}
 

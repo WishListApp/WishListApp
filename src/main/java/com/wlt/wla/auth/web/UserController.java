@@ -47,9 +47,6 @@ public class UserController {
 //Later add check for price input    	
 		InputValidator.validate(item, bindingResult);
 		if (bindingResult.hasErrors()) {
-			//return "add";
-			System.out.println("has error");
-			//return "redirect:/home";
 			return "addItem";
 		} else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

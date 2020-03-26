@@ -85,3 +85,26 @@ li a:hover {
     background: #6e6e6e;
     color: #b2b2b2;
 }
+
+header {
+    background: #999;
+    text-align: center;
+    vertical-align: auto;
+    color: white;
+    margin-top: 0;
+    height: 100px;
+}
+
+.header_right {
+    margin-top: 10px;
+    margin-right: 10%;
+    float: right;
+    text-align: left;
+    display: flex;
+      flex-direction: column;
+}
+.header_left {
+    margin-top: 10px;
+    margin-left: 10%;
+    float: left;
+}

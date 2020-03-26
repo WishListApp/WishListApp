@@ -55,3 +55,16 @@ header {
 .groups {
     background: #291d24;
 }
+
+.grid-container {
+    margin-left:150px;
+    margin-right:150px;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+}
+.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}

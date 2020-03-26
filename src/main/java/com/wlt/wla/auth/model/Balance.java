@@ -10,4 +10,24 @@ public class Balance {
     }
 
     private float balanceChange;
+
+    public String getIsUpdating() {
+        return isUpdating;
+    }
+
+    public void setIsUpdating(String isUpdating) {
+        this.isUpdating = isUpdating;
+    }
+
+    private String isUpdating;
+
+    private String note;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

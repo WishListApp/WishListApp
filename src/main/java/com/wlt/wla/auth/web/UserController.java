@@ -17,7 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Controller
 public class UserController {
@@ -62,9 +64,12 @@ public class UserController {
     @PostMapping("/balance")
     public String balance(@ModelAttribute("BalanceForm") Balance balance, BindingResult bindingResult) {
 	    float change = balance.getBalanceChange();
-        System.out.println("Change: " + change);
+	    String note = balance.getNote();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
         int userId = 0;
@@ -76,9 +81,7 @@ public class UserController {
             System.err.println(e.getMessage());
         }
 
-        System.out.println(userId);
-
-        query = "INSERT INTO dr_wishlist.balance (user_id, balance_changes, note) VALUES ("+userId+", "+change+", 'third')";
+        query = "INSERT INTO dr_wishlist.balance (user_id, balance_changes, note, timestamp) VALUES ("+userId+", "+change+", '"+note+"', '"+formatter.format(date)+"')";
         jdbcTemp.execute(query);
 
 	    return "redirect:/home";

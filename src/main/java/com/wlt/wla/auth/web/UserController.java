@@ -1,12 +1,12 @@
 package com.wlt.wla.auth.web;
 
 import com.wlt.wla.auth.model.Balance;
+import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.auth.service.SecurityService;
 import com.wlt.wla.auth.service.UserService;
 import com.wlt.wla.auth.validator.InputValidator;
 import com.wlt.wla.auth.validator.UserValidator;
-import com.wlt.wla.data.*;
 import com.wlt.wla.data.WishListDaoImpl;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class UserController {
@@ -37,49 +38,12 @@ public class UserController {
 
 	@Autowired
 	private UserValidator userValidator;
-	
+
 	@Autowired
 	private InputValidator InputValidator;
 
 	@PostMapping("/add")
-	public String add(@ModelAttribute("addItemForm") DBWishItems item, BindingResult bindingResult) {
-
-//Later add check for price input    	
-		InputValidator.validate(item, bindingResult);
-		if (bindingResult.hasErrors()) {
-			return "addItem";
-		} else {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String currentPrincipalName = authentication.getName();
-
-			int userId = 0;
-			String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
-
-			try {
-				userId = jdbcTemp.queryForObject(query, new Object[] { currentPrincipalName }, Integer.class);
-			} catch (NullPointerException e) {
-				System.err.println(e.getMessage());
-			}
-
-			String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
-					+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
-					+ item.getPriority() + "', '" + item.getPrice() + "');";
-			jdbcTemp.execute(sql);
-
-			return "redirect:/home";
-		}
-	}
-
-	@GetMapping("/balance")
-	public String balance(Model model) {
-		model.addAttribute("BalanceForm", new Balance());
-		return "balance";
-	}
-
-	@PostMapping("/balance")
-	public String balance(@ModelAttribute("BalanceForm") Balance balance, BindingResult bindingResult) {
-		float change = balance.getBalanceChange();
-		System.out.println("Change: " + change);
+	public String add(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
@@ -93,14 +57,46 @@ public class UserController {
 			System.err.println(e.getMessage());
 		}
 
-		System.out.println(userId);
-
-		query = "INSERT INTO dr_wishlist.balance (user_id, balance_changes, note) VALUES (" + userId + ", " + change
-				+ ", 'third')";
-		jdbcTemp.execute(query);
+		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
+				+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
+				+ item.getPriority() + "', '" + item.getPrice() + "');";
+		jdbcTemp.execute(sql);
 
 		return "redirect:/home";
+
 	}
+
+    @GetMapping("/balance")
+    public String balance(Model model) {
+	    model.addAttribute("BalanceForm", new Balance());
+        return "balance";
+    }
+
+    @PostMapping("/balance")
+    public String balance(@ModelAttribute("BalanceForm") Balance balance, BindingResult bindingResult) {
+	    float change = balance.getBalanceChange();
+	    String note = balance.getNote();
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        int userId = 0;
+        String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+
+        try {
+            userId = jdbcTemp.queryForObject(query, new Object[]{currentPrincipalName}, Integer.class);
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+
+        query = "INSERT INTO dr_wishlist.balance (user_id, balance_changes, note, timestamp) VALUES ("+userId+", "+change+", '"+note+"', '"+formatter.format(date)+"')";
+        jdbcTemp.execute(query);
+
+	    return "redirect:/home";
+    }
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
@@ -151,3 +147,4 @@ public class UserController {
 //    }
 
 }
+

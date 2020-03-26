@@ -41,6 +41,48 @@ public class UserController {
 
 	@Autowired
 	private InputValidator InputValidator;
+	
+	
+	@GetMapping("/remove")
+	public String remove(Model model, String error, String remove) {
+		System.out.println("remove pressed");
+//		if (error != null)
+//			model.addAttribute("error", "Your username and password is invalid.");
+//
+//		if (logout != null)
+//			model.addAttribute("message", "You have been logged out successfully.");
+
+		return "redirect:/home";
+	}	
+	
+	
+	
+//	@PostMapping("/remove")
+//	public String remove(@ModelAttribute("remove") DBWishItems item, BindingResult bindingResult) {
+//		System.out.println("remove POST");
+//
+////		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+////		String currentPrincipalName = authentication.getName();
+////
+////		int userId = 0;
+////		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+////
+////		try {
+////			userId = jdbcTemp.queryForObject(query, new Object[] { currentPrincipalName }, Integer.class);
+////		} catch (NullPointerException e) {
+////			System.err.println(e.getMessage());
+////		}
+////
+////		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
+////				+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
+////				+ item.getPriority() + "', '" + item.getPrice() + "');";
+////		jdbcTemp.execute(sql);
+//
+//		return "redirect:/home";
+//
+//	}
+
+	
 
 	@PostMapping("/add")
 	public String add(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
@@ -71,6 +113,8 @@ public class UserController {
 	    model.addAttribute("BalanceForm", new Balance());
         return "balance";
     }
+    
+    
 
     @PostMapping("/balance")
     public String balance(@ModelAttribute("BalanceForm") Balance balance, BindingResult bindingResult) {

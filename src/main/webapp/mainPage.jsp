@@ -42,51 +42,58 @@
 		</div>
 	</header>
 
-    <div class="container">
-        <div class="table_header_left">
-            <h2>Your WishList</h2>
-            <p>Here you can see, edit and delete items from your WishList:</p>
-        </div>
-        <div class="table_header_right">
-            <a href="http://localhost:8080/add">
-                <button type="button" class="btn btn-default btn-lg">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Item
-                </button>
-            </a>
-        </div>
-        <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Priority</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-            <tr>
-                <td>${emp.name}</td>
-                <td>${emp.cat_name}</td>
-            	<td>${emp.price}</td>
-                <td>
-                    <c:if test="${emp.priority==1}">
-            	        <font color=red> ${emp.priority_name} </font>
-            	    </c:if>
-            		<c:if test="${emp.priority==5}">
-            		    <font color=green> ${emp.priority_name} </font>
-            		</c:if>
-            		<c:if test="${emp.priority==10}">
-            		    <font color=black> ${emp.priority_name} </font>
-            		</c:if>
-            	</td>
-                <td><a href=>Remove</a></td>
-            </tr>
-            </c:forEach>
-        </tbody>
-      </table>
-    </div>
+	<div class="container">
+		<div class="table_header_left">
+			<h2>Your WishList</h2>
+			<p>Here you can see, edit and delete items from your WishList:</p>
+		</div>
+		<div class="table_header_right">
+			<a href="http://localhost:8080/add">
+				<button type="button" class="btn btn-default btn-lg">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					Add Item
+				</button>
+			</a>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Item Name</th>
+					<th>Category</th>
+					<th>Price</th>
+					<th>Priority</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="emp" items="${WlistEmp}" varStatus="status">
+					<tr>
+						<td>${emp.name}</td>
+						<td>${emp.cat_name}</td>
+						<td>${emp.price}</td>
+						<td><c:if test="${emp.priority==1}">
+								<font color=red> ${emp.priority_name} </font>
+							</c:if> <c:if test="${emp.priority==5}">
+								<font color=green> ${emp.priority_name} </font>
+							</c:if> <c:if test="${emp.priority==10}">
+								<font color=black> ${emp.priority_name} </font>
+							</c:if></td>
+						<td>
+							<div>
+<!-- 							need to fix params in form from logout to remove -->
+								<form id="logoutForm" items="${WlistEmp}" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${emp.id}" />
+								</form>
+								<a onclick="document.forms['removeForm'].submit()"
+									class="btn-remove">Remove</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>

@@ -1,4 +1,4 @@
-package com.wlt.wla.data;
+package com.wlt.wla.auth.model;
 
 public class DBWishItems {
 	private String name;

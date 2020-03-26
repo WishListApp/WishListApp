@@ -1,8 +1,7 @@
 package com.wlt.wla.auth.validator;
 
-import com.wlt.wla.auth.model.User;
 import com.wlt.wla.auth.service.UserService;
-import com.wlt.wla.data.DBWishItems;
+import com.wlt.wla.auth.model.DBWishItems;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

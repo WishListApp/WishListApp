@@ -29,12 +29,12 @@
 	<div>
 
 
-		<form:form method="POST" modelAttribute="addItemForm"
+		<form:form method="POST" modelAttribute="Item"
 			class="form-signin">
 			<!-- 			TODO Only English symbols now -->
 			<spring:bind path="name">
 				<div class="form-group">
-					<form:input type="text" path="name" class="form-control"
+					<form:input type="text" required="required" path="name" class="form-control"
 						placeholder="Item Name" autofocus="true"></form:input>
 
 				</div>
@@ -66,8 +66,8 @@
 			<!-- 			TODO Check if price correctly float -->
 			<spring:bind path="price">
 				<div class="form-group ${status.error ? 'has-error' : ''}">
-					<form:input type="text" path="price" class="form-control"
-						placeholder="Item Price" autofocus="true"></form:input>
+					<form:input type="number" path="price" class="form-control"
+						placeholder="Item Price" autofocus="true" min="0.01" step="0.01"></form:input>
 					<form:errors path="price"></form:errors>
 				</div>
 			</spring:bind>

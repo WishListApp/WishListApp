@@ -1,12 +1,12 @@
 package com.wlt.wla.auth.web;
 
 import com.wlt.wla.auth.model.Balance;
+import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.auth.service.SecurityService;
 import com.wlt.wla.auth.service.UserService;
 import com.wlt.wla.auth.validator.InputValidator;
 import com.wlt.wla.auth.validator.UserValidator;
-import com.wlt.wla.data.*;
 import com.wlt.wla.data.WishListDaoImpl;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Controller
@@ -44,35 +43,27 @@ public class UserController {
 	private InputValidator InputValidator;
 
 	@PostMapping("/add")
-	public String add(@ModelAttribute("addItemForm") DBWishItems item, BindingResult bindingResult) {
+	public String add(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
 
-//Later add check for price input
-		InputValidator.validate(item, bindingResult);
-		if (bindingResult.hasErrors()) {
-			//return "add";
-			System.out.println("has error");
-			//return "redirect:/home";
-			return "addItem";
-		} else {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String currentPrincipalName = authentication.getName();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
 
-			int userId = 0;
-			String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+		int userId = 0;
+		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
 
-			try {
-				userId = jdbcTemp.queryForObject(query, new Object[] { currentPrincipalName }, Integer.class);
-			} catch (NullPointerException e) {
-				System.err.println(e.getMessage());
-			}
-
-			String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
-					+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
-					+ item.getPriority() + "', '" + item.getPrice() + "');";
-			jdbcTemp.execute(sql);
-
-			return "redirect:/home";
+		try {
+			userId = jdbcTemp.queryForObject(query, new Object[] { currentPrincipalName }, Integer.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
 		}
+
+		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
+				+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
+				+ item.getPriority() + "', '" + item.getPrice() + "');";
+		jdbcTemp.execute(sql);
+
+		return "redirect:/home";
+
 	}
 
     @GetMapping("/balance")
@@ -154,7 +145,6 @@ public class UserController {
 //    public String mainPage(Model model) {
 //        return "mainPage";
 //    }
-
 
 }
 

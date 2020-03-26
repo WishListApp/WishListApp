@@ -3,12 +3,13 @@ package com.wlt.wla.data;
 import java.io.IOException;
 import java.util.List;
 
+import com.wlt.wla.auth.model.DBWishItems;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.wlt.wla.data.*;
+
 @Controller
 public class WishController {
 	
@@ -23,7 +24,7 @@ public class WishController {
 		List<DBPriorities> PriorEmp = empDao.PriorEmp();
 		modelAndView.addObject("PriorEmp", PriorEmp);
 		modelAndView.setViewName("addItem");
-		model.addAttribute("addItemForm", new DBWishItems());
+		model.addAttribute("Item", new DBWishItems());
 
 		return modelAndView;
 	}

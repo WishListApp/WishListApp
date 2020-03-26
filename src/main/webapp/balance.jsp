@@ -7,23 +7,33 @@
     <meta charset="UTF-8">
     <title>Balance</title>
     <link rel="stylesheet" href="./resources/css/normalize.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="./resources/css/common.css" rel="stylesheet">
     <link rel="stylesheet" href="./resources/css/balance.css">
 </head>
 <body>
 <header>
-    <h2>Balance</h2>
-</header>
+		<div class="header_left">
+			<a href=http://localhost:8080/home><img src="./resources/img/logo.png" height="70"></a>
+		</div>
+		<div class="header_right">
+			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
+			<div>Balance: ${balance}</div>
+			<div>
+			<a href="http://localhost:8080/balance">
+			<button type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+            </button>
 
-<div class="menu_bar">
-    <ul>
-        <li><a href="http://localhost:8080/home">Home</a></li>
-        <li><a href="http://localhost:8080/balance" class="active">Balance</a></li>
-        <li><a href="http://localhost:8080/add">Add Item</a></li>
-        <li><a href="">Delete Item</a></li>
-    </ul>
-</div>
+			</a>
+			</div>
+			<div><form id="logoutForm" method="POST" action="${contextPath}/logout">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			</form>
+			<a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a></div>
+		</div>
+	</header>
 
 <div>
     <form action="" method="post" class="form-signin">

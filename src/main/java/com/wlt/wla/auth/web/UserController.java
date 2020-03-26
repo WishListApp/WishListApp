@@ -64,14 +64,11 @@ public class UserController {
         return "addItem";
     }
 
-//    @GetMapping({"/", "/mainPage"})
-//    public String mainPage(Model model) {
-//        return "mainPage";
-//    }
+/*    @GetMapping({"/", "/home"})
+    public String home(Model model) { return "home"; }*/
 
     @GetMapping({"/", "/balance"})
-    public String balance(Model model) {
-        return "balance";
-    }
+    public String balance(Model model) { return "balance"; }
+
 }
 

@@ -2,56 +2,32 @@ body {
     padding-top: 0;
 }
 
-.header_right {
-    margin-top: 10px;
-    margin-right: 10%;
-    float: right;
-    text-align: left;
-    display: flex;
-      flex-direction: column;
+h2 {
+    text-align: center;
 }
-.header_left {
-    margin-top: 10px;
-    margin-left: 10%;
-    float: left;
+
+h3 {
+    margin-left: 100px;
 }
 .table_header_right {
     float: right;
+    margin-top: 10px;
+    margin-right: 10%;
 }
 .table_header_left {
+    margin-top: 10px;
     float: left;
 }
 
-.menu_bar {
-    width: 25%;
-    height: auto;
+.grid-container {
+    margin-left:150px;
+    margin-right:150px;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
 }
-
-h2 {
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-h1 {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-header {
-    background: #999;
-    text-align: center;
-    vertical-align: auto;
-    color: white;
-    margin-top: 0;
-    height: 100px;
-}
-
-.main-div {
-    width: 900px;
-    background: #444145;
-    margin-left: 15%;
-    margin-right: 15%;
-}
-.groups {
-    background: #291d24;
+.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
 }

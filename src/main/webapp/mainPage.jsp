@@ -2,18 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Wish List</title>
-    <link rel="stylesheet" href="./resources/css/normalize.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./resources/css/common.css" rel="stylesheet">
-    <link rel="stylesheet" href="./resources/css/mainPage.css">
+<meta charset="UTF-8">
+<title>Wish List</title>
+<link rel="stylesheet" href="./resources/css/normalize.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resources/css/common.css" rel="stylesheet">
+<link rel="stylesheet" href="./resources/css/mainPage.css">
 </head>
 <body>
 	<header>
@@ -82,7 +83,13 @@
 							</c:if></td>
 						<td>
 							<div>
-								<button class="btn-danger">Remove</button>
+<!-- TODO Add Dele prompt on JS -->
+								<form:form method="POST" action="${contextPath}/remove"
+									items="${WlistEmp}">
+									<input type="hidden" name="id" value="${emp.id}" />
+
+									<button class="btn-danger">Remove</button>
+								</form:form>
 							</div>
 						</td>
 					</tr>

@@ -4,6 +4,7 @@ import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.auth.service.SecurityService;
 import com.wlt.wla.auth.service.UserService;
+import com.wlt.wla.auth.validator.InputValidator;
 import com.wlt.wla.auth.validator.UserValidator;
 import com.wlt.wla.data.*;
 import com.wlt.wla.data.WishListDaoImpl;
@@ -39,21 +40,40 @@ public class UserController {
 	@Autowired
 	private UserValidator userValidator;
 
-//	@GetMapping("/add")
-//	public String add(Model model) {
-//		// TODO need to change next line from registration form!
-//
-//		return "addItem";
-//	}
+	@Autowired
+	private InputValidator InputValidator;
 
-    @PostMapping("/add")
-    public String add(@ModelAttribute("addItemForm") DBWishItems item, BindingResult bindingResult) {
-        String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `type`, `priority`, `price`) VALUES (NULL, 3, '5', '"+item.getName()+"', '3', '1', '33');";
-        jdbcTemp.execute(sql);
+	@PostMapping("/add")
+	public String add(@ModelAttribute("addItemForm") DBWishItems item, BindingResult bindingResult) {
 
+//Later add check for price input
+		InputValidator.validate(item, bindingResult);
+		if (bindingResult.hasErrors()) {
+			//return "add";
+			System.out.println("has error");
+			//return "redirect:/home";
+			return "addItem";
+		} else {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String currentPrincipalName = authentication.getName();
 
-        return "redirect:/home";
-    }
+			int userId = 0;
+			String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+
+			try {
+				userId = jdbcTemp.queryForObject(query, new Object[] { currentPrincipalName }, Integer.class);
+			} catch (NullPointerException e) {
+				System.err.println(e.getMessage());
+			}
+
+			String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price`) "
+					+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
+					+ item.getPriority() + "', '" + item.getPrice() + "');";
+			jdbcTemp.execute(sql);
+
+			return "redirect:/home";
+		}
+	}
 
     @GetMapping("/balance")
     public String balance(Model model) {

@@ -3,6 +3,8 @@ package com.wlt.wla.auth.validator;
 
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.auth.service.UserService;
+import com.wlt.wla.data.DBWishItems;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -22,6 +24,15 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
+       if (o.getClass()==DBWishItems.class) {
+        DBWishItems wishItem = (DBWishItems) o;
+        System.out.println("WishClass");
+       if (wishItem.getPrice()<1f) {
+           errors.rejectValue("price", "lowvalue");}}
+       else { 
+    	   System.out.println("UserClass");
+    	
+            
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
@@ -39,5 +50,5 @@ public class UserValidator implements Validator {
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
-    }
+    }}
 }

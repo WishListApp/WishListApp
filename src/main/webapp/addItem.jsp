@@ -3,7 +3,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -28,51 +27,54 @@
 	</div>
 
 	<div>
-	
-	
-        <form:form method="POST" modelAttribute="addItemForm" class="form-signin">
-            <h2 class="form-signin-heading">Add Item</h2>
-            <spring:bind path="name">
-                <div class="form-group ${status.error ? 'has-error' : ''}">
-                    <form:input type="text" path="name" class="form-control" placeholder="Item Name"
-                                autofocus="true"></form:input>
-                    <form:errors path="name"></form:errors>
-                </div>
-            </spring:bind>
 
 
+		<form:form method="POST" modelAttribute="addItemForm"
+			class="form-signin">
+			<!-- 			TODO Only English symbols now -->
+			<spring:bind path="name">
+				<div class="form-group">
+					<form:input type="text" path="name" class="form-control"
+						placeholder="Item Name" autofocus="true"></form:input>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-        </form:form>
-	
-	
-		<form action="" method="post" class="form-signin">
-			<label> Name: <input type="text" name="name"
-				class="form-control">
-			</label> <br> <label> Category: <select name="category"
-				id="category">
+				</div>
+			</spring:bind>
+			<spring:bind path="group">
+				<div class="form-group">
 
-					<c:forEach var="emp" items="${CatEmp}" varStatus="status">
-						<option value=${emp.id}>${emp.name}</option>
+					<label> Category: <select path="group" name="group">
+							<c:forEach var="emp" items="${CatEmp}" varStatus="status">
+								<option value=${emp.id}>${emp.name}</option>
 
-					</c:forEach>
+							</c:forEach>
+					</select>
+					</label>
+				</div>
+			</spring:bind>
+			<spring:bind path="priority">
 
+				<div class="form-group">
+					<label> Category: <select path="priority" name="priority">
+							<c:forEach var="emp" items="${PriorEmp}" varStatus="status">
+								<option value=${emp.id}>${emp.name}</option>
 
-			</select>
-			</label> <br> <label> Priority: <select name="priority"
-				id="priority">
-					<c:forEach var="emp" items="${PriorEmp}" varStatus="status">
-						<option value=${emp.id}>${emp.name}</option>
+							</c:forEach>
+					</select></label>
+				</div>
+			</spring:bind>
 
-					</c:forEach>
-			</select>
-			   <%-- TODO Need to check if decimal input! --%>
-			</label> <br> <label>Price: <input type="text" name="price"
-				id="price" class="form-control" min="0">
-			</label> <label> Store Page: <input type="text" name="store_page"
-				class="form-control">
-			</label> <br> <input type="submit" value="Add Item" class="btn-success">
-		</form>
+			<!-- 			TODO Check if price correctly float -->
+			<spring:bind path="price">
+				<div class="form-group ${status.error ? 'has-error' : ''}">
+					<form:input type="text" path="price" class="form-control"
+						placeholder="Item Price" autofocus="true"></form:input>
+					<form:errors path="price"></form:errors>
+				</div>
+			</spring:bind>
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+		</form:form>
+
 	</div>
 </body>
 </html>

@@ -104,6 +104,7 @@ public class WishListDaoImpl implements WishListDao {
 						//parseimg
 						imgParsers pp = new imgParsers();
 						if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+						if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 						
 						//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 						

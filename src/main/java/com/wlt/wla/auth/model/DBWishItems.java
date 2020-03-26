@@ -1,9 +1,12 @@
 package com.wlt.wla.auth.model;
 
+import java.util.Locale;
+
 public class DBWishItems {
 	private String name;
 	private int id;
 	private float price;
+	private String priceStr;
 	private int group;
 	private int user_id;
 	private String cat_name;
@@ -74,6 +77,14 @@ public class DBWishItems {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getPriceStr() {
+		return priceStr;
+	}
+
+	public void setPriceStr(String priceStr) {
+		this.priceStr = priceStr;
 	}
 
 }

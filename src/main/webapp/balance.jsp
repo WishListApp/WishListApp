@@ -12,6 +12,7 @@
     <title>Balance</title>
     <link rel="stylesheet" href="./resources/css/normalize.css">
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./resources/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link href="./resources/css/common.css" rel="stylesheet">
     <link rel="stylesheet" href="./resources/css/balance.css">
 </head>
@@ -41,11 +42,25 @@
             <h3>Add note to changes in balance(optional)</h3>
             <form:textarea path="note" maxlength="200" rows="10" cols="10" cssClass="form-control"></form:textarea>
         </spring:bind>
-        <form:select path="updateChoice"></form:select>
+        <form:select path="updateChoice" cssClass="bootstrap-select" cssStyle="height: 40px; width: 100%; margin-top: 10px;">
+            <form:option value="" disabled="true" selected="true">Choose update option</form:option>
+            <form:option value="none">None</form:option>
+            <form:option value="hourly">Hourly</form:option>
+            <form:option value="weekly">Weekly</form:option>
+            <form:option value="monthly">Monthly</form:option>
+        </form:select>
+        <form:select path="currency" cssClass="bootstrap-select" cssStyle="height: 40px; width: 100%; margin-top: 10px;">
+            <form:option value="" disabled="true" selected="true">Choose your currency</form:option>
+            <form:option value="euro">&euro;</form:option>
+            <form:option value="dollar">$</form:option>
+            <form:option value="rub">&#8381;</form:option>
+            <form:option value="diamonds">&#9672;</form:option>
+        </form:select>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>
 
 
 </div>
+<script src="./bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 </body>
 </html>

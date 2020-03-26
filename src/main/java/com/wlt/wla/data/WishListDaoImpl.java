@@ -3,6 +3,7 @@ package com.wlt.wla.data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import javax.sql.DataSource;
 
 import com.wlt.wla.auth.model.DBWishItems;
@@ -92,6 +93,7 @@ public class WishListDaoImpl implements WishListDao {
 						emp.setGroup(rs.getInt("cat_id"));
 						emp.setId(rs.getInt("id"));
 						emp.setPrice(rs.getFloat("price"));
+						emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
 						emp.setUser_id(rs.getInt("user_id"));
 						emp.setPriority(rs.getInt("priority"));
 						emp.setCat_name(rs.getString("cat_name"));

@@ -63,7 +63,7 @@
             <tr>
                 <td>${emp.name}</td>
                 <td>${emp.cat_name}</td>
-            	<td>${emp.price}</td>
+            	<td>${emp.priceStr}</td>
                 <td>
                     <c:if test="${emp.priority==1}">
             	        <font color=red> ${emp.priority_name} </font>

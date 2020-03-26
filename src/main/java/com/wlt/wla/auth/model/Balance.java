@@ -23,11 +23,31 @@ public class Balance {
 
     private String note;
 
+    private String updateChoice;
+
+    public String getUpdateChoice() {
+        return updateChoice;
+    }
+
+    public void setUpdateChoice(String updateChoice) {
+        this.updateChoice = updateChoice;
+    }
+
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    private String currency;
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

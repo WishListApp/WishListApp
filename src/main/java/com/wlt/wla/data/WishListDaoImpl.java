@@ -83,7 +83,7 @@ public class WishListDaoImpl implements WishListDao {
 			"WHERE priority.id = wishlist_items.priority\n" + 
 			"AND user.username = '"+currentPrincipalName+"'\n" + 
 			"AND item_cat.id = wishlist_items.cat_id\n" + 
-			"AND user.id = user_id\n" + 
+			"AND user.id = user_id\n" + "AND status = 0 " +
 			"ORDER BY priority DESC, wishlist_items.id ASC\n",
 				new RowMapper<DBWishItems>() {
 

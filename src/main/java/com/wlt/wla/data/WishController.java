@@ -2,6 +2,7 @@ package com.wlt.wla.data;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
@@ -22,7 +23,7 @@ public class WishController {
 	public ModelAndView listCat(ModelAndView modelAndView, Model model) {
 
 		modelAndView.addObject("CatEmp", empDao.CatEmp());
-		modelAndView.addObject("balance", empDao.getBalance());
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
 		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 		modelAndView.addObject("PriorEmp", empDao.PriorEmp());
 		modelAndView.setViewName("addItem");
@@ -34,7 +35,7 @@ public class WishController {
 	@RequestMapping(value = "/home")
 	public ModelAndView listEmp(ModelAndView model) {
 
-		model.addObject("balance", empDao.getBalance());
+		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
 		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.setViewName("mainPage");
 
@@ -44,10 +45,9 @@ public class WishController {
 
 	@RequestMapping(value = "/itemList")
 	public ModelAndView itemList(ModelAndView modelAndView) {
-		modelAndView.addObject("balance", empDao.getBalance());
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
 		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-		List<DBWishItems> WlistEmp = empDao.WlistEmp();
-		modelAndView.addObject("WlistEmp", WlistEmp);
+		modelAndView.addObject("WlistEmp", empDao.WlistEmp());
 		modelAndView.setViewName("itemList");
 
 
@@ -56,8 +56,9 @@ public class WishController {
 
 	@RequestMapping(value = "/catList")
 	public ModelAndView catList(ModelAndView modelAndView) {
-		modelAndView.addObject("balance", empDao.getBalance());
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
 		modelAndView.addObject("CatEmp", empDao.CatEmp());
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 		modelAndView.setViewName("catList");
 
 		return modelAndView;
@@ -66,7 +67,8 @@ public class WishController {
 	@RequestMapping(value = "/balance")
 	public ModelAndView balance(ModelAndView model) {
 		model.addObject("BalanceForm", new Balance());
-		model.addObject("balance", empDao.getBalance());
+		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.setViewName("balance");
 
 		return model;

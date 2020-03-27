@@ -155,6 +155,21 @@ public class UserController {
 
 		securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+
+		int userId = 0;
+		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+
+		try {
+			userId = jdbcTemp.queryForObject(query, new Object[] { currentPrincipalName }, Integer.class);
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+
+		query = "INSERT INTO dr_wishlist.user_pref (user_id) VALUES ("+userId+")";
+		jdbcTemp.execute(query);
+
 		return "redirect:/home";
 	}
 

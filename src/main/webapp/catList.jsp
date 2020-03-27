@@ -21,7 +21,7 @@
 		</div>
 		<div class="header_right">
 			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: ${balance}</div>
+			<div>Balance: ${balance} ${currencyCode}</div>
 			<div>
 			<a href="http://localhost:8080/balance">
                 <button type="button" class="btn btn-default btn-xs">

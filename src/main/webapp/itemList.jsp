@@ -25,7 +25,7 @@
 		</div>
 		<div class="header_right">
 			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: ${balance}</div>
+			<div>Balance: ${balance} ${currencyCode}</div>
 			<div>
 				<a href="http://localhost:8080/balance">
 					<button type="button" class="btn btn-default btn-xs">
@@ -90,7 +90,7 @@
 						</c:if>
 
 						<td>${emp.cat_name}</td>
-						<td>${emp.priceStr}${currencyCode}<c:if
+						<td>${emp.priceStr} ${currencyCode}<c:if
 								test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
 
 								<form:form method="POST" action="${contextPath}/updatePrice"

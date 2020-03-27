@@ -66,6 +66,7 @@
 					<th>Category</th>
 					<th>Price</th>
 					<th>Priority</th>
+					<th>Edit</th>
 					<th>Fulfill</th>
 					<th>Remove</th>
 				</tr>
@@ -112,6 +113,20 @@
 							</c:if></td>
 						<td>
 							<div>
+								<form:form method="POST" action="${contextPath}/itemEditPage">
+									<input type="hidden" name="id" value="${emp.id}">
+									<input type="hidden" name="name" value="${emp.name}">
+									<input type="hidden" name="price" value="${emp.priceStr}">
+									<input type="hidden" name="category" value="${emp.cat_name}">
+									<input type="hidden" name="priority" value="${emp.priority_name}">
+									<input type="hidden" name="url" value="${emp.url}">
+									<input type="hidden" name="user_id" value="${emp.user_id}">
+									<button class="btn btn-default btn-xs">Edit</button>
+								</form:form>
+							</div>
+						</td>
+						<td>
+							<div>
 								<form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}">
 									<button class="btn-success" value="${emp.id}">Fulfill</button>
@@ -120,8 +135,6 @@
 						</td>
 						<td>
 							<div>
-
-
 								<form:form method="POST" action="${contextPath}/remove"
 									items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}" />

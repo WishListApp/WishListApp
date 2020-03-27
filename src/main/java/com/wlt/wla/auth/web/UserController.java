@@ -7,6 +7,7 @@ import com.wlt.wla.auth.service.*;
 import com.wlt.wla.auth.validator.*;
 import com.wlt.wla.data.WishListDaoImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -218,40 +219,60 @@ public class UserController {
             System.err.println(e.getMessage());
         }
 
-        query = "SELECT name, price FROM dr_wishlist.wishlist_items WHERE user_id = "+userId+" AND id = " + item.getId();
+        query = "SELECT name, price FROM dr_wishlist.wishlist_items WHERE user_id = " + userId + " AND id = " + item.getId();
 
-		class Item {
-			private float price;
-			private String name;
+        class Item {
+            private float price;
+            private String name;
 
-			public float getPrice() {
-				return price;
-			}
+            public float getPrice() {
+                return price;
+            }
 
-			public String getName() {
-				return name;
-			}
+            public String getName() {
+                return name;
+            }
 
-			public Item(float price, String name) {
-				this.price = price;
-				this.name = name;
-			}
-		}
+            public Item(float price, String name) {
+                this.price = price;
+                this.name = name;
+            }
+        }
 
-		List<Item> list = jdbcTemp.query(query, new RowMapper<Item>() {
+        List<Item> list = jdbcTemp.query(query, new RowMapper<Item>() {
 
-			@Override
-			public Item mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new Item(rs.getFloat("price"), rs.getString("name"));
-			}
+            @Override
+            public Item mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Item(rs.getFloat("price"), rs.getString("name"));
+            }
 
-		});
+        });
 
-		String note = "You spent " + String.format(Locale.US, "%.2f", list.get(0).getPrice()) + " on " + list.get(0).getName();
+        String note = "You spent " + String.format(Locale.US, "%.2f", list.get(0).getPrice()) + " on " + list.get(0).getName();
 
-		query = "INSERT INTO dr_wishlist.balance (user_id, balance_changes, note, timestamp) VALUES (" + userId + ", " + (list.get(0).getPrice() * -1) + ", '" + note + "', '" + formatter.format(date) + "')";
-		jdbcTemp.execute(query);
+        query = "INSERT INTO dr_wishlist.balance (user_id, balance_changes, note, timestamp) VALUES (" + userId + ", " + (list.get(0).getPrice() * -1) + ", '" + note + "', '" + formatter.format(date) + "')";
+        jdbcTemp.execute(query);
         query = "UPDATE dr_wishlist.wishlist_items SET status = 1 WHERE user_id = " + userId + " AND id = " + item.getId();
+        jdbcTemp.execute(query);
+
+        return "redirect:/itemList";
+    }
+
+    @PostMapping("/updateItem")
+    public String updateItem(HttpServletRequest request) {
+        String name = request.getParameter("name");
+        int id = Integer.parseInt(request.getParameter("id"));
+        float price = Float.parseFloat(request.getParameter("price"));
+        int category = Integer.parseInt(request.getParameter("group"));
+        int priority = Integer.parseInt(request.getParameter("priorityName"));
+        String url = request.getParameter("url");
+
+        String query = "UPDATE dr_wishlist.wishlist_items SET cat_id = "+
+                category+", name = '"+
+                name+"', priority = "+
+                priority+", price = "+
+                price+", url = '"+
+                url+"' WHERE id = " + id;
         jdbcTemp.execute(query);
 
         return "redirect:/itemList";

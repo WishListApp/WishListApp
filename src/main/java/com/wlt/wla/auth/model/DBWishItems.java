@@ -11,8 +11,48 @@ public class DBWishItems {
 	private int user_id;
 	private String cat_name;
 	private int priority;
+	private String priorityName;
 	private String url;
 	private String urlImg;
+
+	public DBWishItems() {
+	}
+
+	public DBWishItems(String name, int id, float price, String cat_name, String priorityName, String url) {
+		this.name = name;
+		this.id = id;
+		this.price = price;
+		this.cat_name = cat_name;
+		this.priorityName = priorityName;
+		this.url = url;
+	}
+
+	@Override
+	public String toString() {
+		return "DBWishItems{" +
+				"name='" + name + '\'' +
+				", id=" + id +
+				", price=" + price +
+				", priceStr='" + priceStr + '\'' +
+				", group=" + group +
+				", user_id=" + user_id +
+				", cat_name='" + cat_name + '\'' +
+				", priority=" + priority +
+				", priorityName='" + priorityName + '\'' +
+				", url='" + url + '\'' +
+				", urlImg='" + urlImg + '\'' +
+				", priority_name='" + priority_name + '\'' +
+				'}';
+	}
+
+	public String getPriorityName() {
+		return priorityName;
+	}
+
+	public void setPriorityName(String priorityName) {
+		this.priorityName = priorityName;
+	}
+
 
 	public String getUrlImg() {
 		return urlImg;

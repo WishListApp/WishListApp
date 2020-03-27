@@ -16,30 +16,58 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./resources/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="./resources/css/addItem.css">
+    <link rel="stylesheet" href="./resources/css/itemEdit.css">
 </head>
 <body>
 <header>
-    <div class="header_left">
-        <a href="http://localhost:8080/home"><img src="./resources/img/logo.png" height="70"></a>
-    </div>
-    <div class="header_right">
-        <div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-        <div>Balance: ${balance} ${currencyCode}</div>
-        <div>
-            <a href="http://localhost:8080/balance">
-                <button type="button" class="btn btn-default btn-xs">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-            </a>
+                <a class="navbar-brand" href="http://localhost:8080/home">
+                    <img src="./resources/img/logo.png" height="80">
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="http://localhost:8080/home">Home</a></li>
+                    <li><a href="http://localhost:8080/itemList">Wish list</a></li>
+                    <li><a href="http://localhost:8080/catList">Categories</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <p class="navbar-text">
+                            Signed in as </br>
+                            <strong>${pageContext.request.userPrincipal.name}</strong></br>
+                            Balance: ${balance} ${currencyCode}
+                        </p>
+                    </li>
+                    <li>
+                        <a href="http://localhost:8080/balance">
+                            <button type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                        <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">
+                            <button type="button" class="btn btn-default navbar-btn">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <form id="logoutForm" method="POST" action="${contextPath}/logout">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
-            <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a>
-        </div>
-    </div>
+    </nav>
 </header>
 
 <div>

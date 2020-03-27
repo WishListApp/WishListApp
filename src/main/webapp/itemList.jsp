@@ -79,7 +79,7 @@
 
 									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
 											<c:if test="${emp.urlImg != ''}">
-												<img src="${emp.urlImg}" alt="">
+												<img src="${emp.urlImg}" alt="" style="max-height: 200px;">
 											</c:if>
 
 									</span></a>

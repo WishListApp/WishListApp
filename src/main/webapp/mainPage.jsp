@@ -17,26 +17,50 @@
 </head>
 <body>
 	<header>
-		<div class="header_left">
-			<a href="http://localhost:8080/home"><img src="./resources/img/logo.png" height="70"></a>
-		</div>
-		<div class="header_right">
-			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: ${balance}</div>
-			<div>
-			<a href="http://localhost:8080/balance">
-                <button type="button" class="btn btn-default btn-xs">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
-                </button>
-			</a>
-			</div>
-			<div>
-			    <form id="logoutForm" method="POST" action="${contextPath}/logout">
-				    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			    </form>
-			    <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a>
-			</div>
-		</div>
+	<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="http://localhost:8080/home"><img src="./resources/img/logo.png" height="70"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul id="hor" class="nav navbar-nav">
+            <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+            <li><a href="http://localhost:8080/itemList">Item list</a></li>
+            <li><a href="http://localhost:8080/catList">Category list</a></li>
+          </ul>
+          <ul class="navbar-form navbar-left">
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="http://localhost:8080/balance">
+                    <button type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+                    </button>
+                </a>
+            </li>
+            <li>
+            <form id="logoutForm" method="POST" action="${contextPath}/logout">
+            				    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            			    </form>
+            			    <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">
+            			        <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                                </button>
+                            </a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 	</header>
 
     <div class="container">

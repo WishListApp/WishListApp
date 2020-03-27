@@ -1,5 +1,6 @@
 body {
-    padding-top: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 h2 {
@@ -30,4 +31,11 @@ h3 {
   padding: 20px;
   font-size: 30px;
   text-align: center;
+}
+.navbar {
+  margin-bottom: 20px;
+}
+
+ul#hor li {
+  display:inline;
 }

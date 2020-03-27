@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="./resources/css/itemList.css">
 </head>
 <body>
-	<header>
+    <header>
 		<div class="header_left">
 			<a href="http://localhost:8080/home"><img src="./resources/img/logo.png" height="70"></a>
 		</div>
 		<div class="header_right">
-			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: ${balance}</div>
+			<div>You are logged in as ${pageContext.request.userPrincipal.name}.</div>
+			<div>Your balance: ${balance}</div>
 			<div>
 			<a href="http://localhost:8080/balance">
                 <button type="button" class="btn btn-default btn-xs">
@@ -35,10 +35,16 @@
 			    <form id="logoutForm" method="POST" action="${contextPath}/logout">
 				    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			    </form>
-			    <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">Logout</a>
+			    <a onclick="document.forms['logoutForm'].submit()" class="btn-logout">
+			        <button type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                    </button>
+                </a>
 			</div>
 		</div>
 	</header>
+
+
 
     <div class="container">
         <div class="table_header_left">
@@ -52,7 +58,7 @@
                 </button>
             </a>
         </div>
-        <table class="table table-striped">
+        <table id="itemList" class="table table-striped">
         <thead>
             <tr>
                 <th>Item Name</th>

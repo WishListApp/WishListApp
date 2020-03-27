@@ -89,6 +89,7 @@
 					<th>Category</th>
 					<th>Price</th>
 					<th>Priority</th>
+					<th>Fulfill</th>
 					<th>Remove</th>
 				</tr>
 			</thead>
@@ -101,7 +102,7 @@
 
 									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
 											<c:if test="${emp.urlImg != ''}">
-												<img src="${emp.urlImg}" alt="">
+												<img src="${emp.urlImg}" alt="" style="max-height: 200px;">
 											</c:if>
 
 									</span></a>
@@ -132,6 +133,14 @@
 							</c:if> <c:if test="${emp.priority==10}">
 								<font color=black> ${emp.priority_name} </font>
 							</c:if></td>
+						<td>
+							<div>
+								<form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
+									<input type="hidden" name="id" value="${emp.id}">
+									<button class="btn-success" value="${emp.id}">Fulfill</button>
+								</form:form>
+							</div>
+						</td>
 						<td>
 							<div>
 

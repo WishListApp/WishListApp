@@ -1,30 +1,8 @@
-body {
-    padding-top: 0;
-}
-
-.header_right {
-    margin-top: 10px;
-    margin-right: 10%;
-    float: right;
-    text-align: left;
-    display: flex;
-      flex-direction: column;
-}
-.header_left {
-    margin-top: 10px;
-    margin-left: 10%;
-    float: left;
-}
 .table_header_right {
     float: right;
 }
 .table_header_left {
     float: left;
-}
-
-.menu_bar {
-    width: 25%;
-    height: auto;
 }
 
 h2 {
@@ -35,25 +13,6 @@ h2 {
 h1 {
     margin-top: 0;
     margin-bottom: 0;
-}
-
-header {
-    background: #999;
-    text-align: center;
-    vertical-align: auto;
-    color: white;
-    margin-top: 0;
-    height: 100px;
-}
-
-.main-div {
-    width: 900px;
-    background: #444145;
-    margin-left: 15%;
-    margin-right: 15%;
-}
-.groups {
-    background: #291d24;
 }
 
 .grid-container {

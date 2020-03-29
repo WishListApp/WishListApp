@@ -19,32 +19,55 @@
 </head>
 <body>
 	<header>
-		<div class="header_left">
-			<a href=http://localhost:8080/home><img
-				src="./resources/img/logo.png" height="70"></a>
-		</div>
-		<div class="header_right">
-			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: ${balance} ${currencyCode}</div>
-			<div>
-				<a href="http://localhost:8080/balance">
-					<button type="button" class="btn btn-default btn-xs">
-						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						Settings
-					</button>
-
-				</a>
-			</div>
-			<div>
-				<form id="logoutForm" method="POST" action="${contextPath}/logout">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-				</form>
-				<a onclick="document.forms['logoutForm'].submit()"
-					class="btn-logout">Logout</a>
-			</div>
-		</div>
-	</header>
+    		 <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="http://localhost:8080/home">
+                            <img src="./resources/img/logo.png" height="80">
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="http://localhost:8080/home">Home</a></li>
+                            <li><a href="http://localhost:8080/itemList">Wish list</a></li>
+                            <li><a href="http://localhost:8080/catList">Categories</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <p class="navbar-text">
+                                    Signed in as </br>
+                                    <strong>${pageContext.request.userPrincipal.name}</strong></br>
+                                    Balance: ${balance} ${currencyCode}
+                                </p>
+                            </li>
+                            <li>
+                                <a href="http://localhost:8080/balance">
+                                    <button type="button" class="btn btn-default navbar-btn">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
+                                    </button>
+                                </a>
+                            </li>
+                            <li>
+                                <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                              	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                              	</form>
+                              	<a onclick="document.forms['logoutForm'].submit()" class="btn-logout">
+                              	    <button type="button" class="btn btn-default navbar-btn">
+                              		    <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                              	    </button>
+                              	</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+             </nav>
+    	</header>
 
 	<div class="container">
 		<div class="table_header_left">
@@ -66,6 +89,7 @@
 					<th>Category</th>
 					<th>Price</th>
 					<th>Priority</th>
+					<th>Edit</th>
 					<th>Fulfill</th>
 					<th>Remove</th>
 				</tr>
@@ -112,6 +136,20 @@
 							</c:if></td>
 						<td>
 							<div>
+								<form:form method="POST" action="${contextPath}/itemEditPage">
+									<input type="hidden" name="id" value="${emp.id}">
+									<input type="hidden" name="name" value="${emp.name}">
+									<input type="hidden" name="price" value="${emp.priceStr}">
+									<input type="hidden" name="category" value="${emp.cat_name}">
+									<input type="hidden" name="priority" value="${emp.priority_name}">
+									<input type="hidden" name="url" value="${emp.url}">
+									<input type="hidden" name="user_id" value="${emp.user_id}">
+									<button class="btn btn-default btn-xs">Edit</button>
+								</form:form>
+							</div>
+						</td>
+						<td>
+							<div>
 								<form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}">
 									<button class="btn-success" value="${emp.id}">Fulfill</button>
@@ -120,8 +158,6 @@
 						</td>
 						<td>
 							<div>
-
-
 								<form:form method="POST" action="${contextPath}/remove"
 									items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}" />

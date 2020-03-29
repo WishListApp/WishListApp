@@ -49,10 +49,45 @@ public class UserController {
     @Autowired
     private InputValidator InputValidator;
 
+    
+    @GetMapping({"/", "/admin"})
+    public String admin(Model model) {
+        return "admin";
+    }
+
+    @GetMapping({"/", "/userList"})
+    public String userList(Model model) {
+        return "userList";
+    }
+
+    
+    
+    @GetMapping("/removeUser")
+    public String removeUser(Model model, String error, String remove) {
+        return "redirect:/users";
+    }
+    
+    @PostMapping("/removeUser")
+    public String removeUser(@ModelAttribute("User") User user) {
+    	String sql;
+    	sql = "DELETE FROM user WHERE `user`.`id` = " + user.getId();
+        jdbcTemp.execute(sql);
+    	sql = "DELETE FROM balance WHERE `balance`.`user_id` = " + user.getId();
+        jdbcTemp.execute(sql);        
+    	sql = "DELETE FROM user_pref WHERE `user_pref`.`user_id` = " + user.getId();
+        jdbcTemp.execute(sql);          
+    	sql = "DELETE FROM user_roles WHERE `user_roles`.`users_id` = " + user.getId();
+        jdbcTemp.execute(sql);
+    	sql = "DELETE FROM wishlist_items WHERE `wishlist_items`.`user_id` = " + user.getId();
+        jdbcTemp.execute(sql);          
+      
+        return "redirect:/users";
+    }
+
+    
+    
     @GetMapping("/remove")
     public String remove(Model model, String error, String remove) {
-        // System.out.println("remove pressed");
-
         return "redirect:/home";
     }
 
@@ -196,6 +231,8 @@ public class UserController {
         return "welcome";
     }
 
+    
+    
     @GetMapping({"/", "/addItem"})
     public String addItem(Model model) {
         return "addItem";

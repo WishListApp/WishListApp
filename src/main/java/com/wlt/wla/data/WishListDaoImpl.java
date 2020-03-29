@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.sql.DataSource;
 
 import com.wlt.wla.auth.model.DBWishItems;
+import com.wlt.wla.auth.model.User;
 import com.wlt.wla.parsers.imgParsers;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -62,6 +63,34 @@ public class WishListDaoImpl implements WishListDao {
 
 						emp.setName(rs.getString("name"));
 						emp.setId(rs.getInt("id"));
+						return emp;
+					}
+
+				});
+
+		return list;
+	}
+	
+	
+	@Override
+	public List<User> UlistEmp() {
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+
+		List<User> list = jdbcTemp.query(
+			"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC",
+				new RowMapper<User>() {
+
+					@Override
+					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+						User emp = new User();
+						
+						emp.setUsername(rs.getString("username"));
+						emp.setId(rs.getLong("id"));
+						emp.setPassword(rs.getString("password"));
+						emp.setuRoleId(rs.getInt("roles_id"));
+						
 						return emp;
 					}
 

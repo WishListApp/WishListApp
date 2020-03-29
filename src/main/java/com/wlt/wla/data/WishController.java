@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
+import com.wlt.wla.auth.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,20 @@ public class WishController {
 	
 	@Autowired
 	private WishListDao empDao;
+	
+	
+	@RequestMapping(value = "/users")
+	public ModelAndView UserlistEmp(ModelAndView model) {
+
+		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		model.addObject("currencyCode", empDao.getCurrencyCode());
+		model.setViewName("userList");
+		
+		List<User> UlistEmp = empDao.UlistEmp();
+		model.addObject("UlistEmp", UlistEmp);
+
+		return model;
+	}
 
 	@RequestMapping(value = "/add")
 	public ModelAndView listCat(ModelAndView modelAndView, Model model) {

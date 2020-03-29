@@ -13,6 +13,8 @@ public class User {
     private String username;
 
     private String password;
+    
+    private int uRoleId;
 
     @Transient
     private String passwordConfirm;
@@ -20,6 +22,16 @@ public class User {
     @ManyToMany
     private Set<Role> roles;
 
+    public int getuRoleId() {
+        return uRoleId;
+    }
+
+    public void setuRoleId(int uRoleId) {
+        this.uRoleId = uRoleId;
+    }
+
+    
+    
     public Long getId() {
         return id;
     }

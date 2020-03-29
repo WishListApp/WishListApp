@@ -55,32 +55,32 @@
 	</div>
 
 	<div class="grid-container">
-		<a href="/itemList">
+		<a href="/users">
 			<div class="grid-item">
 				<img
-					src="https://pngimage.net/wp-content/uploads/2018/06/wishlist-icon-png-8.png"
+					src="https://cdn.onlinewebfonts.com/svg/img_507933.png"
 					width="200" height="200">
-				<p>WishList</p>
-			</div>
-		</a> <a href="/catList">
-			<div class="grid-item">
-				<img src="https://cdn.onlinewebfonts.com/svg/img_572316.png"
-					width="200" height="200">
-				<p>Category list</p>
-			</div>
-		</a> <a href="/balance">
-			<div class="grid-item">
-				<img src="https://cdn.onlinewebfonts.com/svg/img_457436.png"
-					width="200" height="200">
-				<p>Balance settings</p>
-			</div>
-		</a> <a href="">
-			<div class="grid-item">
-				<img src="https://cdn.onlinewebfonts.com/svg/img_507933.png"
-					width="200" height="200">
-				<p>Profile settings</p>
-			</div>
-		</a>
+				<p>Users</p>
+			</div></a>
+<!-- 		 <a href="/catList"> -->
+<!-- 			<div class="grid-item"> -->
+<!-- 				<img src="https://cdn.onlinewebfonts.com/svg/img_572316.png" -->
+<!-- 					width="200" height="200"> -->
+<!-- 				<p>Category list</p> -->
+<!-- 			</div> -->
+<!-- 		</a> <a href="/balance"> -->
+<!-- 			<div class="grid-item"> -->
+<!-- 				<img src="https://cdn.onlinewebfonts.com/svg/img_457436.png" -->
+<!-- 					width="200" height="200"> -->
+<!-- 				<p>Balance settings</p> -->
+<!-- 			</div> -->
+<!-- 		</a> <a href=""> -->
+<!-- 			<div class="grid-item"> -->
+<!-- 				<img src="https://cdn.onlinewebfonts.com/svg/img_507933.png" -->
+<!-- 					width="200" height="200"> -->
+<!-- 				<p>Profile settings</p> -->
+<!-- 			</div> -->
+<!-- 		</a> -->
 	</div>
 
 	<script

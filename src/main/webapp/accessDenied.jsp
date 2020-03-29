@@ -2,52 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Wish List</title>
-<link rel="stylesheet" href="./resources/css/normalize.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link href="./resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="./resources/css/common.css" rel="stylesheet">
-<link rel="stylesheet" href="./resources/css/mainPage.css">
-</head>
-<body>
-	<header>
-		<div class="header_left">
-			<a href="http://localhost:8080/home"><img
-				src="./resources/img/logo.png" height="70"></a>
-		</div>
-		<div class="header_right">
-			<div>Welcome, ${pageContext.request.userPrincipal.name}!</div>
-			<div>Balance: ${balance} ${currencyCode}</div>
-
-<!-- 			<sec:authorize access="hasRole('ADMIN')"> -->
-<!-- 				<p>Must have ROLE_ADMIN To see that</p> -->
-<!-- 			</sec:authorize> -->
-
-			<div>
-				<a href="http://localhost:8080/balance">
-					<button type="button" class="btn btn-default btn-xs">
-						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						Settings
-					</button>
-				</a>
-			</div>
-			<div>
-				<form id="logoutForm" method="POST" action="${contextPath}/logout">
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
-				</form>
-				<a onclick="document.forms['logoutForm'].submit()"
-					class="btn-logout">Logout</a>
-			</div>
-		</div>
-	</header>
+<%@include file="header.jsp" %>
 
 	<div class="container">
 		<div class="table_header_left">

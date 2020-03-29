@@ -51,28 +51,26 @@ public class UserController {
     private InputValidator InputValidator;
 
     
-    @GetMapping({"/", "/admin"})
+    @GetMapping({"/admin", "/admin/"})
     public String admin(Model model) {
         return "admin";
     }
 
-    @GetMapping({"/", "/userList"})
+    @GetMapping({"/admin/userList"})
     public String userList(Model model) {
         return "userList";
     }
 
     
     
-    @GetMapping("/removeUser")
+    @GetMapping("/admin/removeUser")
     public String removeUser(Model model, String error, String remove) {
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
     
-    @PostMapping("/removeUser")
+    @PostMapping("/admin/removeUser")
     public String removeUser(@ModelAttribute("User") User user) {
     	String sql;
-    	sql = "DELETE FROM user WHERE `user`.`id` = " + user.getId();
-        jdbcTemp.execute(sql);
     	sql = "DELETE FROM balance WHERE `balance`.`user_id` = " + user.getId();
         jdbcTemp.execute(sql);        
     	sql = "DELETE FROM user_pref WHERE `user_pref`.`user_id` = " + user.getId();
@@ -81,8 +79,10 @@ public class UserController {
         jdbcTemp.execute(sql);
     	sql = "DELETE FROM wishlist_items WHERE `wishlist_items`.`user_id` = " + user.getId();
         jdbcTemp.execute(sql);          
+    	sql = "DELETE FROM user WHERE `user`.`id` = " + user.getId();
+        jdbcTemp.execute(sql);
       
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     

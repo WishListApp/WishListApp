@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -61,6 +62,20 @@ public class UserController {
         return "userList";
     }
 
+    @GetMapping("/admin/setPwd")
+    public String setPwd(Model model, String error, String remove) {
+        return "redirect:/admin/users";
+    }
+    
+    @PostMapping("/admin/setPwd")
+    public String setPwd(@ModelAttribute("User") User user) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String BPas = passwordEncoder.encode(user.getPassword());
+    	String sql = "UPDATE `dr_wishlist`.`user` SET `password` = '"+BPas+"' WHERE `user`.`id` = " + user.getId();
+        jdbcTemp.execute(sql);        
+ 	
+    	return "redirect:/admin/users";
+    }
     
     
     @GetMapping("/admin/removeUser")

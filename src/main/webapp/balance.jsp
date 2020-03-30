@@ -6,7 +6,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%@include file="header.jsp" %>
 
-
 <div>
     <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
         <h2 class="form-signin-heading">Alter Balance</h2>

@@ -20,93 +20,126 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WishController {
-	
-	@Autowired
-	private WishListDao empDao;
-	
-	
-	@RequestMapping(value = "/admin/users")
-	public ModelAndView UserlistEmp(ModelAndView model) {
 
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
-		model.setViewName("userList");
-		
-		List<User> UlistEmp = empDao.UlistEmp();
-		model.addObject("UlistEmp", UlistEmp);
+    @Autowired
+    private WishListDao empDao;
 
-		return model;
-	}
 
-	@RequestMapping(value = "/add")
-	public ModelAndView listCat(ModelAndView modelAndView, Model model) {
+    @RequestMapping(value = "/admin/users")
+    public ModelAndView UserlistEmp(ModelAndView model) {
 
-		modelAndView.addObject("CatEmp", empDao.CatEmp());
-		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-		modelAndView.addObject("PriorEmp", empDao.PriorEmp());
-		modelAndView.setViewName("addItem");
-		model.addAttribute("Item", new DBWishItems());
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.addObject("currencyCode", empDao.getCurrencyCode());
+        model.setViewName("userList");
 
-		return modelAndView;
-	}
+        List<User> UlistEmp = empDao.UlistEmp();
+        model.addObject("UlistEmp", UlistEmp);
 
-	@RequestMapping(value = "/home")
-	public ModelAndView listEmp(ModelAndView model) {
+        return model;
+    }
 
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
-		model.setViewName("mainPage");
+    @RequestMapping(value = "/add")
+    public ModelAndView listCat(ModelAndView modelAndView, Model model) {
 
-		return model;
-	}
+        modelAndView.addObject("CatEmp", empDao.CatEmp());
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+        modelAndView.addObject("PriorEmp", empDao.PriorEmp());
+        modelAndView.setViewName("addItem");
+        model.addAttribute("Item", new DBWishItems());
 
-	@RequestMapping(value = "/itemList")
-	public ModelAndView itemList(ModelAndView modelAndView) {
-		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-		modelAndView.addObject("WlistEmp", empDao.WlistEmp());
-		modelAndView.setViewName("itemList");
+        return modelAndView;
+    }
 
-		return modelAndView;
-	}
+    @RequestMapping(value = "/home")
+    public ModelAndView listEmp(ModelAndView model) {
 
-	@RequestMapping(value = "/catList")
-	public ModelAndView catList(ModelAndView modelAndView) {
-		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		modelAndView.addObject("CatEmp", empDao.CatEmp());
-		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-		modelAndView.setViewName("catList");
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.addObject("currencyCode", empDao.getCurrencyCode());
+        model.setViewName("mainPage");
 
-		return modelAndView;
-	}
+        return model;
+    }
 
-	@RequestMapping(value = "/balance")
-	public ModelAndView balance(ModelAndView model) {
-		model.addObject("BalanceForm", new Balance());
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
-		model.setViewName("balance");
+    @RequestMapping(value = "/itemList")
+    public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+        List<DBWishItems> fullList = empDao.WlistEmp();
 
-		return model;
-	}
+        int page = 1;
+        String pageStr;
 
-	@PostMapping("/itemEditPage")
-	public ModelAndView itemEdit(ModelAndView model, HttpServletRequest request) {
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
-		model.addObject("Item", new DBWishItems(
-				request.getParameter("name"),
-				Integer.parseInt(request.getParameter("id")),
-				Float.parseFloat(request.getParameter("price")),
-				request.getParameter("category"),
-				request.getParameter("priority"),
-				request.getParameter("url")
-				));
-		model.addObject("CatEmp", empDao.CatEmp());
-		model.addObject("PriorEmp", empDao.PriorEmp());
-		model.setViewName("itemEdit");
-		return model;
-	}
+        if ((pageStr = request.getParameter("page")) != null && pageStr != "0") {
+            page = Integer.parseInt(pageStr);
+        }
+		final int LAST_ITEM = 5 * page;
+        int lastItemNum = LAST_ITEM;
+
+        int itemsPerPage = 5;
+        int size = fullList.size();
+
+        if (size <= lastItemNum) {
+            lastItemNum = size;
+        }
+
+        int startItem;
+        if (size < lastItemNum) {
+            startItem = 0;
+        } else {
+        	if (lastItemNum % 5 == 0) {
+				startItem = lastItemNum - itemsPerPage;
+			} else {
+        		startItem = lastItemNum - (lastItemNum - (LAST_ITEM - itemsPerPage));
+			}
+        }
+
+		List<DBWishItems> partList = fullList.subList(startItem, lastItemNum);
+        int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("pageCount", pageCount);
+        modelAndView.addObject("WlistEmp", partList);
+        modelAndView.setViewName("itemList");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/catList")
+    public ModelAndView catList(ModelAndView modelAndView) {
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("CatEmp", empDao.CatEmp());
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+        modelAndView.setViewName("catList");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/balance")
+    public ModelAndView balance(ModelAndView model) {
+        model.addObject("BalanceForm", new Balance());
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.addObject("currencyCode", empDao.getCurrencyCode());
+        model.setViewName("balance");
+
+        return model;
+    }
+
+    @PostMapping("/itemEditPage")
+    public ModelAndView itemEdit(ModelAndView model, HttpServletRequest request) {
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.addObject("currencyCode", empDao.getCurrencyCode());
+        model.addObject("Item", new DBWishItems(
+                request.getParameter("name"),
+                Integer.parseInt(request.getParameter("id")),
+                Float.parseFloat(request.getParameter("price")),
+                request.getParameter("category"),
+                request.getParameter("priority"),
+                request.getParameter("url")
+        ));
+        model.addObject("CatEmp", empDao.CatEmp());
+        model.addObject("PriorEmp", empDao.PriorEmp());
+        model.setViewName("itemEdit");
+        return model;
+    }
 
 }

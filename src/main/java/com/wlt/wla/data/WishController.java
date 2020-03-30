@@ -70,6 +70,26 @@ public class WishController {
 
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/restoreList")
+	public ModelAndView restoreList(ModelAndView modelAndView) {
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+		modelAndView.addObject("WlistRestoreEmp", empDao.WlistRestoreEmp());
+		modelAndView.setViewName("restoreList");
+
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/archiveItemList")
+	public ModelAndView archiveItemList(ModelAndView modelAndView) {
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+		modelAndView.addObject("WlistArchiveEmp", empDao.WlistArchiveEmp());
+		modelAndView.setViewName("archiveItemList");
+
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/catList")
 	public ModelAndView catList(ModelAndView modelAndView) {

@@ -9,9 +9,11 @@ public interface WishListDao {
 	public List<DBWishItems> WlistEmp();
 	public List<DBCatItems> CatEmp();
 	public List<DBPriorities> PriorEmp();
+	public List<DBWishItems> WlistRestoreEmp();
 	public List<User> UlistEmp();
-
 	public float getBalance();
 	public String getCurrencyCode();
+	List<DBWishItems> WlistArchiveEmp();
+	
 
 }

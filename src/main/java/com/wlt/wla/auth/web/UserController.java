@@ -100,7 +100,37 @@ public class UserController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/archive")
+    public String archive(Model model, String error, String remove) {
+    	return "redirect:/archiveItemList";
+    }
     
+    @PostMapping("/archive")
+    public String archiveItem(@ModelAttribute("Item") DBWishItems item) {
+    	
+        //String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '0' WHERE `wishlist_items`.`id` =" + item.getId();
+    	//INSERT into your_table (c1, c2, ...)   	SELECT c1, c2, ...   	FROM your_table   	WHERE id = 1
+ 			
+        String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status` WHERE id=" + item.getId();
+       
+        jdbcTemp.execute(sql);
+
+        return "redirect:/itemList";
+    }
+
+    @GetMapping("/restore")
+    public String restore(Model model, String error, String remove) {
+    	return "redirect:/restoreList";
+    }
+    
+    @PostMapping("/restore")
+    public String restoreItem(@ModelAttribute("Item") DBWishItems item) {
+    	
+        String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '0' WHERE `wishlist_items`.`id` =" + item.getId();
+        jdbcTemp.execute(sql);
+
+        return "redirect:/itemList";
+    }
     
     @GetMapping("/remove")
     public String remove(Model model, String error, String remove) {
@@ -109,7 +139,8 @@ public class UserController {
 
     @PostMapping("/remove")
     public String removeItem(@ModelAttribute("Item") DBWishItems item) {
-        String sql = "DELETE FROM `dr_wishlist`.`wishlist_items` WHERE `wishlist_items`.`id` = " + item.getId();
+    	
+        String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '-1' WHERE `wishlist_items`.`id` =" + item.getId();
         jdbcTemp.execute(sql);
 
         return "redirect:/itemList";
@@ -233,12 +264,14 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
+    	
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
+        if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
-
+            
+        }
         return "login";
     }
 

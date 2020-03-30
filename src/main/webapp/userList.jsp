@@ -11,7 +11,7 @@
         <p>Here you can see, edit and delete users</p>
     </div>
     <div class="table_header_right">
-        <a href="http://localhost:8080/add">
+        <a href="/add">
             <button type="button" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Add Item

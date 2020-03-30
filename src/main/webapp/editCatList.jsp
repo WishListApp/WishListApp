@@ -15,7 +15,7 @@
 		<div>
 			<form:form id="addCat" method="POST" name="addCat"
 				action="${contextPath}/admin/addCat">
-				<button type="button" class="btn btn-default btn-lg"
+				<button class="btn btn-default btn-lg"
 					onclick="save()">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					Add

@@ -90,7 +90,7 @@ public class WishListDaoImpl implements WishListDao {
 	}
 
 	@Override
-	public int UlistEmpSize() {
+	public int getUlistEmpSize() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 

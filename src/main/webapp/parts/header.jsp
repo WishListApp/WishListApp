@@ -1,4 +1,4 @@
-	<header>
+<header>
 		 <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -15,9 +15,9 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/home">Home</a></li>
-                        <li><a href="/itemList">Wish list</a></li>
-                        <li><a href="/catList">Categories</a></li>
+                        <li class="" id="liHome"><a href="/home">Home</a></li>
+                        <li class="" id="liItems"><a href="/itemList">Wish list</a></li>
+                        <li class="" id="liCats"><a href="/catList">Categories</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -48,7 +48,7 @@
                 </div>
             </div>
          </nav>
-	</header>
+</header>
 
     <script>
     var popoverCnt='<center><a href="/balance"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></center>';
@@ -59,5 +59,9 @@
             html: true,
             placement: "bottom"
         });
+        // get current URL path and assign 'active' class
+        var pathname = window.location.pathname;
+        $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+        $('ul li a').click(function(){ $('li a').removeClass("active"); $(this).addClass("active"); });
     });
     </script>

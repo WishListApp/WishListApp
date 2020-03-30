@@ -30,7 +30,7 @@ public class WishListDaoImpl implements WishListDao {
 		String currentPrincipalName = authentication.getName();
 
 		List<DBCatItems> list = jdbcTemp.query(
-			"SELECT * from item_cat ORDER BY id ASC",
+			"SELECT * from item_cat ORDER BY name ASC",
 				new RowMapper<DBCatItems>() {
 
 					@Override

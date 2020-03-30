@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wish List</title>
-    <link rel="stylesheet" href="./resources/css/normalize.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="./resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./resources/css/common.css" rel="stylesheet">
-    <link rel="stylesheet" href="./resources/css/mainPage.css">
-    <link rel="stylesheet" href="./resources/css/itemList.css">
-</head>
-<body>
 	<header>
 		 <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -27,7 +15,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/home">Home</a></li>
+                        <li><a href="/home">Home</a></li>
                         <li><a href="/itemList">Wish list</a></li>
                         <li><a href="/catList">Categories</a></li>
                     </ul>
@@ -40,8 +28,8 @@
                             </p>
                         </li>
                         <li>
-                            <a href="http://localhost:8080/balance">
-                                <button type="button" class="btn btn-default navbar-btn">
+                            <a href="javascript:void(0);">
+                                <button id="popbutton" class="btn btn-default navbar-btn">
                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings
                                 </button>
                             </a>
@@ -61,3 +49,15 @@
             </div>
          </nav>
 	</header>
+
+    <script>
+    var popoverCnt='<center><a href="/balance"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></center>';
+    $(document).ready(function(){
+        $('#popbutton').popover({
+            title: "<center>Choose settings group</center>",
+            content: popoverCnt,
+            html: true,
+            placement: "bottom"
+        });
+    });
+    </script>

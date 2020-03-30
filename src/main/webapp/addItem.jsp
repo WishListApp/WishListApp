@@ -4,12 +4,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%@include file="header.jsp" %>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>Wish List</title>
+    <link rel="stylesheet" href="./resources/css/addItem.css">
+</head>
 
-<div>
-
-
+<body>
+    <div id="header"><%@ include file="parts/header.jsp" %></div>
+    <div>
     <form:form method="POST" modelAttribute="Item" class="form-signin">
         <spring:bind path="name">
             <div class="form-group">

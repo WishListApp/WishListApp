@@ -68,13 +68,6 @@ public class WishController {
 		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.setViewName("mainPage");
 
-		return model;
-	}
-
-        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        model.addObject("currencyCode", empDao.getCurrencyCode());
-        model.setViewName("mainPage");
-
         return model;
     }
 

@@ -21,7 +21,7 @@
 					width="200" height="200">
 				<p>Users</p>
 			</div></a>
-		 <a href="/admin/editCatList">
+		 <a href="/admin/cat">
 			<div class="grid-item">
 				<img src="https://cdn.onlinewebfonts.com/svg/img_572316.png"
 					width="200" height="200">

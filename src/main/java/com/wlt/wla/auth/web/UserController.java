@@ -5,6 +5,7 @@ import com.wlt.wla.parsers.priceParsers;
 import com.wlt.wla.auth.model.*;
 import com.wlt.wla.auth.service.*;
 import com.wlt.wla.auth.validator.*;
+import com.wlt.wla.data.DBCatItems;
 import com.wlt.wla.data.WishListDaoImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,6 +72,19 @@ public class UserController {
     public String setPwd(Model model, String error, String remove) {
         return "redirect:/admin/users";
     }
+    
+    @GetMapping("/admin/addCat")
+    public String addCat(Model model, String error, String remove) {
+        return "redirect:/admin/cat";
+    }
+    
+    @PostMapping("/admin/addCat")
+    public String addCat(@ModelAttribute("DBCatItems") DBCatItems cats) {
+    	String sql = "INSERT INTO `dr_wishlist`.`item_cat` (`id`, `name`) VALUES (NULL, '"+cats.getName()+"')";
+        jdbcTemp.execute(sql);        
+    	return "redirect:/admin/cat";
+    }
+    
     
     @PostMapping("/admin/setPwd")
     public String setPwd(@ModelAttribute("User") User user) {

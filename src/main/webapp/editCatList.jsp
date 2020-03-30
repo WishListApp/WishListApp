@@ -11,12 +11,14 @@
         <p>Here you can add and delete categories</p>
     </div>
     <div class="table_header_right">
-        <a href="/add">
-            <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                Add 
-            </button>
-        </a>
+    
+                    <div>
+                        <form:form id="addCat" method="POST" name="addCat" action="${contextPath}/admin/addCat"> 
+                             <button  onclick="save()">Add</button> 
+                             <input type="hidden" name="name" id="name"> 
+                         </form:form> 
+                    </div>
+    
     </div>
     <table class="table table-striped">
         <tbody>
@@ -52,6 +54,11 @@
         </tbody>
     </table>
 </div>
+<script>
+    function save {
+        $("#name" ).val(prompt("Enter new Category:"))
+    }
+</script>
 <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>

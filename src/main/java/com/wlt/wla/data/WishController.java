@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WishController {
-	
+
 	@Autowired
 	private WishListDao empDao;
-	
+
 	@RequestMapping(value = "/admin/cat")
 	public ModelAndView editCatlistEmp(ModelAndView model) {
 
@@ -33,20 +33,35 @@ public class WishController {
 		model.addObject("CatEmp", empDao.CatEmp());
 
 		return model;
-	}	
-	
-	@RequestMapping(value = "/admin/users")
-	public ModelAndView UserlistEmp(ModelAndView model) {
-
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
-		model.setViewName("userList");
-		
-		List<User> UlistEmp = empDao.UlistEmp();
-		model.addObject("UlistEmp", UlistEmp);
-
-		return model;
 	}
+
+    @RequestMapping(value = "/admin/users")
+    public ModelAndView UserlistEmp(ModelAndView model, HttpServletRequest request) {
+
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.addObject("currencyCode", empDao.getCurrencyCode());
+        model.setViewName("userList");
+
+        int page = 1;
+        String pageStr;
+
+        if ((pageStr = request.getParameter("page")) != null && !pageStr.equals("0")) {
+            page = Integer.parseInt(pageStr);
+        }
+
+        int itemsPerPage = 5;
+        int startItem = page * itemsPerPage;
+
+        List<User> test = empDao.UlistEmp(itemsPerPage, startItem - 5);
+
+        int size = empDao.UlistEmpSize();
+        int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+
+        model.addObject("UlistEmp", test);
+        model.addObject("currentPage", page);
+        model.addObject("pageCount", pageCount);
+        return model;
+    }
 
 	@RequestMapping(value = "/add")
 	public ModelAndView listCat(ModelAndView modelAndView, Model model) {
@@ -75,45 +90,31 @@ public class WishController {
     public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-        List<DBWishItems> fullList = empDao.WlistEmp();
 
         int page = 1;
         String pageStr;
 
-        if ((pageStr = request.getParameter("page")) != null && pageStr != "0") {
+        if ((pageStr = request.getParameter("page")) != null && !pageStr.equals("0")) {
             page = Integer.parseInt(pageStr);
         }
-		final int LAST_ITEM = 5 * page;
-        int lastItemNum = LAST_ITEM;
 
         int itemsPerPage = 5;
-        int size = fullList.size();
+        int startItem = page * itemsPerPage;
 
-        if (size <= lastItemNum) {
-            lastItemNum = size;
-        }
+        List<DBWishItems> test = empDao.WlistEmp(itemsPerPage, startItem - 5);
 
-        int startItem;
-        if (size < lastItemNum) {
-            startItem = 0;
-        } else {
-        	if (lastItemNum % 5 == 0) {
-				startItem = lastItemNum - itemsPerPage;
-			} else {
-        		startItem = lastItemNum - (lastItemNum - (LAST_ITEM - itemsPerPage));
-			}
-        }
-
-		List<DBWishItems> partList = fullList.subList(startItem, lastItemNum);
+        int size = empDao.WlistEmpSize();
+        System.out.println(size);
         int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+
         modelAndView.addObject("currentPage", page);
         modelAndView.addObject("pageCount", pageCount);
-        modelAndView.addObject("WlistEmp", partList);
+        modelAndView.addObject("WlistEmp", test);
         modelAndView.setViewName("itemList");
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/restoreList")
 	public ModelAndView restoreList(ModelAndView modelAndView) {
 		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
@@ -123,7 +124,7 @@ public class WishController {
 
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/archiveItemList")
 	public ModelAndView archiveItemList(ModelAndView modelAndView) {
 		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));

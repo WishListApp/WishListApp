@@ -56,6 +56,11 @@ public class UserController {
     public String admin(Model model) {
         return "admin";
     }
+    
+    @GetMapping({"/admin/editCatList"})
+    public String editCatList(Model model) {
+        return "editCatList";
+    }
 
     @GetMapping({"/admin/userList"})
     public String userList(Model model) {
@@ -107,14 +112,8 @@ public class UserController {
     
     @PostMapping("/archive")
     public String archiveItem(@ModelAttribute("Item") DBWishItems item) {
-    	
-        //String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '0' WHERE `wishlist_items`.`id` =" + item.getId();
-    	//INSERT into your_table (c1, c2, ...)   	SELECT c1, c2, ...   	FROM your_table   	WHERE id = 1
- 			
         String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status` WHERE id=" + item.getId();
-       
         jdbcTemp.execute(sql);
-
         return "redirect:/itemList";
     }
 

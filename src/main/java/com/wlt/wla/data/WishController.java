@@ -24,6 +24,16 @@ public class WishController {
 	@Autowired
 	private WishListDao empDao;
 	
+	@RequestMapping(value = "/admin/cat")
+	public ModelAndView editCatlistEmp(ModelAndView model) {
+
+		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		model.addObject("currencyCode", empDao.getCurrencyCode());
+		model.setViewName("editCatList");
+		model.addObject("CatEmp", empDao.CatEmp());
+
+		return model;
+	}	
 	
 	@RequestMapping(value = "/admin/users")
 	public ModelAndView UserlistEmp(ModelAndView model) {

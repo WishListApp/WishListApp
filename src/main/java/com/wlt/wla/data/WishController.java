@@ -9,6 +9,7 @@ import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +24,35 @@ public class WishController {
 
     @Autowired
     private WishListDao empDao;
+    private JdbcTemplate jdbcTemp;
 
 
     @RequestMapping(value = "/admin/users")
-    public ModelAndView UserlistEmp(ModelAndView model) {
+    public ModelAndView UserlistEmp(ModelAndView model, HttpServletRequest request) {
 
         model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         model.addObject("currencyCode", empDao.getCurrencyCode());
         model.setViewName("userList");
 
-        List<User> UlistEmp = empDao.UlistEmp();
-        model.addObject("UlistEmp", UlistEmp);
+        int page = 1;
+        String pageStr;
 
+        if ((pageStr = request.getParameter("page")) != null && !pageStr.equals("0")) {
+            page = Integer.parseInt(pageStr);
+        }
+
+        int itemsPerPage = 5;
+        int startItem = page * itemsPerPage;
+        System.out.println(startItem);
+
+        List<User> test = empDao.UlistEmp(itemsPerPage, startItem - 5);
+
+        int size = empDao.UlistEmpSize();
+        int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+
+        model.addObject("UlistEmp", test);
+        model.addObject("currentPage", page);
+        model.addObject("pageCount", pageCount);
         return model;
     }
 
@@ -70,13 +88,14 @@ public class WishController {
         int page = 1;
         String pageStr;
 
-        if ((pageStr = request.getParameter("page")) != null && pageStr != "0") {
+        if ((pageStr = request.getParameter("page")) != null && !pageStr.equals("0")) {
             page = Integer.parseInt(pageStr);
         }
-		final int LAST_ITEM = 5 * page;
-        int lastItemNum = LAST_ITEM;
 
         int itemsPerPage = 5;
+        final int LAST_ITEM = itemsPerPage * page;
+        int lastItemNum = LAST_ITEM;
+
         int size = fullList.size();
 
         if (size <= lastItemNum) {
@@ -84,17 +103,13 @@ public class WishController {
         }
 
         int startItem;
-        if (size < lastItemNum) {
-            startItem = 0;
+        if (lastItemNum % 5 == 0) {
+            startItem = lastItemNum - itemsPerPage;
         } else {
-        	if (lastItemNum % 5 == 0) {
-				startItem = lastItemNum - itemsPerPage;
-			} else {
-        		startItem = lastItemNum - (lastItemNum - (LAST_ITEM - itemsPerPage));
-			}
+            startItem = lastItemNum - (lastItemNum - (LAST_ITEM - itemsPerPage));
         }
 
-		List<DBWishItems> partList = fullList.subList(startItem, lastItemNum);
+        List<DBWishItems> partList = fullList.subList(startItem, lastItemNum);
         int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
         modelAndView.addObject("currentPage", page);
         modelAndView.addObject("pageCount", pageCount);

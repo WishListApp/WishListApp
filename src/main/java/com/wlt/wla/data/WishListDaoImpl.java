@@ -73,13 +73,13 @@ public class WishListDaoImpl implements WishListDao {
 	
 	
 	@Override
-	public List<User> UlistEmp() {
+	public List<User> UlistEmp(int limit, int offset) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 
 		List<User> list = jdbcTemp.query(
-			"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC",
+			"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC LIMIT " + limit + " OFFSET " + offset,
 				new RowMapper<User>() {
 
 					@Override
@@ -98,8 +98,29 @@ public class WishListDaoImpl implements WishListDao {
 
 		return list;
 	}
-	
-	
+
+	@Override
+	public int UlistEmpSize() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+
+		List<User> list = jdbcTemp.query(
+				"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC",
+				(rs, rowNum) -> {
+					User emp = new User();
+
+					emp.setUsername(rs.getString("username"));
+					emp.setId(rs.getLong("id"));
+					emp.setPassword(rs.getString("password"));
+					emp.setuRoleId(rs.getInt("roles_id"));
+
+					return emp;
+				});
+
+		return list.size();
+	}
+
+
 	@Override
 	public List<DBWishItems> WlistEmp() {
 

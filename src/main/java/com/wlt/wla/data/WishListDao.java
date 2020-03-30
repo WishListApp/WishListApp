@@ -10,7 +10,8 @@ public interface WishListDao {
 	public List<DBCatItems> CatEmp();
 	public List<DBPriorities> PriorEmp();
 	public List<DBWishItems> WlistRestoreEmp();
-	public List<User> UlistEmp();
+	public List<User> UlistEmp(int limit, int offset);
+	public int UlistEmpSize();
 	public float getBalance();
 	public String getCurrencyCode();
 	List<DBWishItems> WlistArchiveEmp();

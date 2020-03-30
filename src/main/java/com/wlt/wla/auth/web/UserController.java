@@ -5,6 +5,7 @@ import com.wlt.wla.parsers.priceParsers;
 import com.wlt.wla.auth.model.*;
 import com.wlt.wla.auth.service.*;
 import com.wlt.wla.auth.validator.*;
+import com.wlt.wla.data.DBCatItems;
 import com.wlt.wla.data.WishListDaoImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,11 @@ public class UserController {
     public String admin(Model model) {
         return "admin";
     }
+    
+    @GetMapping({"/admin/editCatList"})
+    public String editCatList(Model model) {
+        return "editCatList";
+    }
 
     @GetMapping({"/admin/userList"})
     public String userList(Model model) {
@@ -66,6 +72,19 @@ public class UserController {
     public String setPwd(Model model, String error, String remove) {
         return "redirect:/admin/users";
     }
+    
+    @GetMapping("/admin/addCat")
+    public String addCat(Model model, String error, String remove) {
+        return "redirect:/admin/cat";
+    }
+    
+    @PostMapping("/admin/addCat")
+    public String addCat(@ModelAttribute("DBCatItems") DBCatItems cats) {
+    	String sql = "INSERT INTO `dr_wishlist`.`item_cat` (`id`, `name`) VALUES (NULL, '"+cats.getName()+"')";
+        jdbcTemp.execute(sql);        
+    	return "redirect:/admin/cat";
+    }
+    
     
     @PostMapping("/admin/setPwd")
     public String setPwd(@ModelAttribute("User") User user) {
@@ -107,14 +126,8 @@ public class UserController {
     
     @PostMapping("/archive")
     public String archiveItem(@ModelAttribute("Item") DBWishItems item) {
-    	
-        //String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '0' WHERE `wishlist_items`.`id` =" + item.getId();
-    	//INSERT into your_table (c1, c2, ...)   	SELECT c1, c2, ...   	FROM your_table   	WHERE id = 1
- 			
         String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status` WHERE id=" + item.getId();
-       
         jdbcTemp.execute(sql);
-
         return "redirect:/itemList";
     }
 

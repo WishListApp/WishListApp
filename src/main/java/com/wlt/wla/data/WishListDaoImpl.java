@@ -30,13 +30,18 @@ public class WishListDaoImpl implements WishListDao {
 		String currentPrincipalName = authentication.getName();
 
 		List<DBCatItems> list = jdbcTemp.query(
-			"SELECT * from item_cat ORDER BY id ASC",
-				(rs, rowNum) -> {
-					DBCatItems emp = new DBCatItems();
+			"SELECT * from item_cat ORDER BY name ASC",
+				new RowMapper<DBCatItems>() {
 
-					emp.setName(rs.getString("name"));
-					emp.setId(rs.getInt("id"));
-					return emp;
+					@Override
+					public DBCatItems mapRow(ResultSet rs, int rowNum) throws SQLException {
+						DBCatItems emp = new DBCatItems();
+
+						emp.setName(rs.getString("name"));
+						emp.setId(rs.getInt("id"));
+						return emp;
+					}
+
 				});
 
 		return list;

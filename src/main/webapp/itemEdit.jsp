@@ -8,7 +8,6 @@
 
 <div>
 
-
     <form:form method="POST" modelAttribute="Item" action="${contextPath}/updateItem" class="form-signin">
         <h2>Edit Item</h2>
         <spring:bind path="name">
@@ -55,6 +54,7 @@
 
             </div>
         </spring:bind>
+
         <form:input path="id" type="hidden"></form:input>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
     </form:form>

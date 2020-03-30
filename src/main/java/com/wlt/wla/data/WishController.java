@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WishController {
@@ -55,7 +58,6 @@ public class WishController {
 		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.setViewName("mainPage");
 
-
 		return model;
 	}
 
@@ -65,7 +67,6 @@ public class WishController {
 		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 		modelAndView.addObject("WlistEmp", empDao.WlistEmp());
 		modelAndView.setViewName("itemList");
-
 
 		return modelAndView;
 	}
@@ -87,6 +88,24 @@ public class WishController {
 		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.setViewName("balance");
 
+		return model;
+	}
+
+	@PostMapping("/itemEditPage")
+	public ModelAndView itemEdit(ModelAndView model, HttpServletRequest request) {
+		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		model.addObject("currencyCode", empDao.getCurrencyCode());
+		model.addObject("Item", new DBWishItems(
+				request.getParameter("name"),
+				Integer.parseInt(request.getParameter("id")),
+				Float.parseFloat(request.getParameter("price")),
+				request.getParameter("category"),
+				request.getParameter("priority"),
+				request.getParameter("url")
+				));
+		model.addObject("CatEmp", empDao.CatEmp());
+		model.addObject("PriorEmp", empDao.PriorEmp());
+		model.setViewName("itemEdit");
 		return model;
 	}
 

@@ -1,6 +1,5 @@
 package com.wlt.wla.data;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,7 +10,6 @@ import com.wlt.wla.auth.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,23 +18,57 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class WishController {
-	
+
 	@Autowired
 	private WishListDao empDao;
-	
-	
-	@RequestMapping(value = "/admin/users")
-	public ModelAndView UserlistEmp(ModelAndView model) {
 
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
-		model.setViewName("userList");
-		
-		List<User> UlistEmp = empDao.UlistEmp();
-		model.addObject("UlistEmp", UlistEmp);
+	@RequestMapping(value = "/admin/cat")
+	public ModelAndView editCatlistEmp(ModelAndView model) {
+
+		model.setViewName("editCatList");
+		model.addObject("CatEmp", empDao.CatEmp());
 
 		return model;
 	}
+	
+	
+
+	private List<User> getPartOfUserList(int page, int itemsPerPage) {
+		int startItem = page * itemsPerPage;
+
+		return empDao.UlistEmp(itemsPerPage, startItem - itemsPerPage);
+	}
+
+	private List<DBWishItems> getPartOfItemList(int page, int itemsPerPage) {
+		int startItem = page * itemsPerPage;
+
+		return empDao.WlistEmp(itemsPerPage, startItem - itemsPerPage);
+	}
+
+	private int getPage(String pageStr) {
+		int page = 1;
+		if (pageStr != null && !pageStr.equals("0")) {
+			page = Integer.parseInt(pageStr);
+		}
+		return page;
+	}
+
+    @RequestMapping(value = "/admin/users")
+    public ModelAndView UserlistEmp(ModelAndView model, HttpServletRequest request) {
+
+        model.setViewName("userList");
+
+        int page = getPage(request.getParameter("page"));
+        int itemsPerPage = 5;
+		int pageCount = (int) Math.ceil(empDao.getUlistEmpSize() * 1.0 / itemsPerPage);
+
+		List<User> test = getPartOfUserList(page, itemsPerPage);
+
+        model.addObject("UlistEmp", test);
+        model.addObject("currentPage", page);
+        model.addObject("pageCount", pageCount);
+        return model;
+    }
 
 	@RequestMapping(value = "/add")
 	public ModelAndView listCat(ModelAndView modelAndView, Model model) {
@@ -58,15 +90,44 @@ public class WishController {
 		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.setViewName("mainPage");
 
-		return model;
+        return model;
+    }
+
+    @RequestMapping(value = "/itemList")
+    public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+
+        int page = getPage(request.getParameter("page"));
+        int itemsPerPage = 5;
+		int pageCount = (int) Math.ceil(empDao.WlistEmpSize() * 1.0 / itemsPerPage);
+
+		List<DBWishItems> test = getPartOfItemList(page, itemsPerPage);
+
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("pageCount", pageCount);
+        modelAndView.addObject("WlistEmp", test);
+        modelAndView.setViewName("itemList");
+
+		return modelAndView;
 	}
 
-	@RequestMapping(value = "/itemList")
-	public ModelAndView itemList(ModelAndView modelAndView) {
+	@RequestMapping(value = "/restoreList")
+	public ModelAndView restoreList(ModelAndView modelAndView) {
 		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
 		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-		modelAndView.addObject("WlistEmp", empDao.WlistEmp());
-		modelAndView.setViewName("itemList");
+		modelAndView.addObject("WlistRestoreEmp", empDao.WlistRestoreEmp());
+		modelAndView.setViewName("restoreList");
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/archiveItemList")
+	public ModelAndView archiveItemList(ModelAndView modelAndView) {
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+		modelAndView.addObject("WlistArchiveEmp", empDao.WlistArchiveEmp());
+		modelAndView.setViewName("archiveItemList");
 
 		return modelAndView;
 	}

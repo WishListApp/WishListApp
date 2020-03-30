@@ -16,37 +16,48 @@
 <body>
 	<div id="header"><%@ include file="parts/header.jsp" %></div>
 
-	<div class="container">
-		<div class="table_header_left">
-			<h2>Your WishList</h2>
-			<p>Here you can see, edit and delete items from your WishList:</p>
-		</div>
-		<div class="table_header_right">
-			<a href="/add">
-				<button type="button" class="btn btn-default btn-lg">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					Add Item
-				</button>
-			</a>
-		</div>
-		<table class="table table-striped">
-			<thead>
+<div class="container">
+	<div class="table_header_left">
+		<h2>Your WishList</h2>
+		<p>Here you can see, edit and delete items from your WishList:</p>
+	</div>
+	<div class="table_header_right">
+		<a href="/add">
+			<button type="button" class="btn btn-default btn-lg">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				Add Item
+			</button>
+		</a> <a href="/restore">
+			<button type="button" class="btn btn-default btn-lg">
+				<span class="glyphicon" aria-hidden="true"></span>
+				Restore Item
+			</button>
+		</a>
+ <a href="/archive">
+			<button type="button" class="btn btn-default btn-lg">
+				<span class="glyphicon" aria-hidden="true"></span>
+				Fulfilled Items
+			</button>
+		</a>
+	</div>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Item Name</th>
+				<th>Category</th>
+				<th>Price</th>
+				<th>Priority</th>
+				<th>Edit</th>
+				<th>Fulfill</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="emp" items="${WlistEmp}" varStatus="status">
 				<tr>
-					<th>Item Name</th>
-					<th>Category</th>
-					<th>Price</th>
-					<th>Priority</th>
-					<th>Edit</th>
-					<th>Fulfill</th>
-					<th>Remove</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-					<tr>
-						<c:if test="${emp.url != ''}">
-							<td>
-								<div id="thumbwrap">
+					<c:if test="${emp.url != ''}">
+						<td>
+							<div id="thumbwrap">
 
 									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
 											<c:if test="${emp.urlImg != ''}">
@@ -109,15 +120,31 @@
 									items="${WlistEmp}">
 									<input type="hidden" name="id" value="${emp.id}" />
 
-									<button class="btn-danger"
-										onclick="return confirm('Are you sure you want to delete this item?');">Remove</button>
-								</form:form>
-							</div>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+                            <button class="btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Remove
+                            </button>
+                        </form:form>
+                    </div>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <c:if test="${currentPage != 1}">
+        <td><a href="/itemList?page=${currentPage - 1}">Previous</a></td>
+    </c:if>
+
+    <table>
+        <tbody>
+        <tr>
+            <c:forEach begin="1" end="${pageCount}" var="i">
+                <td><a href="/itemList?page=${i}">${i}</a></td>
+            </c:forEach>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
 </body>
 </html>

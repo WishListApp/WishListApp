@@ -6,12 +6,16 @@ import com.wlt.wla.auth.model.User;
 
 public interface WishListDao {
 
-	public List<DBWishItems> WlistEmp();
+	public List<DBWishItems> WlistEmp(int limit, int offset);
+	public int WlistEmpSize();
 	public List<DBCatItems> CatEmp();
 	public List<DBPriorities> PriorEmp();
-	public List<User> UlistEmp();
-
+	public List<DBWishItems> WlistRestoreEmp();
+	public List<User> UlistEmp(int limit, int offset);
+	public int getUlistEmpSize();
 	public float getBalance();
 	public String getCurrencyCode();
+	List<DBWishItems> WlistArchiveEmp();
+	
 
 }

@@ -11,7 +11,7 @@
         <p>Here you can see, edit and delete users</p>
     </div>
     <div class="table_header_right">
-        <a href="http://localhost:8080/add">
+        <a href="/add">
             <button type="button" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Add Item
@@ -49,6 +49,20 @@
                 </td>
             </tr>
         </c:forEach>
+        </tbody>
+    </table>
+
+    <c:if test="${currentPage != 1}">
+        <td><a href="/itemList?page=${currentPage - 1}">Previous</a></td>
+    </c:if>
+
+    <table>
+        <tbody>
+        <tr>
+            <c:forEach begin="1" end="${pageCount}" var="i">
+                <td><a href="/admin/users?page=${i}">${i}</a></td>
+            </c:forEach>
+        </tr>
         </tbody>
     </table>
 </div>

@@ -71,12 +71,52 @@ public class WishController {
 		return model;
 	}
 
-	@RequestMapping(value = "/itemList")
-	public ModelAndView itemList(ModelAndView modelAndView) {
-		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-		modelAndView.addObject("WlistEmp", empDao.WlistEmp());
-		modelAndView.setViewName("itemList");
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.addObject("currencyCode", empDao.getCurrencyCode());
+        model.setViewName("mainPage");
+
+        return model;
+    }
+
+    @RequestMapping(value = "/itemList")
+    public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+        List<DBWishItems> fullList = empDao.WlistEmp();
+
+        int page = 1;
+        String pageStr;
+
+        if ((pageStr = request.getParameter("page")) != null && pageStr != "0") {
+            page = Integer.parseInt(pageStr);
+        }
+		final int LAST_ITEM = 5 * page;
+        int lastItemNum = LAST_ITEM;
+
+        int itemsPerPage = 5;
+        int size = fullList.size();
+
+        if (size <= lastItemNum) {
+            lastItemNum = size;
+        }
+
+        int startItem;
+        if (size < lastItemNum) {
+            startItem = 0;
+        } else {
+        	if (lastItemNum % 5 == 0) {
+				startItem = lastItemNum - itemsPerPage;
+			} else {
+        		startItem = lastItemNum - (lastItemNum - (LAST_ITEM - itemsPerPage));
+			}
+        }
+
+		List<DBWishItems> partList = fullList.subList(startItem, lastItemNum);
+        int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("pageCount", pageCount);
+        modelAndView.addObject("WlistEmp", partList);
+        modelAndView.setViewName("itemList");
 
 		return modelAndView;
 	}

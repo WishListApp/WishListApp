@@ -51,81 +51,95 @@
 						<td>
 							<div id="thumbwrap">
 
-								<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
-										<c:if test="${emp.urlImg != ''}">
-											<img src="${emp.urlImg}" alt="" style="max-height: 200px;">
-										</c:if>
+									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
+											<c:if test="${emp.urlImg != ''}">
+												<img src="${emp.urlImg}" alt="" style="max-height: 200px;">
+											</c:if>
 
-								</span></a>
-							</div>
-						</td>
-					</c:if>
-					<c:if test="${emp.url == ''}">
-						<td>${emp.name}</td>
-					</c:if>
-
-					<td>${emp.cat_name}</td>
-					<td>${emp.priceStr}${currencyCode}<c:if
-							test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
-
-							<form:form method="POST" action="${contextPath}/updatePrice"
-								items="${WlistEmp}">
-								<input type="hidden" name="id" value="${emp.id}" />
-								<input type="hidden" name="url" value="${emp.url}" />
-								<button class="btn-danger">Update Price from URL</button>
-							</form:form>
+									</span></a>
+								</div>
+							</td>
+						</c:if>
+						<c:if test="${emp.url == ''}">
+							<td>${emp.name}</td>
 						</c:if>
 
-					</td>
-					<td><c:if test="${emp.priority==1}">
-							<font color=red> ${emp.priority_name} </font>
-						</c:if> <c:if test="${emp.priority==5}">
-							<font color=green> ${emp.priority_name} </font>
-						</c:if> <c:if test="${emp.priority==10}">
-							<font color=black> ${emp.priority_name} </font>
-						</c:if></td>
-					<td>
-						<div>
-							<form:form method="POST" action="${contextPath}/itemEditPage">
-								<input type="hidden" name="id" value="${emp.id}">
-								<input type="hidden" name="name" value="${emp.name}">
-								<input type="hidden" name="price" value="${emp.priceStr}">
-								<input type="hidden" name="category" value="${emp.cat_name}">
-								<input type="hidden" name="priority"
-									value="${emp.priority_name}">
-								<input type="hidden" name="url" value="${emp.url}">
-								<input type="hidden" name="user_id" value="${emp.user_id}">
-								<button class="btn btn-default btn-xs">Edit</button>
-							</form:form>
-						</div>
-					</td>
-					<td>
-						<div>
-							<form:form method="POST" action="${contextPath}/fulfill"
-								items="${WlistEmp}">
-								<input type="hidden" name="id" value="${emp.id}">
-								<button class="btn-success" value="${emp.id}">Fulfill</button>
-							</form:form>
-						</div>
-					</td>
-					<td>
-						<div>
-							<form:form method="POST" action="${contextPath}/remove"
-								items="${WlistEmp}">
-								<input type="hidden" name="id" value="${emp.id}" />
+						<td>${emp.cat_name}</td>
+						<td>${emp.priceStr} ${currencyCode}<c:if
+								test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
 
-								<button class="btn-danger"
-									onclick="return confirm('Are you sure you want to delete this item?');">Remove</button>
-							</form:form>
-						</div>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+								<form:form method="POST" action="${contextPath}/updatePrice"
+									items="${WlistEmp}">
+									<input type="hidden" name="id" value="${emp.id}" />
+									<input type="hidden" name="url" value="${emp.url}" />
+									<button class="btn-danger">Update Price from URL</button>
+								</form:form>
+							</c:if>
+
+						</td>
+						<td><c:if test="${emp.priority==1}">
+								<font color=red> ${emp.priority_name} </font>
+							</c:if> <c:if test="${emp.priority==5}">
+								<font color=green> ${emp.priority_name} </font>
+							</c:if> <c:if test="${emp.priority==10}">
+								<font color=black> ${emp.priority_name} </font>
+							</c:if></td>
+						<td>
+							<div>
+								<form:form method="POST" action="${contextPath}/itemEditPage">
+									<input type="hidden" name="id" value="${emp.id}">
+									<input type="hidden" name="name" value="${emp.name}">
+									<input type="hidden" name="price" value="${emp.priceStr}">
+									<input type="hidden" name="category" value="${emp.cat_name}">
+									<input type="hidden" name="priority" value="${emp.priority_name}">
+									<input type="hidden" name="url" value="${emp.url}">
+									<input type="hidden" name="user_id" value="${emp.user_id}">
+									<button class="btn btn-default btn-xs">Edit</button>
+								</form:form>
+							</div>
+						</td>
+						<td>
+							<div>
+								<form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
+									<input type="hidden" name="id" value="${emp.id}">
+									<button class="btn-success" value="${emp.id}">Fulfill</button>
+								</form:form>
+							</div>
+						</td>
+						<td>
+							<div>
+								<form:form method="POST" action="${contextPath}/remove"
+									items="${WlistEmp}">
+									<input type="hidden" name="id" value="${emp.id}" />
+
+                            <button class="btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Remove
+                            </button>
+                        </form:form>
+                    </div>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+
+    <c:if test="${currentPage != 1}">
+        <td><a href="/itemList?page=${currentPage - 1}">Previous</a></td>
+    </c:if>
+
+    <table>
+        <tbody>
+        <tr>
+            <c:forEach begin="1" end="${pageCount}" var="i">
+                <td><a href="/itemList?page=${i}">${i}</a></td>
+            </c:forEach>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

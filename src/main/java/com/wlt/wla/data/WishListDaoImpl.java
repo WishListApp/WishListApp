@@ -31,17 +31,12 @@ public class WishListDaoImpl implements WishListDao {
 
 		List<DBCatItems> list = jdbcTemp.query(
 			"SELECT * from item_cat ORDER BY id ASC",
-				new RowMapper<DBCatItems>() {
+				(rs, rowNum) -> {
+					DBCatItems emp = new DBCatItems();
 
-					@Override
-					public DBCatItems mapRow(ResultSet rs, int rowNum) throws SQLException {
-						DBCatItems emp = new DBCatItems();
-
-						emp.setName(rs.getString("name"));
-						emp.setId(rs.getInt("id"));
-						return emp;
-					}
-
+					emp.setName(rs.getString("name"));
+					emp.setId(rs.getInt("id"));
+					return emp;
 				});
 
 		return list;
@@ -55,17 +50,12 @@ public class WishListDaoImpl implements WishListDao {
 
 		List<DBPriorities> list = jdbcTemp.query(
 			"SELECT * from priority ORDER BY id ASC",
-				new RowMapper<DBPriorities>() {
+				(rs, rowNum) -> {
+					DBPriorities emp = new DBPriorities();
 
-					@Override
-					public DBPriorities mapRow(ResultSet rs, int rowNum) throws SQLException {
-						DBPriorities emp = new DBPriorities();
-
-						emp.setName(rs.getString("name"));
-						emp.setId(rs.getInt("id"));
-						return emp;
-					}
-
+					emp.setName(rs.getString("name"));
+					emp.setId(rs.getInt("id"));
+					return emp;
 				});
 
 		return list;
@@ -80,20 +70,15 @@ public class WishListDaoImpl implements WishListDao {
 
 		List<User> list = jdbcTemp.query(
 			"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC LIMIT " + limit + " OFFSET " + offset,
-				new RowMapper<User>() {
+				(rs, rowNum) -> {
+					User emp = new User();
 
-					@Override
-					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-						User emp = new User();
-						
-						emp.setUsername(rs.getString("username"));
-						emp.setId(rs.getLong("id"));
-						emp.setPassword(rs.getString("password"));
-						emp.setuRoleId(rs.getInt("roles_id"));
-						
-						return emp;
-					}
+					emp.setUsername(rs.getString("username"));
+					emp.setId(rs.getLong("id"));
+					emp.setPassword(rs.getString("password"));
+					emp.setuRoleId(rs.getInt("roles_id"));
 
+					return emp;
 				});
 
 		return list;
@@ -122,7 +107,7 @@ public class WishListDaoImpl implements WishListDao {
 
 
 	@Override
-	public List<DBWishItems> WlistEmp() {
+	public List<DBWishItems> WlistEmp(int limit, int offset) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
@@ -134,41 +119,72 @@ public class WishListDaoImpl implements WishListDao {
 			"AND user.username = '"+currentPrincipalName+"'\n" + 
 			"AND item_cat.id = wishlist_items.cat_id\n" + 
 			"AND user.id = user_id\n" + "AND status = 0 " +
-			"ORDER BY priority DESC, wishlist_items.id ASC\n",
-				new RowMapper<DBWishItems>() {
+			"ORDER BY priority DESC, wishlist_items.id ASC\n" +
+				"LIMIT " + limit + " OFFSET " + offset,
+				(rs, rowNum) -> {
+					DBWishItems emp = new DBWishItems();
 
-					@Override
-					public DBWishItems mapRow(ResultSet rs, int rowNum) throws SQLException {
-						DBWishItems emp = new DBWishItems();
+					emp.setName(rs.getString("name"));
+					emp.setGroup(rs.getInt("cat_id"));
+					emp.setId(rs.getInt("id"));
+					emp.setPrice(rs.getFloat("price"));
+					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+					emp.setUser_id(rs.getInt("user_id"));
+					emp.setPriority(rs.getInt("priority"));
+					emp.setCat_name(rs.getString("cat_name"));
+					emp.setPriority_name(rs.getString("priority_name"));
+					emp.setUrl(rs.getString("url"));
+					//parseimg
+					imgParsers pp = new imgParsers();
+					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
-						emp.setName(rs.getString("name"));
-						emp.setGroup(rs.getInt("cat_id"));
-						emp.setId(rs.getInt("id"));
-						emp.setPrice(rs.getFloat("price"));
-						emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-						emp.setUser_id(rs.getInt("user_id"));
-						emp.setPriority(rs.getInt("priority"));
-						emp.setCat_name(rs.getString("cat_name"));
-						emp.setPriority_name(rs.getString("priority_name"));
-						emp.setUrl(rs.getString("url"));
-						//parseimg
-						imgParsers pp = new imgParsers();
-						if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-						if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-						
-						//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
-						
-						return emp;
-					}
+					//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
+					return emp;
 				});
 
 		return list;
 	}
 
-	
-	
-	
+	@Override
+	public int WlistEmpSize() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+
+		List<DBWishItems> list = jdbcTemp.query(
+				"SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+						"FROM `wishlist_items` , priority, user, item_cat\n" +
+						"WHERE priority.id = wishlist_items.priority\n" +
+						"AND user.username = '"+currentPrincipalName+"'\n" +
+						"AND item_cat.id = wishlist_items.cat_id\n" +
+						"AND user.id = user_id\n" + "AND status = 0 " +
+						"ORDER BY priority DESC, wishlist_items.id ASC\n",
+				(rs, rowNum) -> {
+					DBWishItems emp = new DBWishItems();
+
+					emp.setName(rs.getString("name"));
+					emp.setGroup(rs.getInt("cat_id"));
+					emp.setId(rs.getInt("id"));
+					emp.setPrice(rs.getFloat("price"));
+					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+					emp.setUser_id(rs.getInt("user_id"));
+					emp.setPriority(rs.getInt("priority"));
+					emp.setCat_name(rs.getString("cat_name"));
+					emp.setPriority_name(rs.getString("priority_name"));
+					emp.setUrl(rs.getString("url"));
+					//parseimg
+					imgParsers pp = new imgParsers();
+					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+
+					//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+
+					return emp;
+				});
+
+		return list.size();
+	}
 	
 	@Override
 	public List<DBWishItems> WlistArchiveEmp() {
@@ -184,31 +200,26 @@ public class WishListDaoImpl implements WishListDao {
 			"AND item_cat.id = wishlist_items.cat_id\n" + 
 			"AND user.id = user_id\n" + "AND status = 1 " +
 			"ORDER BY priority DESC, wishlist_items.id ASC\n",
-				new RowMapper<DBWishItems>() {
+				(rs, rowNum) -> {
+					DBWishItems emp = new DBWishItems();
 
-					@Override
-					public DBWishItems mapRow(ResultSet rs, int rowNum) throws SQLException {
-						DBWishItems emp = new DBWishItems();
+					emp.setName(rs.getString("name"));
+					emp.setGroup(rs.getInt("cat_id"));
+					emp.setId(rs.getInt("id"));
+					emp.setPrice(rs.getFloat("price"));
+					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+					emp.setUser_id(rs.getInt("user_id"));
+					emp.setPriority(rs.getInt("priority"));
+					emp.setCat_name(rs.getString("cat_name"));
+					emp.setPriority_name(rs.getString("priority_name"));
+					emp.setUrl(rs.getString("url"));
+					//parseimg
+					imgParsers pp = new imgParsers();
+					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
-						emp.setName(rs.getString("name"));
-						emp.setGroup(rs.getInt("cat_id"));
-						emp.setId(rs.getInt("id"));
-						emp.setPrice(rs.getFloat("price"));
-						emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-						emp.setUser_id(rs.getInt("user_id"));
-						emp.setPriority(rs.getInt("priority"));
-						emp.setCat_name(rs.getString("cat_name"));
-						emp.setPriority_name(rs.getString("priority_name"));
-						emp.setUrl(rs.getString("url"));
-						//parseimg
-						imgParsers pp = new imgParsers();
-						if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-						if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-						
-						
-						return emp;
-					}
 
+					return emp;
 				});
 
 		return list;
@@ -229,32 +240,27 @@ public class WishListDaoImpl implements WishListDao {
 			"AND item_cat.id = wishlist_items.cat_id\n" + 
 			"AND user.id = user_id\n" + "AND status = -1 " +
 			"ORDER BY priority DESC, wishlist_items.id ASC\n",
-				new RowMapper<DBWishItems>() {
+				(rs, rowNum) -> {
+					DBWishItems emp = new DBWishItems();
 
-					@Override
-					public DBWishItems mapRow(ResultSet rs, int rowNum) throws SQLException {
-						DBWishItems emp = new DBWishItems();
+					emp.setName(rs.getString("name"));
+					emp.setGroup(rs.getInt("cat_id"));
+					emp.setId(rs.getInt("id"));
+					emp.setPrice(rs.getFloat("price"));
+					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+					emp.setUser_id(rs.getInt("user_id"));
+					emp.setPriority(rs.getInt("priority"));
+					emp.setCat_name(rs.getString("cat_name"));
+					emp.setPriority_name(rs.getString("priority_name"));
+					emp.setUrl(rs.getString("url"));
+					//parseimg
+					imgParsers pp = new imgParsers();
+					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
-						emp.setName(rs.getString("name"));
-						emp.setGroup(rs.getInt("cat_id"));
-						emp.setId(rs.getInt("id"));
-						emp.setPrice(rs.getFloat("price"));
-						emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-						emp.setUser_id(rs.getInt("user_id"));
-						emp.setPriority(rs.getInt("priority"));
-						emp.setCat_name(rs.getString("cat_name"));
-						emp.setPriority_name(rs.getString("priority_name"));
-						emp.setUrl(rs.getString("url"));
-						//parseimg
-						imgParsers pp = new imgParsers();
-						if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-						if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-						
-						//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
-						
-						return emp;
-					}
+					//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
+					return emp;
 				});
 
 		return list;

@@ -43,7 +43,6 @@ public class WishController {
 
         int itemsPerPage = 5;
         int startItem = page * itemsPerPage;
-        System.out.println(startItem);
 
         List<User> test = empDao.UlistEmp(itemsPerPage, startItem - 5);
 
@@ -83,7 +82,6 @@ public class WishController {
     public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-        List<DBWishItems> fullList = empDao.WlistEmp();
 
         int page = 1;
         String pageStr;
@@ -93,27 +91,17 @@ public class WishController {
         }
 
         int itemsPerPage = 5;
-        final int LAST_ITEM = itemsPerPage * page;
-        int lastItemNum = LAST_ITEM;
+        int startItem = page * itemsPerPage;
 
-        int size = fullList.size();
+        List<DBWishItems> test = empDao.WlistEmp(itemsPerPage, startItem - 5);
 
-        if (size <= lastItemNum) {
-            lastItemNum = size;
-        }
-
-        int startItem;
-        if (lastItemNum % 5 == 0) {
-            startItem = lastItemNum - itemsPerPage;
-        } else {
-            startItem = lastItemNum - (lastItemNum - (LAST_ITEM - itemsPerPage));
-        }
-
-        List<DBWishItems> partList = fullList.subList(startItem, lastItemNum);
+        int size = empDao.WlistEmpSize();
+        System.out.println(size);
         int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+
         modelAndView.addObject("currentPage", page);
         modelAndView.addObject("pageCount", pageCount);
-        modelAndView.addObject("WlistEmp", partList);
+        modelAndView.addObject("WlistEmp", test);
         modelAndView.setViewName("itemList");
 
 		return modelAndView;

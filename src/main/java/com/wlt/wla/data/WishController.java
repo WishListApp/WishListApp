@@ -101,15 +101,35 @@ public class WishController {
         modelAndView.addObject("WlistEmp", partList);
         modelAndView.setViewName("itemList");
 
-        return modelAndView;
-    }
+		return modelAndView;
+	}
 
-    @RequestMapping(value = "/catList")
-    public ModelAndView catList(ModelAndView modelAndView) {
-        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        modelAndView.addObject("CatEmp", empDao.CatEmp());
-        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-        modelAndView.setViewName("catList");
+	@RequestMapping(value = "/restoreList")
+	public ModelAndView restoreList(ModelAndView modelAndView) {
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+		modelAndView.addObject("WlistRestoreEmp", empDao.WlistRestoreEmp());
+		modelAndView.setViewName("restoreList");
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/archiveItemList")
+	public ModelAndView archiveItemList(ModelAndView modelAndView) {
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+		modelAndView.addObject("WlistArchiveEmp", empDao.WlistArchiveEmp());
+		modelAndView.setViewName("archiveItemList");
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/catList")
+	public ModelAndView catList(ModelAndView modelAndView) {
+		modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+		modelAndView.addObject("CatEmp", empDao.CatEmp());
+		modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+		modelAndView.setViewName("catList");
 
         return modelAndView;
     }

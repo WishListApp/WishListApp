@@ -1,6 +1,5 @@
 package com.wlt.wla.data;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,7 +10,6 @@ import com.wlt.wla.auth.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,6 +33,26 @@ public class WishController {
 		return model;
 	}
 
+	private List<User> getPartOfUserList(int page, int itemsPerPage) {
+		int startItem = page * itemsPerPage;
+
+		return empDao.UlistEmp(itemsPerPage, startItem - itemsPerPage);
+	}
+
+	private List<DBWishItems> getPartOfItemList(int page, int itemsPerPage) {
+		int startItem = page * itemsPerPage;
+
+		return empDao.WlistEmp(itemsPerPage, startItem - itemsPerPage);
+	}
+
+	private int getPage(String pageStr) {
+		int page = 1;
+		if (pageStr != null && !pageStr.equals("0")) {
+			page = Integer.parseInt(pageStr);
+		}
+		return page;
+	}
+
     @RequestMapping(value = "/admin/users")
     public ModelAndView UserlistEmp(ModelAndView model, HttpServletRequest request) {
 
@@ -42,20 +60,11 @@ public class WishController {
         model.addObject("currencyCode", empDao.getCurrencyCode());
         model.setViewName("userList");
 
-        int page = 1;
-        String pageStr;
-
-        if ((pageStr = request.getParameter("page")) != null && !pageStr.equals("0")) {
-            page = Integer.parseInt(pageStr);
-        }
-
+        int page = getPage(request.getParameter("page"));
         int itemsPerPage = 5;
-        int startItem = page * itemsPerPage;
+		int pageCount = (int) Math.ceil(empDao.getUlistEmpSize() * 1.0 / itemsPerPage);
 
-        List<User> test = empDao.UlistEmp(itemsPerPage, startItem - 5);
-
-        int size = empDao.UlistEmpSize();
-        int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+		List<User> test = getPartOfUserList(page, itemsPerPage);
 
         model.addObject("UlistEmp", test);
         model.addObject("currentPage", page);
@@ -91,21 +100,11 @@ public class WishController {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 
-        int page = 1;
-        String pageStr;
-
-        if ((pageStr = request.getParameter("page")) != null && !pageStr.equals("0")) {
-            page = Integer.parseInt(pageStr);
-        }
-
+        int page = getPage(request.getParameter("page"));
         int itemsPerPage = 5;
-        int startItem = page * itemsPerPage;
+		int pageCount = (int) Math.ceil(empDao.WlistEmpSize() * 1.0 / itemsPerPage);
 
-        List<DBWishItems> test = empDao.WlistEmp(itemsPerPage, startItem - 5);
-
-        int size = empDao.WlistEmpSize();
-        System.out.println(size);
-        int pageCount = (int) Math.ceil(size * 1.0 / itemsPerPage);
+		List<DBWishItems> test = getPartOfItemList(page, itemsPerPage);
 
         modelAndView.addObject("currentPage", page);
         modelAndView.addObject("pageCount", pageCount);

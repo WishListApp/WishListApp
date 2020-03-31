@@ -207,7 +207,7 @@ public class UserController {
 		return "redirect:/itemList";
 	}
 
-	@PostMapping("/add")
+	@PostMapping("/itemList")
 	public String add(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

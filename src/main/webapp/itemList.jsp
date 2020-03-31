@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,31 +15,32 @@
 </head>
 <body>
 	<div id="header"><%@ include file="parts/header.jsp" %></div>
-
 <div class="container">
 	<div class="table_header_left">
 		<h2>Your WishList</h2>
 		<p>Here you can see, edit and delete items from your WishList:</p>
 	</div>
 	<div class="table_header_right">
-		<a href="/add">
-			<button type="button" class="btn btn-default btn-lg">
+			<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addItemModal">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				Add Item
 			</button>
-		</a> <a href="/restore">
+		<a href="/restore">
 			<button type="button" class="btn btn-default btn-lg">
 				<span class="glyphicon" aria-hidden="true"></span>
 				Restore Item
 			</button>
 		</a>
- <a href="/archive">
+        <a href="/archive">
 			<button type="button" class="btn btn-default btn-lg">
 				<span class="glyphicon" aria-hidden="true"></span>
 				Fulfilled Items
 			</button>
 		</a>
 	</div>
+
+    <%@ include file="parts/modals.jsp" %>
+
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -94,7 +95,7 @@
 							</c:if></td>
 						<td>
 							<div>
-								<form:form method="POST" action="${contextPath}/itemEditPage">
+								<form:form method="POST">
 									<input type="hidden" name="id" value="${emp.id}">
 									<input type="hidden" name="name" value="${emp.name}">
 									<input type="hidden" name="price" value="${emp.priceStr}">
@@ -102,7 +103,7 @@
 									<input type="hidden" name="priority" value="${emp.priority_name}">
 									<input type="hidden" name="url" value="${emp.url}">
 									<input type="hidden" name="user_id" value="${emp.user_id}">
-									<button class="btn btn-default btn-xs">Edit</button>
+									<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#editItemModal">Edit</button>
 								</form:form>
 							</div>
 						</td>

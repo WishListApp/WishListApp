@@ -94,7 +94,7 @@ public class WishController {
     }
 
     @RequestMapping(value = "/itemList")
-    public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
+    public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request, Model model) {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 
@@ -109,6 +109,9 @@ public class WishController {
         modelAndView.addObject("WlistEmp", test);
         modelAndView.setViewName("itemList");
 
+		modelAndView.addObject("CatEmp", empDao.CatEmp());
+		modelAndView.addObject("PriorEmp", empDao.PriorEmp());
+		model.addAttribute("Item", new DBWishItems());
 		return modelAndView;
 	}
 
@@ -154,8 +157,6 @@ public class WishController {
 
 	@PostMapping("/itemEditPage")
 	public ModelAndView itemEdit(ModelAndView model, HttpServletRequest request) {
-		model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-		model.addObject("currencyCode", empDao.getCurrencyCode());
 		model.addObject("Item", new DBWishItems(
 				request.getParameter("name"),
 				Integer.parseInt(request.getParameter("id")),
@@ -164,8 +165,6 @@ public class WishController {
 				request.getParameter("priority"),
 				request.getParameter("url")
 				));
-		model.addObject("CatEmp", empDao.CatEmp());
-		model.addObject("PriorEmp", empDao.PriorEmp());
 		model.setViewName("itemEdit");
 		return model;
 	}

@@ -23,25 +23,25 @@
     </div>
     <div class="table_header_right">
         <a href="/add">
-            <button type="button" class="btn btn-default btn-lg">
+            <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Add Item
             </button>
         </a> <a href="/restore">
-        <button type="button" class="btn btn-default btn-lg">
-            <span class="glyphicon" aria-hidden="true"></span>
+        <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
             Restore Item
         </button>
     </a>
         <a href="/archive">
-            <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon" aria-hidden="true"></span>
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 Fulfilled Items
             </button>
         </a>
         <a href="/export">
-            <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon" aria-hidden="true"></span>
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                 Export
             </button>
         </a>        

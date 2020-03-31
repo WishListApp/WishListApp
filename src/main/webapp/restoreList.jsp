@@ -75,6 +75,25 @@
 			</c:forEach>
 		</tbody>
 	</table>
+
+	<c:if test="${currentPage != 1}">
+		<td>
+			<a href="/restoreList?page=${currentPage - 1}">Previous</a>
+		</td>
+	</c:if>
+
+	<table>
+		<tbody>
+		<tr>
+			<c:forEach begin="1" end="${pageCount}" var="i">
+				<td>
+					<a href="/restoreList?page=${i}">${i}</a>
+				</td>
+			</c:forEach>
+		</tr>
+		</tbody>
+	</table>
+
 </div>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -59,6 +59,12 @@ public class WishController {
         return empDao.getBalanceHistory(itemsPerPage, startItem - itemsPerPage);
     }
 
+    private List<DBWishItems> getPartOfWListRestore(int page, int itemsPerPage) {
+        int startItem = page * itemsPerPage;
+
+        return empDao.WlistRestoreEmp(itemsPerPage, startItem - itemsPerPage);
+    }
+
     private int getCurrentPage(String pageStr) {
         int page = 1;
         if (pageStr != null && !pageStr.equals("0")) {
@@ -137,10 +143,15 @@ public class WishController {
     }
 
     @RequestMapping(value = "/restoreList")
-    public ModelAndView restoreList(ModelAndView modelAndView) {
+    public ModelAndView restoreList(ModelAndView modelAndView, HttpServletRequest request) {
+        int itemsPerPage = 5;
+        int currentPage = getCurrentPage(request.getParameter("page"));
+        int pageCount = (int) Math.ceil(empDao.getWlistRestoreSize() * 1.0 / itemsPerPage);
+        modelAndView.addObject("currentPage", currentPage);
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-        modelAndView.addObject("WlistRestoreEmp", empDao.WlistRestoreEmp());
+        modelAndView.addObject("WlistRestoreEmp", getPartOfWListRestore(currentPage, itemsPerPage));
+        modelAndView.addObject("pageCount", pageCount);
         modelAndView.setViewName("restoreList");
 
         return modelAndView;

@@ -13,7 +13,8 @@ public interface WishListDao {
 	public int WlistEmpSize(String category);
 	public List<DBCatItems> CatEmp();
 	public List<DBPriorities> PriorEmp();
-	public List<DBWishItems> WlistRestoreEmp();
+	public List<DBWishItems> WlistRestoreEmp(int limit, int offset);
+	public int getWlistRestoreSize();
 	public List<User> UlistEmp(int limit, int offset);
 	public int getUlistEmpSize();
 	public float getBalance();

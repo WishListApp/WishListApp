@@ -1,6 +1,5 @@
 package com.wlt.wla.auth.web;
 
-import com.wlt.wla.parsers.imgParsers;
 import com.wlt.wla.parsers.priceParsers;
 import com.wlt.wla.auth.model.*;
 import com.wlt.wla.auth.service.*;
@@ -95,9 +94,15 @@ public class UserController {
 
 	@PostMapping("/admin/addCat")
 	public String addCat(@ModelAttribute("DBCatItems") DBCatItems cats) {
-		System.out.println("Insert cat");
-		String sql = "INSERT INTO `dr_wishlist`.`item_cat` (`id`, `name`) VALUES (NULL, '" + cats.getName() + "')";
-		jdbcTemp.execute(sql);
+
+		String catname = cats.getName().trim();
+		if (!catname.contentEquals("")  && !catname.contentEquals(" ")) {
+			String sql = "INSERT INTO `dr_wishlist`.`item_cat` (`id`, `name`) VALUES (NULL, '" + catname + "')";
+			jdbcTemp.execute(sql);
+
+		}
+
+		
 		return "redirect:/admin/cat";
 	}
 
@@ -153,9 +158,7 @@ public class UserController {
 
 	@PostMapping("/restore")
 	public String restoreItem(@ModelAttribute("Item") DBWishItems item) {
-
-		String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '0' WHERE `wishlist_items`.`id` ="
-				+ item.getId();
+        String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, 0 FROM `wishlist_items` WHERE `id` = " + item.getId();
 		jdbcTemp.execute(sql);
 
 		return "redirect:/itemList";

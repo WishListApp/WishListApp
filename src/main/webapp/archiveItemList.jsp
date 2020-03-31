@@ -5,8 +5,16 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@include file="header.jsp"%>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>Wish List</title>
+    <link rel="stylesheet" href="./resources/css/itemList.css">
+</head>
+<body>
+	<div id="header"><%@ include file="parts/header.jsp" %></div>
 
 <div class="container">
 	<div class="table_header_left">

@@ -189,7 +189,7 @@ public class WishListDaoImpl implements WishListDao {
     }
 
     @Override
-    public List<DBWishItems> WlistArchiveEmp() {
+    public List<DBWishItems> WlistArchiveEmp(int limit, int offset) {
         List<DBWishItems> list = jdbcTemp.query(
                 "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
                         "FROM `wishlist_items` , priority, user, item_cat\n" +
@@ -197,7 +197,7 @@ public class WishListDaoImpl implements WishListDao {
                         "AND user.username = '" + getUsername() + "'\n" +
                         "AND item_cat.id = wishlist_items.cat_id\n" +
                         "AND user.id = user_id\n" + "AND status = 1 " +
-                        "ORDER BY priority DESC, wishlist_items.id ASC\n",
+                        "ORDER BY priority DESC, wishlist_items.id ASC LIMIT " + limit + " OFFSET " + offset,
                 (rs, rowNum) -> {
                     DBWishItems emp = new DBWishItems();
 
@@ -363,6 +363,18 @@ public class WishListDaoImpl implements WishListDao {
     private String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
+    }
+
+    public int getWlistArchiveSize() {
+        String query = "SELECT COUNT(*)\n" +
+                "FROM `wishlist_items` , priority, user, item_cat\n" +
+                "WHERE priority.id = wishlist_items.priority\n" +
+                "AND user.username = '" + getUsername() + "'\n" +
+                "AND item_cat.id = wishlist_items.cat_id\n" +
+                "AND user.id = user_id\n" + "AND status = 1 " +
+                "ORDER BY priority DESC, wishlist_items.id ASC\n";
+
+        return jdbcTemp.queryForObject(query, Integer.class);
     }
 
 }

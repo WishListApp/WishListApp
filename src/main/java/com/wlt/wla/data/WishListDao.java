@@ -21,7 +21,8 @@ public interface WishListDao {
 	public String getCurrencyCode();
 	public List<Balance> getBalanceHistory(int limit, int offset);
 	public int getBalanceHistorySize();
-	List<DBWishItems> WlistArchiveEmp();
+	List<DBWishItems> WlistArchiveEmp(int limit, int offset);
+	public int getWlistArchiveSize();
 	
 
 }

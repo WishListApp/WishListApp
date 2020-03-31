@@ -65,6 +65,12 @@ public class WishController {
         return empDao.WlistRestoreEmp(itemsPerPage, startItem - itemsPerPage);
     }
 
+    private List<DBWishItems> getPartOfWListArchive(int page, int itemsPerPage) {
+        int startItem = page * itemsPerPage;
+
+        return empDao.WlistArchiveEmp(itemsPerPage, startItem - itemsPerPage);
+    }
+
     private int getCurrentPage(String pageStr) {
         int page = 1;
         if (pageStr != null && !pageStr.equals("0")) {
@@ -158,10 +164,15 @@ public class WishController {
     }
 
     @RequestMapping(value = "/archiveItemList")
-    public ModelAndView archiveItemList(ModelAndView modelAndView) {
+    public ModelAndView archiveItemList(ModelAndView modelAndView, HttpServletRequest request) {
+        int currentPage = getCurrentPage(request.getParameter("page"));
+        int itemsPerPage = 5;
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-        modelAndView.addObject("WlistArchiveEmp", empDao.WlistArchiveEmp());
+        modelAndView.addObject("WlistArchiveEmp", getPartOfWListArchive(currentPage, itemsPerPage));
+        modelAndView.addObject("pageCount",
+                (int) Math.ceil(empDao.getWlistArchiveSize() * 1.0 / itemsPerPage));
+        modelAndView.addObject("currentPage", currentPage);
         modelAndView.setViewName("archiveItemList");
 
         return modelAndView;

@@ -5,51 +5,59 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@include file="header.jsp"%>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>Wish List</title>
+    <link rel="stylesheet" href="./resources/css/itemList.css">
+</head>
+<body>
+	<div id="header"><%@ include file="parts/header.jsp" %></div>
 
 <div class="container">
-	<div class="table_header_left">
-		<h2>Your WishList</h2>
-		<p>Here you can see, edit and delete items from your WishList:</p>
-	</div>
-	<div class="table_header_right">
-		<a href="/add">
-			<button type="button" class="btn btn-default btn-lg">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				Add Item
-			</button>
-		</a> <a href="/restore">
-			<button type="button" class="btn btn-default btn-lg">
-				<span class="glyphicon" aria-hidden="true"></span>
-				Restore Item
-			</button>
-		</a>
- <a href="/archive">
-			<button type="button" class="btn btn-default btn-lg">
-				<span class="glyphicon" aria-hidden="true"></span>
-				Fulfilled Items
-			</button>
-		</a>
-	</div>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>Item Name</th>
-				<th>Category</th>
-				<th>Price</th>
-				<th>Priority</th>
-				<th>Edit</th>
-				<th>Fulfill</th>
-				<th>Remove</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-				<tr>
-					<c:if test="${emp.url != ''}">
-						<td>
-							<div id="thumbwrap">
+    <div class="table_header_left">
+        <h2>Your WishList</h2>
+        <p>Here you can see, edit and delete items from your WishList:</p>
+    </div>
+    <div class="table_header_right">
+        <a href="/add">
+            <button type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Add Item
+            </button>
+        </a> <a href="/restore">
+        <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon" aria-hidden="true"></span>
+            Restore Item
+        </button>
+    </a>
+        <a href="/archive">
+            <button type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon" aria-hidden="true"></span>
+                Fulfilled Items
+            </button>
+        </a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Item Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Priority</th>
+            <th>Edit</th>
+            <th>Fulfill</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="emp" items="${WlistEmp}" varStatus="status">
+            <tr>
+                <c:if test="${emp.url != ''}">
+                    <td>
+                        <div id="thumbwrap">
 
 									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
 											<c:if test="${emp.urlImg != ''}">
@@ -124,22 +132,35 @@
     </table>
 
     <c:if test="${currentPage != 1}">
-        <td><a href="/itemList?page=${currentPage - 1}">Previous</a></td>
+
+        <c:if test="${category != null}">
+            <td><a href="/itemList?category=${category}&page=${currentPage - 1}">Previous</a></td>
+        </c:if>
+
+        <c:if test="${category == null}">
+            <td><a href="/itemList?page=${currentPage - 1}">Previous</a></td>
+        </c:if>
+
     </c:if>
 
     <table>
         <tbody>
         <tr>
             <c:forEach begin="1" end="${pageCount}" var="i">
-                <td><a href="/itemList?page=${i}">${i}</a></td>
+
+				<c:if test="${category != null}">
+					<td><a href="/itemList?category=${category}&page=${i}">${i}</a></td>
+				</c:if>
+
+				<c:if test="${category == null}">
+					<td><a href="/itemList?page=${i}">${i}</a></td>
+				</c:if>
+
             </c:forEach>
         </tr>
         </tbody>
     </table>
 
 </div>
-<script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

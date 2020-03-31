@@ -383,7 +383,7 @@ public class UserController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		float price = Float.parseFloat(request.getParameter("price"));
 		int category = Integer.parseInt(request.getParameter("group"));
-		int priority = Integer.parseInt(request.getParameter("priorityName"));
+		int priority = Integer.parseInt(request.getParameter("priority"));
 		String url = request.getParameter("url");
 
 		String query = "UPDATE dr_wishlist.wishlist_items SET cat_id = " + category + ", name = '" + name

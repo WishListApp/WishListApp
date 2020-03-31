@@ -2,8 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@include file="header.jsp" %>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>Wish List</title>
+    <link rel="stylesheet" href="./resources/css/mainPage.css">
+</head>
+<body>
+    <div id="header"><%@ include file="parts/header.jsp" %></div>
     <div class="container">
         <div class="table_header_left">
             <h2>Hello, ${pageContext.request.userPrincipal.name}! Welcome to WishList App!</h2>
@@ -30,15 +38,12 @@
                 <p>Balance settings</p>
             </div>
         </a>
-        <a href="">
+        <a href="/profile">
             <div class="grid-item">
                 <img src="https://cdn.onlinewebfonts.com/svg/img_507933.png" width="200" height="200">
                 <p>Profile settings</p>
             </div>
         </a>
     </div>
-
-	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

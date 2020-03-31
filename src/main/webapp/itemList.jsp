@@ -98,10 +98,9 @@
 									<input type="hidden" name="id" value="${emp.id}">
 									<input type="hidden" name="name" value="${emp.name}">
 									<input type="hidden" name="price" value="${emp.priceStr}">
-									<input type="hidden" name="category" value="${emp.cat_name}">
-									<input type="hidden" name="priority" value="${emp.priority_name}">
+									<input type="hidden" name="category" value="${emp.group}">
+									<input type="hidden" name="priority" value="${emp.priority}">
 									<input type="hidden" name="url" value="${emp.url}">
-									<input type="hidden" name="user_id" value="${emp.user_id}">
 									<button class="btn btn-default btn-xs">Edit</button>
 								</form:form>
 							</div>

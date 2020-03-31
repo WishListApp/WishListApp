@@ -11,6 +11,7 @@ import com.wlt.wla.auth.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,7 +53,13 @@ public class WishController {
         return empDao.WlistEmp(itemsPerPage, startItem - itemsPerPage, category);
     }
 
-    private int getPageCurrentPage(String pageStr) {
+    private List<Balance> getPartOfBalanceList(int page, int itemsPerPage) {
+        int startItem = page * itemsPerPage;
+
+        return empDao.getBalanceHistory(itemsPerPage, startItem - itemsPerPage);
+    }
+
+    private int getCurrentPage(String pageStr) {
         int page = 1;
         if (pageStr != null && !pageStr.equals("0")) {
             page = Integer.parseInt(pageStr);
@@ -65,7 +72,7 @@ public class WishController {
 
         model.setViewName("userList");
 
-        int page = getPageCurrentPage(request.getParameter("page"));
+        int page = getCurrentPage(request.getParameter("page"));
         int itemsPerPage = 5;
         int pageCount = (int) Math.ceil(empDao.getUlistEmpSize() * 1.0 / itemsPerPage);
 
@@ -105,7 +112,7 @@ public class WishController {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 
-        int page = getPageCurrentPage(request.getParameter("page"));
+        int page = getCurrentPage(request.getParameter("page"));
         int itemsPerPage = 5;
 
         String category = request.getParameter("category");
@@ -198,6 +205,22 @@ public class WishController {
         model.addObject("PriorEmp", prioritiesMap);
         model.setViewName("itemEdit");
         return model;
+    }
+
+    @GetMapping("/balanceHistory")
+    public ModelAndView balanceHistory(ModelAndView modelAndView, HttpServletRequest request) {
+        int itemsPerPage = 8;
+
+        int currentPage = getCurrentPage(request.getParameter("page"));
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("balances", getPartOfBalanceList(currentPage, itemsPerPage));
+        modelAndView.addObject("pageCount",
+                (int) Math.ceil(empDao.getBalanceHistorySize() * 1.0 / itemsPerPage));
+        modelAndView.addObject("currentPage", currentPage);
+        modelAndView.setViewName("balanceHistory");
+
+        return modelAndView;
     }
 
 }

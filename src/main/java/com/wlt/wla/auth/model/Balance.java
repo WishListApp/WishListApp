@@ -1,5 +1,7 @@
 package com.wlt.wla.auth.model;
 
+import java.util.Date;
+
 public class Balance {
     public float getBalanceChange() {
         return balanceChange;
@@ -49,5 +51,25 @@ public class Balance {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    private String timestamp;
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    private String balanceChangeStr;
+
+    public String getBalanceChangeStr() {
+        return balanceChangeStr;
+    }
+
+    public void setBalanceChangeStr(String balanceChangeStr) {
+        this.balanceChangeStr = balanceChangeStr;
     }
 }

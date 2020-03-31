@@ -2,10 +2,12 @@ package com.wlt.wla.data;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.sql.DataSource;
 
+import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.parsers.imgParsers;
@@ -91,23 +93,11 @@ public class WishListDaoImpl implements WishListDao {
 
     @Override
     public int getUlistEmpSize() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        String query = "SELECT COUNT(*) " +
+                "FROM dr_wishlist.user,dr_wishlist.user_roles " +
+                "WHERE user_roles.users_id=user.id ORDER BY id ASC";
 
-        List<User> list = jdbcTemp.query(
-                "SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC",
-                (rs, rowNum) -> {
-                    User emp = new User();
-
-                    emp.setUsername(rs.getString("username"));
-                    emp.setId(rs.getLong("id"));
-                    emp.setPassword(rs.getString("password"));
-                    emp.setuRoleId(rs.getInt("roles_id"));
-
-                    return emp;
-                });
-
-        return list.size();
+        return jdbcTemp.queryForObject(query, Integer.class);
     }
 
 
@@ -161,13 +151,13 @@ public class WishListDaoImpl implements WishListDao {
         String currentPrincipalName = authentication.getName();
 
         List<DBWishItems> list = jdbcTemp.query(
-				"SELECT wishlist_items. * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
-						"FROM wishlist_items , priority, user, item_cat\n" +
-						"WHERE priority.id = wishlist_items.priority\n" +
-						"AND user.username = '" + currentPrincipalName + "'\n" +
-						"AND item_cat.id = wishlist_items.cat_id\n" +
-						"AND user.id = user_id AND item_cat.name ='" + category + "'\n" +
-						"AND STATUS =0 LIMIT " + limit + " OFFSET " + offset,
+                "SELECT wishlist_items. * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM wishlist_items , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + currentPrincipalName + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id AND item_cat.name ='" + category + "'\n" +
+                        "AND STATUS =0 LIMIT " + limit + " OFFSET " + offset,
                 (rs, rowNum) -> {
                     DBWishItems emp = new DBWishItems();
 
@@ -200,81 +190,30 @@ public class WishListDaoImpl implements WishListDao {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
-        List<DBWishItems> list = jdbcTemp.query(
-                "SELECT wishlist_items. * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
-                        "FROM wishlist_items , priority, user, item_cat\n" +
-                        "WHERE priority.id = wishlist_items.priority\n" +
-                        "AND user.username = '" + currentPrincipalName + "'\n" +
-                        "AND item_cat.id = wishlist_items.cat_id\n" +
-                        "AND user.id = user_id AND item_cat.name ='" + category + "'\n" +
-                        "AND STATUS =0",
-                (rs, rowNum) -> {
-                    DBWishItems emp = new DBWishItems();
+        String query = "SELECT \n" +
+                "    COUNT(*)\n" +
+                "FROM\n" +
+                "    dr_wishlist.wishlist_items,\n" +
+                "    dr_wishlist.priority,\n" +
+                "    dr_wishlist.user,\n" +
+                "    dr_wishlist.item_cat\n" +
+                "WHERE\n" +
+                "    priority.id = wishlist_items.priority\n" +
+                "        AND user.username = '" + currentPrincipalName + "'\n" +
+                "        AND item_cat.id = wishlist_items.cat_id\n" +
+                "        AND user.id = user_id\n" +
+                "        AND item_cat.name = '" + category + "'\n" +
+                "        AND STATUS = 0";
 
-                    emp.setName(rs.getString("name"));
-                    emp.setGroup(rs.getInt("cat_id"));
-                    emp.setId(rs.getInt("id"));
-                    emp.setPrice(rs.getFloat("price"));
-                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-                    emp.setUser_id(rs.getInt("user_id"));
-                    emp.setPriority(rs.getInt("priority"));
-                    emp.setCat_name(rs.getString("cat_name"));
-                    emp.setPriority_name(rs.getString("priority_name"));
-                    emp.setUrl(rs.getString("url"));
-                    //parseimg
-                    imgParsers pp = new imgParsers();
-                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
-                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-                    if (rs.getString("url").contains("aliexpress.com"))
-                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-
-                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
-
-                    return emp;
-                });
-
-        return list.size();
+        return jdbcTemp.queryForObject(query, Integer.class);
     }
 
     @Override
     public int WlistEmpSize() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        int user_id = getUserId();
+        String query = "SELECT COUNT(*) FROM dr_wishlist.wishlist_items WHERE user_id = ? AND status = 0";
 
-        List<DBWishItems> list = jdbcTemp.query(
-                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
-                        "FROM `wishlist_items` , priority, user, item_cat\n" +
-                        "WHERE priority.id = wishlist_items.priority\n" +
-                        "AND user.username = '" + currentPrincipalName + "'\n" +
-                        "AND item_cat.id = wishlist_items.cat_id\n" +
-                        "AND user.id = user_id\n" + "AND status = 0 " +
-                        "ORDER BY priority DESC, wishlist_items.id ASC\n",
-                (rs, rowNum) -> {
-                    DBWishItems emp = new DBWishItems();
-
-                    emp.setName(rs.getString("name"));
-                    emp.setGroup(rs.getInt("cat_id"));
-                    emp.setId(rs.getInt("id"));
-                    emp.setPrice(rs.getFloat("price"));
-                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-                    emp.setUser_id(rs.getInt("user_id"));
-                    emp.setPriority(rs.getInt("priority"));
-                    emp.setCat_name(rs.getString("cat_name"));
-                    emp.setPriority_name(rs.getString("priority_name"));
-                    emp.setUrl(rs.getString("url"));
-                    //parseimg
-                    imgParsers pp = new imgParsers();
-                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
-                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-                    if (rs.getString("url").contains("aliexpress.com"))
-                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-
-                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
-
-                    return emp;
-                });
-
-        return list.size();
+        return jdbcTemp.queryForObject(query, new Object[]{user_id}, Integer.class);
     }
 
     @Override
@@ -418,6 +357,32 @@ public class WishListDaoImpl implements WishListDao {
         }
 
         return currencyCode;
+    }
+
+    @Override
+    public List<Balance> getBalanceHistory(int limit, int offset) {
+        int user_id = getUserId();
+
+        String query = "SELECT * FROM dr_wishlist.balance WHERE user_id = " + user_id +
+                " LIMIT " + limit + " OFFSET " + offset;
+
+        List<Balance> balances = jdbcTemp.query(query,
+                (rs, rowNum) -> {
+                    Balance balance = new Balance();
+                    balance.setBalanceChangeStr(String.format(Locale.US, "%.2f", rs.getFloat("balance_changes")));
+                    balance.setNote(rs.getString("note"));
+                    balance.setTimestamp(rs.getString("timestamp"));
+                    return balance;
+                });
+
+        return balances;
+    }
+
+    @Override
+    public int getBalanceHistorySize() {
+        int id = getUserId();
+        String query = "SELECT COUNT(*) FROM dr_wishlist.balance WHERE user_id = ?";
+        return jdbcTemp.queryForObject(query, new Object[]{id}, Integer.class);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.wlt.wla.data;
 import java.util.List;
 
+import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 
@@ -17,6 +18,8 @@ public interface WishListDao {
 	public int getUlistEmpSize();
 	public float getBalance();
 	public String getCurrencyCode();
+	public List<Balance> getBalanceHistory(int limit, int offset);
+	public int getBalanceHistorySize();
 	List<DBWishItems> WlistArchiveEmp();
 	
 

@@ -8,8 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 import com.wlt.wla.auth.model.DBWishItems;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.FontFormatting;
 
 
 @Component("excelView")
@@ -24,14 +30,39 @@ public class ExcelReportView extends AbstractXlsView {
 
 	      int rowCount = 0;
 	      
-
+	      CellStyle style = workbook.createCellStyle();  
+          // Setting Background color  
+          style.setFillBackgroundColor(IndexedColors.GREY_25_PERCENT.getIndex());  
+          style.setFillPattern(FillPatternType.BIG_SPOTS);
+          Font font = workbook.createFont();
+          font.setBold(true);
+          style.setFont(font);
+          
 	      
 	      Row header = sheet.createRow(rowCount++);
-	      header.createCell(0).setCellValue("Item Name");
+	      Cell cell;
+	       cell = header.createCell(0);  
+          cell.setCellValue("Item Name");  
+          cell.setCellStyle(style);  
+
+	       cell = header.createCell(1);  
+          cell.setCellValue("Category");  
+          cell.setCellStyle(style);  
+
+	       cell = header.createCell(2);  
+          cell.setCellValue("Price");  
+          cell.setCellStyle(style);  
+
+	       cell = header.createCell(3);  
+          cell.setCellValue("Priority");  
+          cell.setCellStyle(style);  
+
+          
+//	      header.createCell(1).setCellValue("Category");
+//	      header.createCell(2).setCellValue("Price");
+//	      header.createCell(3).setCellValue("Priority");
 	      
-	      header.createCell(1).setCellValue("Category");
-	      header.createCell(2).setCellValue("Price");
-	      header.createCell(3).setCellValue("Priority");
+  
 
 	      for (DBWishItems item : itemList) {
 	          Row wishRow = sheet.createRow(rowCount++);

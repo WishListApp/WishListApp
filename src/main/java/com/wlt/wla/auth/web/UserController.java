@@ -1,6 +1,5 @@
 package com.wlt.wla.auth.web;
 
-import com.wlt.wla.parsers.imgParsers;
 import com.wlt.wla.parsers.priceParsers;
 import com.wlt.wla.auth.model.*;
 import com.wlt.wla.auth.service.*;
@@ -95,7 +94,7 @@ public class UserController {
 
 	@PostMapping("/admin/addCat")
 	public String addCat(@ModelAttribute("DBCatItems") DBCatItems cats) {
-		System.out.println("Insert cat");
+
 		String sql = "INSERT INTO `dr_wishlist`.`item_cat` (`id`, `name`) VALUES (NULL, '" + cats.getName() + "')";
 		jdbcTemp.execute(sql);
 		return "redirect:/admin/cat";

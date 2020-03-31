@@ -19,7 +19,7 @@ import org.apache.poi.ss.usermodel.FontFormatting;
 
 
 @Component("excelView")
-public class ExcelReportView extends AbstractXlsView {
+public class WLExcelReportView extends AbstractXlsView {
 	  @Override
 	  protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
 	                                    HttpServletRequest request, HttpServletResponse response)

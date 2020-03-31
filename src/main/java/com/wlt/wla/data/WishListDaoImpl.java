@@ -83,6 +83,43 @@ public class WishListDaoImpl implements WishListDao {
         return jdbcTemp.queryForObject(query, Integer.class);
     }
 
+    @Override
+    public List<DBWishItems> WlistEmp() {
+        List<DBWishItems> list = jdbcTemp.query(
+                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM `wishlist_items` , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + getUsername() + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id\n" + "AND status = 0 " +
+                        "ORDER BY priority DESC, wishlist_items.id ASC\n",
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
+
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+
+                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+
+                    return emp;
+                });
+
+        return list;
+    }
 
     @Override
     public List<DBWishItems> WlistEmp(int limit, int offset) {
@@ -340,6 +377,25 @@ public class WishListDaoImpl implements WishListDao {
         return balances;
     }
 
+    @Override
+    public List<Balance> getBalanceHistory() {
+        int user_id = getUserId();
+
+        String query = "SELECT * FROM dr_wishlist.balance WHERE user_id = " + user_id;
+
+        List<Balance> balances = jdbcTemp.query(query,
+                (rs, rowNum) -> {
+                    Balance balance = new Balance();
+                    balance.setBalanceChangeStr(String.format(Locale.US, "%.2f", rs.getFloat("balance_changes")));
+                    balance.setNote(rs.getString("note"));
+                    balance.setTimestamp(rs.getString("timestamp"));
+                    return balance;
+                });
+
+        return balances;
+    }
+    
+    
     @Override
     public int getBalanceHistorySize() {
         int id = getUserId();

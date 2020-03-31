@@ -11,7 +11,7 @@
     </div>
     <div class="grid-container">
         <c:forEach var="emp" items="${CatEmp}" varStatus="status">
-            <a href="">
+            <a href="/itemList?category=${emp.name}&page=1">
                 <div class="grid-item">
                     <img src="https://cdn.onlinewebfonts.com/svg/img_572316.png" width="200" height="200">
                     <p>${emp.name}</p>

@@ -18,12 +18,12 @@ public class DBWishItems {
 	public DBWishItems() {
 	}
 
-	public DBWishItems(String name, int id, float price, String cat_name, String priorityName, String url) {
+	public DBWishItems(String name, int id, float price, int group, int priority, String url) {
 		this.name = name;
 		this.id = id;
 		this.price = price;
-		this.cat_name = cat_name;
-		this.priorityName = priorityName;
+		this.group = group;
+		this.priority = priority;
 		this.url = url;
 	}
 

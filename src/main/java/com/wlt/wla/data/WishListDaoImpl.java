@@ -17,317 +17,407 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class WishListDaoImpl implements WishListDao {
 
-	private JdbcTemplate jdbcTemp;
+    private JdbcTemplate jdbcTemp;
 
-	public WishListDaoImpl(DataSource dataSource) {
-		jdbcTemp = new JdbcTemplate(dataSource);
-	}
+    public WishListDaoImpl(DataSource dataSource) {
+        jdbcTemp = new JdbcTemplate(dataSource);
+    }
 
-	@Override
-	public List<DBCatItems> CatEmp() {
+    @Override
+    public List<DBCatItems> CatEmp() {
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-		List<DBCatItems> list = jdbcTemp.query(
-			"SELECT * from item_cat ORDER BY name ASC",
-				new RowMapper<DBCatItems>() {
+        List<DBCatItems> list = jdbcTemp.query(
+                "SELECT * from item_cat ORDER BY name ASC",
+                new RowMapper<DBCatItems>() {
 
-					@Override
-					public DBCatItems mapRow(ResultSet rs, int rowNum) throws SQLException {
-						DBCatItems emp = new DBCatItems();
+                    @Override
+                    public DBCatItems mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        DBCatItems emp = new DBCatItems();
 
-						emp.setName(rs.getString("name"));
-						emp.setId(rs.getInt("id"));
-						return emp;
-					}
+                        emp.setName(rs.getString("name"));
+                        emp.setId(rs.getInt("id"));
+                        return emp;
+                    }
 
-				});
+                });
 
-		return list;
-	}
-	
-	@Override
-	public List<DBPriorities> PriorEmp() {
+        return list;
+    }
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
+    @Override
+    public List<DBPriorities> PriorEmp() {
 
-		List<DBPriorities> list = jdbcTemp.query(
-			"SELECT * from priority ORDER BY id ASC",
-				(rs, rowNum) -> {
-					DBPriorities emp = new DBPriorities();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-					emp.setName(rs.getString("name"));
-					emp.setId(rs.getInt("id"));
-					return emp;
-				});
+        List<DBPriorities> list = jdbcTemp.query(
+                "SELECT * from priority ORDER BY id ASC",
+                (rs, rowNum) -> {
+                    DBPriorities emp = new DBPriorities();
 
-		return list;
-	}
-	
-	
-	@Override
-	public List<User> UlistEmp(int limit, int offset) {
+                    emp.setName(rs.getString("name"));
+                    emp.setId(rs.getInt("id"));
+                    return emp;
+                });
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-
-		List<User> list = jdbcTemp.query(
-			"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC LIMIT " + limit + " OFFSET " + offset,
-				(rs, rowNum) -> {
-					User emp = new User();
-
-					emp.setUsername(rs.getString("username"));
-					emp.setId(rs.getLong("id"));
-					emp.setPassword(rs.getString("password"));
-					emp.setuRoleId(rs.getInt("roles_id"));
-
-					return emp;
-				});
-
-		return list;
-	}
-
-	@Override
-	public int getUlistEmpSize() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-
-		List<User> list = jdbcTemp.query(
-				"SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC",
-				(rs, rowNum) -> {
-					User emp = new User();
-
-					emp.setUsername(rs.getString("username"));
-					emp.setId(rs.getLong("id"));
-					emp.setPassword(rs.getString("password"));
-					emp.setuRoleId(rs.getInt("roles_id"));
-
-					return emp;
-				});
-
-		return list.size();
-	}
+        return list;
+    }
 
 
-	@Override
-	public List<DBWishItems> WlistEmp(int limit, int offset) {
+    @Override
+    public List<User> UlistEmp(int limit, int offset) {
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-		List<DBWishItems> list = jdbcTemp.query(
-			"SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" + 
-			"FROM `wishlist_items` , priority, user, item_cat\n" + 
-			"WHERE priority.id = wishlist_items.priority\n" + 
-			"AND user.username = '"+currentPrincipalName+"'\n" + 
-			"AND item_cat.id = wishlist_items.cat_id\n" + 
-			"AND user.id = user_id\n" + "AND status = 0 " +
-			"ORDER BY priority DESC, wishlist_items.id ASC\n" +
-				"LIMIT " + limit + " OFFSET " + offset,
-				(rs, rowNum) -> {
-					DBWishItems emp = new DBWishItems();
+        List<User> list = jdbcTemp.query(
+                "SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC LIMIT " + limit + " OFFSET " + offset,
+                (rs, rowNum) -> {
+                    User emp = new User();
 
-					emp.setName(rs.getString("name"));
-					emp.setGroup(rs.getInt("cat_id"));
-					emp.setId(rs.getInt("id"));
-					emp.setPrice(rs.getFloat("price"));
-					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-					emp.setUser_id(rs.getInt("user_id"));
-					emp.setPriority(rs.getInt("priority"));
-					emp.setCat_name(rs.getString("cat_name"));
-					emp.setPriority_name(rs.getString("priority_name"));
-					emp.setUrl(rs.getString("url"));
-					//parseimg
-					imgParsers pp = new imgParsers();
-					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+                    emp.setUsername(rs.getString("username"));
+                    emp.setId(rs.getLong("id"));
+                    emp.setPassword(rs.getString("password"));
+                    emp.setuRoleId(rs.getInt("roles_id"));
 
-					//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+                    return emp;
+                });
 
-					return emp;
-				});
+        return list;
+    }
 
-		return list;
-	}
+    @Override
+    public int getUlistEmpSize() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-	@Override
-	public int WlistEmpSize() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
+        List<User> list = jdbcTemp.query(
+                "SELECT * from user,user_roles WHERE user_roles.users_id=user.id ORDER BY id ASC",
+                (rs, rowNum) -> {
+                    User emp = new User();
 
-		List<DBWishItems> list = jdbcTemp.query(
-				"SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
-						"FROM `wishlist_items` , priority, user, item_cat\n" +
+                    emp.setUsername(rs.getString("username"));
+                    emp.setId(rs.getLong("id"));
+                    emp.setPassword(rs.getString("password"));
+                    emp.setuRoleId(rs.getInt("roles_id"));
+
+                    return emp;
+                });
+
+        return list.size();
+    }
+
+
+    @Override
+    public List<DBWishItems> WlistEmp(int limit, int offset) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        List<DBWishItems> list = jdbcTemp.query(
+                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM `wishlist_items` , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + currentPrincipalName + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id\n" + "AND status = 0 " +
+                        "ORDER BY priority DESC, wishlist_items.id ASC\n" +
+                        "LIMIT " + limit + " OFFSET " + offset,
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
+
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+
+                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+
+                    return emp;
+                });
+
+        return list;
+    }
+
+    @Override
+    public List<DBWishItems> WlistEmp(int limit, int offset, String category) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        List<DBWishItems> list = jdbcTemp.query(
+				"SELECT wishlist_items. * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+						"FROM wishlist_items , priority, user, item_cat\n" +
 						"WHERE priority.id = wishlist_items.priority\n" +
-						"AND user.username = '"+currentPrincipalName+"'\n" +
+						"AND user.username = '" + currentPrincipalName + "'\n" +
 						"AND item_cat.id = wishlist_items.cat_id\n" +
-						"AND user.id = user_id\n" + "AND status = 0 " +
-						"ORDER BY priority DESC, wishlist_items.id ASC\n",
-				(rs, rowNum) -> {
-					DBWishItems emp = new DBWishItems();
+						"AND user.id = user_id AND item_cat.name ='" + category + "'\n" +
+						"AND STATUS =0 LIMIT " + limit + " OFFSET " + offset,
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
 
-					emp.setName(rs.getString("name"));
-					emp.setGroup(rs.getInt("cat_id"));
-					emp.setId(rs.getInt("id"));
-					emp.setPrice(rs.getFloat("price"));
-					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-					emp.setUser_id(rs.getInt("user_id"));
-					emp.setPriority(rs.getInt("priority"));
-					emp.setCat_name(rs.getString("cat_name"));
-					emp.setPriority_name(rs.getString("priority_name"));
-					emp.setUrl(rs.getString("url"));
-					//parseimg
-					imgParsers pp = new imgParsers();
-					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
-					//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
-					return emp;
-				});
+                    return emp;
+                });
+        return list;
+    }
 
-		return list.size();
-	}
-	
-	@Override
-	public List<DBWishItems> WlistArchiveEmp() {
+    @Override
+    public int WlistEmpSize(String category) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
+        List<DBWishItems> list = jdbcTemp.query(
+                "SELECT wishlist_items. * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM wishlist_items , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + currentPrincipalName + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id AND item_cat.name ='" + category + "'\n" +
+                        "AND STATUS =0",
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
 
-		List<DBWishItems> list = jdbcTemp.query(
-			"SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" + 
-			"FROM `wishlist_items` , priority, user, item_cat\n" + 
-			"WHERE priority.id = wishlist_items.priority\n" + 
-			"AND user.username = '"+currentPrincipalName+"'\n" + 
-			"AND item_cat.id = wishlist_items.cat_id\n" + 
-			"AND user.id = user_id\n" + "AND status = 1 " +
-			"ORDER BY priority DESC, wishlist_items.id ASC\n",
-				(rs, rowNum) -> {
-					DBWishItems emp = new DBWishItems();
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
-					emp.setName(rs.getString("name"));
-					emp.setGroup(rs.getInt("cat_id"));
-					emp.setId(rs.getInt("id"));
-					emp.setPrice(rs.getFloat("price"));
-					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-					emp.setUser_id(rs.getInt("user_id"));
-					emp.setPriority(rs.getInt("priority"));
-					emp.setCat_name(rs.getString("cat_name"));
-					emp.setPriority_name(rs.getString("priority_name"));
-					emp.setUrl(rs.getString("url"));
-					//parseimg
-					imgParsers pp = new imgParsers();
-					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+
+                    return emp;
+                });
+
+        return list.size();
+    }
+
+    @Override
+    public int WlistEmpSize() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        List<DBWishItems> list = jdbcTemp.query(
+                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM `wishlist_items` , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + currentPrincipalName + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id\n" + "AND status = 0 " +
+                        "ORDER BY priority DESC, wishlist_items.id ASC\n",
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
+
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+
+                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+
+                    return emp;
+                });
+
+        return list.size();
+    }
+
+    @Override
+    public List<DBWishItems> WlistArchiveEmp() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        List<DBWishItems> list = jdbcTemp.query(
+                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM `wishlist_items` , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + currentPrincipalName + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id\n" + "AND status = 1 " +
+                        "ORDER BY priority DESC, wishlist_items.id ASC\n",
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
+
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
 
-					return emp;
-				});
+                    return emp;
+                });
 
-		return list;
-	}
-	
-	
-	@Override
-	public List<DBWishItems> WlistRestoreEmp() {
+        return list;
+    }
 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
 
-		List<DBWishItems> list = jdbcTemp.query(
-			"SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" + 
-			"FROM `wishlist_items` , priority, user, item_cat\n" + 
-			"WHERE priority.id = wishlist_items.priority\n" + 
-			"AND user.username = '"+currentPrincipalName+"'\n" + 
-			"AND item_cat.id = wishlist_items.cat_id\n" + 
-			"AND user.id = user_id\n" + "AND status = -1 " +
-			"ORDER BY priority DESC, wishlist_items.id ASC\n",
-				(rs, rowNum) -> {
-					DBWishItems emp = new DBWishItems();
+    @Override
+    public List<DBWishItems> WlistRestoreEmp() {
 
-					emp.setName(rs.getString("name"));
-					emp.setGroup(rs.getInt("cat_id"));
-					emp.setId(rs.getInt("id"));
-					emp.setPrice(rs.getFloat("price"));
-					emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
-					emp.setUser_id(rs.getInt("user_id"));
-					emp.setPriority(rs.getInt("priority"));
-					emp.setCat_name(rs.getString("cat_name"));
-					emp.setPriority_name(rs.getString("priority_name"));
-					emp.setUrl(rs.getString("url"));
-					//parseimg
-					imgParsers pp = new imgParsers();
-					if (rs.getString("url").contains("www.salidzini.lv/i/")) emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-					if (rs.getString("url").contains("aliexpress.com")) emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
-					//emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
+        List<DBWishItems> list = jdbcTemp.query(
+                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
+                        "FROM `wishlist_items` , priority, user, item_cat\n" +
+                        "WHERE priority.id = wishlist_items.priority\n" +
+                        "AND user.username = '" + currentPrincipalName + "'\n" +
+                        "AND item_cat.id = wishlist_items.cat_id\n" +
+                        "AND user.id = user_id\n" + "AND status = -1 " +
+                        "ORDER BY priority DESC, wishlist_items.id ASC\n",
+                (rs, rowNum) -> {
+                    DBWishItems emp = new DBWishItems();
 
-					return emp;
-				});
+                    emp.setName(rs.getString("name"));
+                    emp.setGroup(rs.getInt("cat_id"));
+                    emp.setId(rs.getInt("id"));
+                    emp.setPrice(rs.getFloat("price"));
+                    emp.setPriceStr(String.format(Locale.US, "%.2f", emp.getPrice()));
+                    emp.setUser_id(rs.getInt("user_id"));
+                    emp.setPriority(rs.getInt("priority"));
+                    emp.setCat_name(rs.getString("cat_name"));
+                    emp.setPriority_name(rs.getString("priority_name"));
+                    emp.setUrl(rs.getString("url"));
+                    //parseimg
+                    imgParsers pp = new imgParsers();
+                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
+                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
+                    if (rs.getString("url").contains("aliexpress.com"))
+                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
 
-		return list;
-	}
-	
-	public int getUserId() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		int userId = 0;
-		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
+                    //emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
-		try {
-			userId = jdbcTemp.queryForObject(query, new Object[]{currentPrincipalName}, Integer.class);
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-		}
-		return userId;
-	}
+                    return emp;
+                });
 
-	@Override
-	public float getBalance() {
+        return list;
+    }
 
-		int userId = getUserId();
+    public int getUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        int userId = 0;
+        String query = "SELECT id FROM dr_wishlist.user WHERE username=?";
 
-		float balance = 0;
+        try {
+            userId = jdbcTemp.queryForObject(query, new Object[]{currentPrincipalName}, Integer.class);
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+        return userId;
+    }
 
-		String query = "SELECT SUM(balance_changes ) as total\n" +
-				"FROM dr_wishlist.balance\n" +
-				"WHERE user_id=?";
+    @Override
+    public float getBalance() {
 
-		try {
-			balance = jdbcTemp.queryForObject(query, new Object[]{userId}, Float.class);
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-		}
+        int userId = getUserId();
 
-		return balance;
-	}
+        float balance = 0;
 
-	@Override
-	public String getCurrencyCode() {
-		int userId = getUserId();
+        String query = "SELECT SUM(balance_changes ) as total\n" +
+                "FROM dr_wishlist.balance\n" +
+                "WHERE user_id=?";
 
-		String query = "SELECT currency_id FROM dr_wishlist.user_pref WHERE user_id = ?";
-		int currencyId = 1;
+        try {
+            balance = jdbcTemp.queryForObject(query, new Object[]{userId}, Float.class);
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
 
-		try {
-			currencyId = jdbcTemp.queryForObject(query, new Object[]{userId}, Integer.class);
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-		}
+        return balance;
+    }
 
-		query = "SELECT code FROM dr_wishlist.currency WHERE id = ?";
-		String currencyCode = "None";
+    @Override
+    public String getCurrencyCode() {
+        int userId = getUserId();
 
-		try {
-			currencyCode = jdbcTemp.queryForObject(query, new Object[]{currencyId}, String.class);
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-		}
+        String query = "SELECT currency_id FROM dr_wishlist.user_pref WHERE user_id = ?";
+        int currencyId = 1;
 
-		return currencyCode;
-	}
+        try {
+            currencyId = jdbcTemp.queryForObject(query, new Object[]{userId}, Integer.class);
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+
+        query = "SELECT code FROM dr_wishlist.currency WHERE id = ?";
+        String currencyCode = "None";
+
+        try {
+            currencyCode = jdbcTemp.queryForObject(query, new Object[]{currencyId}, String.class);
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return currencyCode;
+    }
 
 }

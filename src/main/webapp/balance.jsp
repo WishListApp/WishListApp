@@ -4,9 +4,16 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%@include file="header.jsp" %>
-
-<div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>Balance</title>
+    <link rel="stylesheet" href="./resources/css/balance.css">
+</head>
+<body>
+    <div id="header"><%@ include file="parts/header.jsp" %></div>
+    <div>
     <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
         <h2 class="form-signin-heading">Alter Balance</h2>
 
@@ -48,6 +55,5 @@
 
 
 </div>
-<script src="./bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 </body>
 </html>

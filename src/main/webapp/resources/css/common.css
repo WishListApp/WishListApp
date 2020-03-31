@@ -82,10 +82,10 @@ li a:hover {
 }
 
 header {
-    /*background: #999;*/
+    /*background: #999; */
     text-align: center;
     vertical-align: auto;
-    /*color: green;*/
+   /* color: green; */
     margin-bottom: 20px;
     height: 80px;
 }
@@ -112,13 +112,13 @@ header {
   line-height: 80px;
 }
 .navbar-toggle {
-  /* (80px - button height 34px) / 2 = 23px */
+  /* (80px - button height 34px) / 2 = 23px  */
   margin-top: 23px;
   padding: 9px 10px !important;
 }
 @media (min-width: 768px) {
   .navbar-nav > li > a {
-    /* (80px - line-height of 27px) / 2 = 26.5px */
+    /* (80px - line-height of 27px) / 2 = 26.5px  */
     padding-top: 26.5px;
     padding-bottom: 26.5px;
     line-height: 27px;

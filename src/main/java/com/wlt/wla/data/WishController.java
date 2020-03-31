@@ -26,13 +26,13 @@ public class WishController {
     @RequestMapping(value = "/admin/cat")
     public ModelAndView editCatlistEmp(ModelAndView model) {
 
-        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        model.addObject("currencyCode", empDao.getCurrencyCode());
-        model.setViewName("editCatList");
-        model.addObject("CatEmp", empDao.CatEmp());
+		model.setViewName("editCatList");
+		model.addObject("CatEmp", empDao.CatEmp());
 
-        return model;
-    }
+		return model;
+	}
+
+
 
     private List<User> getPartOfUserList(int page, int itemsPerPage) {
         int startItem = page * itemsPerPage;
@@ -63,8 +63,6 @@ public class WishController {
     @RequestMapping(value = "/admin/users")
     public ModelAndView UserlistEmp(ModelAndView model, HttpServletRequest request) {
 
-        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        model.addObject("currencyCode", empDao.getCurrencyCode());
         model.setViewName("userList");
 
         int page = getPageCurrentPage(request.getParameter("page"));

@@ -49,7 +49,21 @@
                 </div>
             </div>
          </nav>
+<p id="demo"></p>
+<p id="demo2"></p>
+<p id="demo3"></p>
 </header>
+
+
+<script>
+document.getElementById("demo").innerHTML =
+"The full URL of this page is:<br>" + window.location.href;
+document.getElementById("demo2").innerHTML =
+"Page hostname is " + window.location.hostname;
+document.getElementById("demo3").innerHTML =
+"Page path is " + window.location.pathname;
+</script>
+
 
     <script>
     var popoverCnt='<center><a href="/balance"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></br><a href="/admin"><button class="btn btn-default"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Admin</button></a></center>';
@@ -64,6 +78,10 @@
         var pathname = window.location.pathname;
         $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
         $('ul li a').click(function(){ $('li a').removeClass("active"); $(this).addClass("active"); });
+        if (pathname == '/'){
+                $('.nav > li > a[href="/home"]').parent().addClass('active');
+                $('ul li a').click(function(){ $('li a').removeClass("active"); $(this).addClass("active"); });
+              }
     });
     $('html').on('click', function(e) {
       if (typeof $(e.target).data('original-title') == 'undefined' &&

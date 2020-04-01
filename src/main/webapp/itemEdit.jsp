@@ -17,7 +17,6 @@
     <div>
 
     <form:form method="POST" modelAttribute="Item" action="${contextPath}/updateItem" class="form-signin">
-
         <h2>Edit Item</h2>
 
         <div class="form-group">

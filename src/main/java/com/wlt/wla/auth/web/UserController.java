@@ -222,7 +222,7 @@ public class UserController {
 		return "redirect:/itemList";
 	}
 
-	@PostMapping("/add")
+	@PostMapping("/itemList")
 	public String add(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -326,11 +326,6 @@ public class UserController {
 	@GetMapping({ "/", "/welcome" })
 	public String welcome(Model model) {
 		return "welcome";
-	}
-
-	@GetMapping({ "/", "/addItem" })
-	public String addItem(Model model) {
-		return "addItem";
 	}
 
 	@PostMapping("/fulfill")

@@ -62,87 +62,82 @@
         </thead>
         <tbody>
         <c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-            <c:if test="${emp.priority==1}">
-                <tr class="warning">
-            </c:if>
-            <c:if test="${emp.priority==5}">
-                <tr class="success">
-            </c:if>
-            <c:if test="${emp.priority==10}">
-                <tr class="info">
-            </c:if>
-            <c:if test="${emp.url != ''}">
-                <td>
-                    <div id="thumbwrap">
-                        <a class="thumb" target=new href=${emp.url}>${emp.name}
-                            <span>
-                                    <c:if test="${emp.urlImg != ''}">
-                                        <img src="${emp.urlImg}" alt="" style="max-height: 200px;">
-                                    </c:if>
-                                </span>
-                        </a>
-                    </div>
+            <tr>
+                <c:if test="${emp.url != ''}">
+                    <td>
+                        <div id="thumbwrap">
+
+                            <a class="thumb" target=new href=${emp.url}>${emp.name}<span>
+											<c:if test="${emp.urlImg != ''}">
+                                                <img src="${emp.urlImg}" alt="" style="max-height: 200px;">
+                                            </c:if>
+
+									</span></a>
+                        </div>
+                    </td>
+                </c:if>
+                <c:if test="${emp.url == ''}">
+                    <td>${emp.name}</td>
+                </c:if>
+
+                <td>${emp.cat_name}</td>
+                <td>${emp.priceStr} ${currencyCode}
+                    <c:if
+                            test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
+
+                        <form:form method="POST" action="${contextPath}/updatePrice"
+                                   items="${WlistEmp}">
+                            <input type="hidden" name="id" value="${emp.id}"/>
+                            <input type="hidden" name="url" value="${emp.url}"/>
+                            <button class="btn-danger">Update Price from URL</button>
+                        </form:form>
+                    </c:if>
+
                 </td>
-            </c:if>
-            <c:if test="${emp.url == ''}">
-                <td>${emp.name}</td>
-            </c:if>
-            <td>${emp.cat_name}</td>
-            <td>${emp.priceStr} ${currencyCode}</td>
-            <c:if test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
-            <td>
-                <form:form method="POST" action="${contextPath}/updatePrice" items="${WlistEmp}">
-                    <input type="hidden" name="id" value="${emp.id}"/>
-                    <input type="hidden" name="url" value="${emp.url}"/>
-                    <button class="btn-danger">Update Price</br>from URL</button>
-                </form:form>
-            </td>
-            <td>
-                <c:if test="${emp.priority==1}">
+                <td><c:if test="${emp.priority==1}">
                     <span style="color: red; "> ${emp.priority_name} </span>
                 </c:if> <c:if test="${emp.priority==5}">
-                <span style="color: green; "> ${emp.priority_name} </span>
-            </c:if> <c:if test="${emp.priority==10}">
-                <span style="color: black; "> ${emp.priority_name} </span>
-            </c:if>
-            </td>
-            <td>
-                <div>
-                    <button class="btn btn-default btn-xs" data-name="${emp.name}" data-group="${emp.group}"
-                            data-priority="${emp.priority}" data-price="${emp.price}" data-url="${emp.url}"
-                            data-id="${emp.id}"
-                            data-toggle="modal" data-target="#editItemModal">
-                        Edit
-                    </button>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
-                        <input type="hidden" name="id" value="${emp.id}">
-                        <c:choose>
-                            <c:when test="${emp.price <= balance}">
-                                <button class="btn-success" value="${emp.id}">Fulfill</button>
-                            </c:when>
-                            <c:otherwise>
-                                <button class="btn-dark" disabled>Not enough balance</button>
-                            </c:otherwise>
-                        </c:choose>
-                    </form:form>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <form:form method="POST" action="${contextPath}/remove"
-                               items="${WlistEmp}">
-                        <input type="hidden" name="id" value="${emp.id}"/>
-
-                        <button class="btn-danger"
-                                onclick="return confirm('Are you sure you want to delete this item?');">Remove
+                    <span style="color: green; "> ${emp.priority_name} </span>
+                </c:if> <c:if test="${emp.priority==10}">
+                    <span style="color: black; "> ${emp.priority_name} </span>
+                </c:if></td>
+                <td>
+                    <div>
+                        <button class="btn btn-default btn-xs" data-name="${emp.name}" data-group="${emp.group}"
+                                data-priority="${emp.priority}" data-price="${emp.price}" data-url="${emp.url}"
+                                data-id="${emp.id}"
+                                data-toggle="modal" data-target="#editItemModal">
+                            Edit
                         </button>
-                    </form:form>
-                </div>
-            </td>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
+                            <input type="hidden" name="id" value="${emp.id}">
+                            <c:choose>
+                                <c:when test="${emp.price <= balance}">
+                                    <button class="btn-success" value="${emp.id}">Fulfill</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button class="btn-dark" disabled>Not enough balance</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </form:form>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <form:form method="POST" action="${contextPath}/remove"
+                                   items="${WlistEmp}">
+                            <input type="hidden" name="id" value="${emp.id}"/>
+
+                            <button class="btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">Remove
+                            </button>
+                        </form:form>
+                    </div>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

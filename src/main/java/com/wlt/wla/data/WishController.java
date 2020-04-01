@@ -23,6 +23,11 @@ public class WishController {
 
     @Autowired
     private WishListDao empDao;
+
+    @GetMapping("")
+    private String helloPage() {
+        return "redirect:/home";
+    }
     
     @GetMapping("/export")
     public ModelAndView export(ModelAndView model) {

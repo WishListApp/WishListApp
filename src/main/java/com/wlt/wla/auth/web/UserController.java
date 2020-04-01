@@ -322,12 +322,12 @@ public class UserController {
 		return "login";
 	}
 
-	@GetMapping({ "/", "/welcome" })
+	@GetMapping("/welcome")
 	public String welcome(Model model) {
 		return "welcome";
 	}
 
-	@GetMapping({ "/", "/addItem" })
+	@GetMapping("/addItem")
 	public String addItem(Model model) {
 		return "addItem";
 	}

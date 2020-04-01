@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/", produces = "text/html;charset=UTF-8")
 public class WlaController {
 
-    @GetMapping("")
-    private String helloPage() {
-        return "redirect:/home";
-    }
+
 
 }

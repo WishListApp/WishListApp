@@ -17,14 +17,6 @@
         <h2>User list</h2>
         <p>Here you can see, edit and delete users</p>
     </div>
-    <div class="table_header_right">
-        <a href="/add">
-            <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                Add Item
-            </button>
-        </a>
-    </div>
     <table class="table table-striped">
         <tbody>
         <c:forEach var="emp" items="${UlistEmp}" varStatus="status">

@@ -53,7 +53,6 @@
             <th>Item Name</th>
             <th>Category</th>
             <th>Price</th>
-            <th>Update</th>
             <th>Priority</th>
             <th>Edit</th>
             <th>Fulfill</th>

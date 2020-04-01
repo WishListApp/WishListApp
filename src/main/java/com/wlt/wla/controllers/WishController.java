@@ -1,4 +1,4 @@
-package com.wlt.wla.data;
+package com.wlt.wla.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +9,9 @@ import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 
+import com.wlt.wla.data.DBCatItems;
+import com.wlt.wla.data.DBPriorities;
+import com.wlt.wla.data.WishListDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

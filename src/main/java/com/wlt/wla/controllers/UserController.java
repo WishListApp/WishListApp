@@ -1,31 +1,29 @@
-package com.wlt.wla.auth.web;
+package com.wlt.wla.controllers;
 
+import com.wlt.wla.auth.model.Balance;
+import com.wlt.wla.auth.model.DBWishItems;
+import com.wlt.wla.auth.model.User;
+import com.wlt.wla.auth.service.SecurityService;
+import com.wlt.wla.auth.service.UserService;
+import com.wlt.wla.auth.validator.InputValidator;
+import com.wlt.wla.auth.validator.UserValidator;
+import com.wlt.wla.data.DBCatItems;
 import com.wlt.wla.parsers.imgParsers;
 import com.wlt.wla.parsers.priceParsers;
-import com.wlt.wla.auth.model.*;
-import com.wlt.wla.auth.service.*;
-import com.wlt.wla.auth.validator.*;
-import com.wlt.wla.data.DBCatItems;
-import com.wlt.wla.data.WishListDaoImpl;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

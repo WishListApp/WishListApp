@@ -56,6 +56,8 @@ public class UserController {
 	public String admin(Model model) {
 		return "admin";
 	}
+	
+	
 
 	@GetMapping({ "/admin/editCatList" })
 	public String editCatList(Model model) {
@@ -141,6 +143,11 @@ public class UserController {
 	@GetMapping("/archive")
 	public String archive(Model model, String error, String remove) {
 		return "redirect:/archiveItemList";
+	}
+	
+	@GetMapping("/noerrorPage")
+	public String noerror(Model model) {
+		return "redirect:/noerror";
 	}
 
 	@PostMapping("/archive")
@@ -324,9 +331,9 @@ public class UserController {
 		return "login";
 	}
 
-	@GetMapping({ "/", "/welcome" })
+	@GetMapping({ "/" })
 	public String welcome(Model model) {
-		return "welcome";
+		return "mainPage";
 	}
 
 	@PostMapping("/fulfill")

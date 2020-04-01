@@ -26,8 +26,11 @@ public class WishController {
 
     @GetMapping("/export")
     public ModelAndView export(ModelAndView model) {
+    	System.out.println("balexport 1");
         model.addObject("WishListModXLS", empDao.WlistEmp());
+        System.out.println("balexport 2");
         model.setViewName("excelView");
+        System.out.println("balexport 3");
         return model;
     }
 

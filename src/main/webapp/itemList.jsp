@@ -21,7 +21,7 @@
         <p>Here you can see, edit and delete items from your WishList:</p>
     </div>
     <div class="table_header_right">
-            <button type="button" class="btn btn-default"data-toggle="modal" data-target="#addItemModal">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addItemModal">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Add Item
             </button>
@@ -98,7 +98,7 @@
 								<font color=black> ${emp.priority_name} </font>
 							</c:if></td>
 						<td>
-							<div>
+							<div><%--
 								<form:form method="POST" action="${contextPath}/itemEditPage">
 									<input type="hidden" name="id" value="${emp.id}">
 									<input type="hidden" name="name" value="${emp.name}">
@@ -107,7 +107,9 @@
 									<input type="hidden" name="priority" value="${emp.priority}">
 									<input type="hidden" name="url" value="${emp.url}">
 									<button class="btn btn-default btn-xs">Edit</button>
-								</form:form>
+								</form:form>--%>
+							    <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#editItemModal">
+							    Edit</button>
 							</div>
 						</td>
 						<td>

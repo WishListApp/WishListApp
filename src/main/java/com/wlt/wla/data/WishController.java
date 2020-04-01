@@ -122,6 +122,7 @@ public class WishController {
     @RequestMapping(value = "/itemList")
     public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("balanceFloat", empDao.getBalance());
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 
         int page = getCurrentPage(request.getParameter("page"));

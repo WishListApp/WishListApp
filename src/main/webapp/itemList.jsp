@@ -107,10 +107,18 @@
 						</td>
 						<td>
 							<div>
-								<form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
-									<input type="hidden" name="id" value="${emp.id}">
-									<button class="btn-success" value="${emp.id}">Fulfill</button>
-								</form:form>
+								<form:form method="POST" id="fulfill${emp.id}" action="${contextPath}/fulfill" items="${WlistEmp}">
+                                    <input type="hidden" name="id" value="${emp.id}">
+                                    <c:choose>
+                                        <c:when test="${emp.price <= balance}">
+                                            <button class="btn-success" value="${emp.id}">Fulfill</button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <button class="btn-dark" type="button" disabled>Not enough balance</button>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </form:form>
+
 							</div>
 						</td>
 						<td>

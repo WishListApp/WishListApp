@@ -33,7 +33,6 @@ import java.util.Locale;
 @Controller
 public class UserController {
 	private JdbcTemplate jdbcTemp;
-	private WishListDaoImpl wishListDao;
 
 	public UserController(DataSource dataSource) {
 		jdbcTemp = new JdbcTemplate(dataSource);

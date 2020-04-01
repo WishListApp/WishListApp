@@ -15,9 +15,9 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="" id="liHome"><a href="/admin/">Home</a></li>
-                        <li class="" id="liItems"><a href="/admin/users">User list</a></li>
-                        <li class="" id="liCats"><a href="/admin/cat">Categories</a></li>
+                        <li><a href="/admin/">Home</a></li>
+                        <li><a href="/admin/users">User list</a></li>
+                        <li><a href="/admin/cat">Categories</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>

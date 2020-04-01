@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
+import com.wlt.wla.auth.model.Settings;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.parsers.imgParsers;
 
@@ -149,7 +150,6 @@ public class WishListDaoImpl implements WishListDao {
 					// parseimg
 
 					if (rs.getString("img_url") == null) { // if in DB no stored img_url
-						System.out.println("no url for " + rs.getInt("id"));
 						imgParsers pp = new imgParsers();
 						if (rs.getString("url").contains("www.salidzini.lv/i/")) {
 							String img = pp.getImgSalidzini(rs.getString("url"));
@@ -425,6 +425,16 @@ public class WishListDaoImpl implements WishListDao {
 				+ "ORDER BY priority DESC, wishlist_items.id ASC\n";
 
 		return jdbcTemp.queryForObject(query, Integer.class);
+	}
+
+	@Override
+	public String getSettings() {
+		String query ="SELECT value  FROM `settings` WHERE `name` LIKE 'ecb_xml'";
+
+		return jdbcTemp.queryForObject(query, String.class);
+		
+		
+	
 	}
 
 }

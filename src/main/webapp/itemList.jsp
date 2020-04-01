@@ -45,12 +45,13 @@
         </a>        
     </div>
     <%@ include file="parts/modals.jsp" %>
-    <table class="table table-striped">
+    <table class="table">
         <thead>
         <tr>
             <th>Item Name</th>
             <th>Category</th>
             <th>Price</th>
+            <th>Update</th>
             <th>Priority</th>
             <th>Edit</th>
             <th>Fulfill</th>
@@ -59,46 +60,56 @@
         </thead>
         <tbody>
         <c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-            <tr>
+            <c:if test="${emp.priority==1}">
+                <tr class="warning">
+            </c:if>
+            <c:if test="${emp.priority==5}">
+                <tr class="success">
+            </c:if>
+            <c:if test="${emp.priority==10}">
+                <tr class="info">
+            </c:if>
                 <c:if test="${emp.url != ''}">
                     <td>
                         <div id="thumbwrap">
-
-									<a class="thumb" target=new href=${emp.url}>${emp.name}<span>
-											<c:if test="${emp.urlImg != ''}">
-												<img src="${emp.urlImg}" alt="" style="max-height: 200px;">
-											</c:if>
-
-									</span></a>
-								</div>
-							</td>
-						</c:if>
-						<c:if test="${emp.url == ''}">
-							<td>${emp.name}</td>
-						</c:if>
-
-						<td>${emp.cat_name}</td>
-						<td>${emp.priceStr} ${currencyCode}<c:if
-								test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
-
-								<form:form method="POST" action="${contextPath}/updatePrice"
-									items="${WlistEmp}">
-									<input type="hidden" name="id" value="${emp.id}" />
-									<input type="hidden" name="url" value="${emp.url}" />
-									<button class="btn-danger">Update Price from URL</button>
-								</form:form>
-							</c:if>
-
-						</td>
-						<td><c:if test="${emp.priority==1}">
-								<font color=red> ${emp.priority_name} </font>
-							</c:if> <c:if test="${emp.priority==5}">
-								<font color=green> ${emp.priority_name} </font>
-							</c:if> <c:if test="${emp.priority==10}">
-								<font color=black> ${emp.priority_name} </font>
-							</c:if></td>
-						<td>
-							<div><%--
+						    <a class="thumb" target=new href=${emp.url}>${emp.name}
+						        <span>
+                                    <c:if test="${emp.urlImg != ''}">
+                                        <img src="${emp.urlImg}" alt="" style="max-height: 200px;">
+                                    </c:if>
+                                </span>
+                            </a>
+						</div>
+					</td>
+				</c:if>
+				<c:if test="${emp.url == ''}">
+				    <td>${emp.name}</td>
+				</c:if>
+                    <td>${emp.cat_name}</td>
+					<td>${emp.priceStr} ${currencyCode}</td>
+					<c:if test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
+                        <td>
+                            <form:form method="POST" action="${contextPath}/updatePrice" items="${WlistEmp}">
+                                <input type="hidden" name="id" value="${emp.id}" />
+                                <input type="hidden" name="url" value="${emp.url}" />
+                                <button class="btn-danger">Update Price</br>from URL</button>
+                            </form:form>
+                        </td>
+				    </c:if>
+                    <c:if test="${!fn:contains(emp.url, 'www.aliexpress.com') && !fn:contains(emp.url, 'www.salidzini.lv/i/')}">
+                        <td></td>
+                    </c:if>
+					<td>
+					    <c:if test="${emp.priority==1}">
+						    <p class="orange"> ${emp.priority_name} </p>
+					    </c:if> <c:if test="${emp.priority==5}">
+						    <p class="green"> ${emp.priority_name} </p>
+					    </c:if> <c:if test="${emp.priority==10}">
+						    <p class="blue"> ${emp.priority_name} </p>
+					    </c:if>
+					</td>
+				    <td>
+					    <div><%--
 								<form:form method="POST" action="${contextPath}/itemEditPage">
 									<input type="hidden" name="id" value="${emp.id}">
 									<input type="hidden" name="name" value="${emp.name}">

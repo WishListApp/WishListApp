@@ -13,7 +13,6 @@ body {
 }
 
 
-
 .menu_bar {
     width: 25%;
     height: auto;
@@ -62,4 +61,14 @@ h1 {
 .thumb:hover span { 
 	visibility:visible;
 	top:37px; left:37px; 
+}
+
+.orange{
+    color=orange
+}
+.green{
+    color=green
+}
+.blue{
+    color: rgba(7, 17, 130,1);
 }

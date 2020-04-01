@@ -14,7 +14,7 @@
     <div id="header"><%@ include file="parts/header.jsp" %></div>
 	<div class="container">
 		<div class="table_header_left">
-				<h2>Something went wrong or page no exist</h2>
+				<h2>Something went wrong or page does not exist</h2>
 
 	Click
 	<a href=/home>here</a> to go back to the Homepage.

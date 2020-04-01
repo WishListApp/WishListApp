@@ -23,6 +23,23 @@ public class WishController {
 
     @Autowired
     private WishListDao empDao;
+    
+    @GetMapping("/export")
+    public ModelAndView export(ModelAndView model) {
+        model.addObject("WishListModXLS", empDao.WlistEmp());
+        model.setViewName("excelView");
+        return model;
+    }
+    
+    @GetMapping("/balexport")
+    public ModelAndView balexport(ModelAndView model) {
+        model.addObject("BalanceModXLS", empDao.getBalanceHistory());
+        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        model.setViewName("balView");
+        return model;
+    }
+    
+    
 
     @RequestMapping(value = "/admin/cat")
     public ModelAndView editCatlistEmp(ModelAndView model) {

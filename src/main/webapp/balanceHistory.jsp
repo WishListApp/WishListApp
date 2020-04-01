@@ -18,10 +18,22 @@
     <%@ include file="parts/header.jsp" %>
 </div>
 
-<div>
+<div class="container">
+    <div class="table_header_left">
     <h2>Balance History</h2>
     <p>Here yu can see history of your balance</p>
+    </div>
+    <div class="table_header_right">
 
+
+        <a href="/balexport">
+            <button type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon" aria-hidden="true"></span>
+                Export
+            </button>
+        </a>        
+        
+    </div>
     <table>
         <tbody>
         <th>Changes</th>

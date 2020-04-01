@@ -1,5 +1,6 @@
 package com.wlt.wla.auth.web;
 
+import com.wlt.wla.parsers.imgParsers;
 import com.wlt.wla.parsers.priceParsers;
 import com.wlt.wla.auth.model.*;
 import com.wlt.wla.auth.service.*;
@@ -78,7 +79,7 @@ public class UserController {
 	@PostMapping("/admin/renameCat")
 	public String renameCat(@ModelAttribute("DBCatItems") DBCatItems cats) {
 		String catname = cats.getName().trim();
-		if (!catname.contentEquals("")  && !catname.contentEquals(" ")) {
+		if (!catname.contentEquals("") && !catname.contentEquals(" ")) {
 			String sql = "UPDATE `dr_wishlist`.`item_cat` SET `name` = '" + catname + "' WHERE `item_cat`.`id` ="
 					+ cats.getId();
 			jdbcTemp.execute(sql);
@@ -95,13 +96,12 @@ public class UserController {
 	public String addCat(@ModelAttribute("DBCatItems") DBCatItems cats) {
 
 		String catname = cats.getName().trim();
-		if (!catname.contentEquals("")  && !catname.contentEquals(" ")) {
+		if (!catname.contentEquals("") && !catname.contentEquals(" ")) {
 			String sql = "INSERT INTO `dr_wishlist`.`item_cat` (`id`, `name`) VALUES (NULL, '" + catname + "')";
 			jdbcTemp.execute(sql);
 
 		}
 
-		
 		return "redirect:/admin/cat";
 	}
 
@@ -157,7 +157,8 @@ public class UserController {
 
 	@PostMapping("/restore")
 	public String restoreItem(@ModelAttribute("Item") DBWishItems item) {
-        String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, 0 FROM `wishlist_items` WHERE `id` = " + item.getId();
+		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, 0 FROM `wishlist_items` WHERE `id` = "
+				+ item.getId();
 		jdbcTemp.execute(sql);
 
 		return "redirect:/itemList";
@@ -180,24 +181,26 @@ public class UserController {
 
 	@GetMapping("/updatePrice")
 	public String updatePrice(Model model, String error, String remove) {
-//		if (error != null)
-//			model.addAttribute("error", "Your username and password is invalid.");
-//		else System.out.println("else here");
-
 		return "redirect:/home";
 	}
 
 	@PostMapping("/updatePrice")
 	public String updatePrice(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
 		priceParsers pp = new priceParsers();
+		imgParsers ip = new imgParsers();
 		float f = -1;
 		String url = item.getUrl();
+		String img = "";
 
-		if (url.contains("www.salidzini.lv"))
+		if (url.contains("www.salidzini.lv")) {
 			f = pp.getPriceSalidzini(item.getUrl());
-		if (url.contains("www.aliexpress.com"))
-			f = pp.getPriceAlie(item.getUrl());
+			img = ip.getImgSalidzini(url);
+		}
 
+		if (url.contains("www.aliexpress.com")) {
+			f = pp.getPriceAlie(item.getUrl());
+			img = ip.getImgAlie(url);
+		}
 		if (f > 0f) {
 			String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `price` = '" + f + "' WHERE `wishlist_items`.`id` ="
 					+ item.getId();
@@ -206,6 +209,15 @@ public class UserController {
 
 			System.out.println("price cannot be received");
 		}
+		if (!img.contentEquals("")) {
+		
+			String sql = "REPLACE INTO `dr_wishlist`.`ImgSrc` (`items_id`, `img_url`) VALUES ('"+ item.getId() + "', '"+img+"')";
+			jdbcTemp.execute(sql);
+		} else {
+
+			System.out.println("img cannot be received");
+		}
+
 		return "redirect:/itemList";
 	}
 

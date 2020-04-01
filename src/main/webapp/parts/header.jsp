@@ -64,4 +64,10 @@
         $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
         $('ul li a').click(function(){ $('li a').removeClass("active"); $(this).addClass("active"); });
     });
+    $('html').on('click', function(e) {
+      if (typeof $(e.target).data('original-title') == 'undefined' &&
+         !$(e.target).parents().is('.popover.in')) {
+        $('[data-original-title]').popover('hide');
+      }
+    })
     </script>

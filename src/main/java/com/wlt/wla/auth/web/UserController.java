@@ -145,11 +145,6 @@ public class UserController {
 		return "redirect:/archiveItemList";
 	}
 	
-	@GetMapping("/noerrorPage")
-	public String noerror(Model model) {
-		return "redirect:/noerror";
-	}
-
 	@PostMapping("/archive")
 	public String archiveItem(@ModelAttribute("Item") DBWishItems item) {
 		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status` WHERE id="

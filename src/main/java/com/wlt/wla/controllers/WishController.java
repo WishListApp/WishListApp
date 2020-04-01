@@ -117,19 +117,6 @@ public class WishController {
         return model;
     }
 
-    @RequestMapping(value = "/add")
-    public ModelAndView listCat(ModelAndView modelAndView) {
-
-        modelAndView.addObject("CatEmp", empDao.CatEmp());
-        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
-        modelAndView.addObject("PriorEmp", empDao.PriorEmp());
-        modelAndView.addObject("Item", new DBWishItems());
-        modelAndView.setViewName("addItem");
-
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/home")
     public ModelAndView listEmp(ModelAndView model) {
 
@@ -165,6 +152,11 @@ public class WishController {
         modelAndView.addObject("currentPage", page);
         modelAndView.addObject("pageCount", pageCount);
         modelAndView.addObject("WlistEmp", test);
+
+        modelAndView.addObject("CatEmp", empDao.CatEmp());
+        modelAndView.addObject("PriorEmp", empDao.PriorEmp());
+        modelAndView.addObject("Item", new DBWishItems());
+
         modelAndView.setViewName("itemList");
 
         return modelAndView;

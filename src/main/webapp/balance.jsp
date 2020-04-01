@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="./resources/css/balance.css">
 </head>
 <body>
-    <div id="header"><%@ include file="parts/header.jsp" %></div>
-    <div>
+<div id="header">
+    <%@ include file="parts/header.jsp" %>
+</div>
+<div>
     <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
         <h2 class="form-signin-heading">Alter Balance</h2>
 

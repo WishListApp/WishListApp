@@ -31,14 +31,14 @@ public class WishController {
     private String helloPage() {
         return "redirect:/home";
     }
-    
+
     @GetMapping("/export")
     public ModelAndView export(ModelAndView model) {
         model.addObject("WishListModXLS", empDao.WlistEmp());
         model.setViewName("excelView");
         return model;
     }
-    
+
     @GetMapping("/balexport")
     public ModelAndView balexport(ModelAndView model) {
         model.addObject("BalanceModXLS", empDao.getBalanceHistory());
@@ -46,19 +46,15 @@ public class WishController {
         model.setViewName("balView");
         return model;
     }
-    
-    
 
     @RequestMapping(value = "/admin/cat")
     public ModelAndView editCatlistEmp(ModelAndView model) {
 
-		model.setViewName("editCatList");
-		model.addObject("CatEmp", empDao.CatEmp());
+        model.setViewName("editCatList");
+        model.addObject("CatEmp", empDao.CatEmp());
 
-		return model;
-	}
-
-
+        return model;
+    }
 
     private List<User> getPartOfUserList(int page, int itemsPerPage) {
         int startItem = page * itemsPerPage;
@@ -129,7 +125,7 @@ public class WishController {
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
         modelAndView.addObject("PriorEmp", empDao.PriorEmp());
         modelAndView.addObject("Item", new DBWishItems());
-		modelAndView.setViewName("addItem");
+        modelAndView.setViewName("addItem");
 
         return modelAndView;
     }

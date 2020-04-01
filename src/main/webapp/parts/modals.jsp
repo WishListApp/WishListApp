@@ -130,7 +130,7 @@
 
                             </div>
                         </spring:bind>
-                        <form:input path="id" type="hidden"></form:input>
+                        <form:input path="id" type="hidden" id="input-id"></form:input>
                         <button class="btn btn-default btn-lg btn-block" type="submit">Edit</button>
                         <button type="button " class="btn btn-default btn-lg btn-block btn-danger" data-dismiss="modal">
                             Cancel

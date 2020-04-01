@@ -1,4 +1,4 @@
-package com.wlt.wla.controllers;
+package com.wlt.wla.data;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,9 +9,6 @@ import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
 import com.wlt.wla.auth.model.User;
 
-import com.wlt.wla.data.DBCatItems;
-import com.wlt.wla.data.DBPriorities;
-import com.wlt.wla.data.WishListDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +23,6 @@ public class WishController {
 
     @Autowired
     private WishListDao empDao;
-
-    @GetMapping("")
-    private String helloPage() {
-        return "redirect:/home";
-    }
 
     @GetMapping("/export")
     public ModelAndView export(ModelAndView model) {
@@ -47,6 +39,7 @@ public class WishController {
         return model;
     }
 
+
     @RequestMapping(value = "/admin/cat")
     public ModelAndView editCatlistEmp(ModelAndView model) {
 
@@ -55,6 +48,7 @@ public class WishController {
 
         return model;
     }
+
 
     private List<User> getPartOfUserList(int page, int itemsPerPage) {
         int startItem = page * itemsPerPage;
@@ -130,7 +124,6 @@ public class WishController {
     @RequestMapping(value = "/itemList")
     public ModelAndView itemList(ModelAndView modelAndView, HttpServletRequest request) {
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        modelAndView.addObject("balanceFloat", empDao.getBalance());
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 
         int page = getCurrentPage(request.getParameter("page"));

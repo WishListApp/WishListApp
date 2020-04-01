@@ -54,7 +54,6 @@
             <th>Item Name</th>
             <th>Category</th>
             <th>Price</th>
-            <th>Update</th>
             <th>Priority</th>
             <th>Edit</th>
             <th>Fulfill</th>
@@ -184,7 +183,7 @@
             document.getElementById("input-priority").value = $(e.relatedTarget).data("priority");
             document.getElementById("input-price").value = $(e.relatedTarget).data("price");
             document.getElementById("input-url").value = $(e.relatedTarget).data("url");
-            document.getElementById("input-id").setAttribute("value", $(e.relatedTarget).data("id"));
+            document.getElementById("input-id").value = $(e.relatedTarget).data("id");
         });
     });
 </script>

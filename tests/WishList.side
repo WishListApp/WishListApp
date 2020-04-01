@@ -1,0 +1,21 @@
+{
+  "id": "e60d8863-0d33-4fc2-9f3f-6e2b0e0f1eb5",
+  "version": "2.0",
+  "name": "WishList",
+  "url": "",
+  "tests": [{
+    "id": "b5ae776c-283d-405d-9925-b021b1fe04c6",
+    "name": "Untitled",
+    "commands": []
+  }],
+  "suites": [{
+    "id": "492a979c-151b-4d41-921c-420bf8f0bf67",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["b5ae776c-283d-405d-9925-b021b1fe04c6"]
+  }],
+  "urls": [],
+  "plugins": []
+}

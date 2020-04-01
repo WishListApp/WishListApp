@@ -396,6 +396,7 @@ public class UserController {
 		int category = Integer.parseInt(request.getParameter("group"));
 		int priority = Integer.parseInt(request.getParameter("priority"));
 		String url = request.getParameter("url");
+		if (url.contains("aliexpress.com")) {System.out.println(url.indexOf(".htm"));}
 
 		String query = "UPDATE dr_wishlist.wishlist_items SET cat_id = " + category + ", name = '" + name
 				+ "', priority = " + priority + ", price = " + price + ", url = '" + url + "' WHERE id = " + id;

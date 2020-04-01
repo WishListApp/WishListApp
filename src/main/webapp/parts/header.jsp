@@ -15,9 +15,10 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="" id="liHome"><a href="/home">Home</a></li>
-                        <li class="" id="liItems"><a href="/itemList">Wish list</a></li>
-                        <li class="" id="liCats"><a href="/catList">Categories</a></li>
+                        <li><a href="/home">Home</a></li>
+                        <li><a href="/itemList">Wish list</a></li>
+                        <li><a href="/catList">Categories</a></li>
+                        <li><a href="/balanceHistory">Balance</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -51,7 +52,7 @@
 </header>
 
     <script>
-    var popoverCnt='<center><a href="/balance"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></center>';
+    var popoverCnt='<center><a href="/balance"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></br><a href="/admin"><button class="btn btn-default"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Admin</button></a></center>';
     $(document).ready(function(){
         $('#popbutton').popover({
             title: "<center>Choose settings group</center>",

@@ -32,10 +32,10 @@
                 <p>Category list</p>
             </div>
         </a>
-        <a href="/balance">
+        <a href="/balanceHistory">
             <div class="grid-item">
                 <img src="https://cdn.onlinewebfonts.com/svg/img_457436.png" width="200" height="200">
-                <p>Balance settings</p>
+                <p>Your Balance</p>
             </div>
         </a>
         <a href="/profile">

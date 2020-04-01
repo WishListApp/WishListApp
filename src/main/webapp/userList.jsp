@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@include file="adminheader.jsp" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>User List</title>
+    <link rel="stylesheet" href="./resources/css/itemList.css">
+</head>
+<body>
+<div id="header"><%@ include file="parts/adminheader.jsp" %></div>
 <div class="container">
     <div class="table_header_left">
         <h2>User list</h2>
@@ -71,8 +78,5 @@
         $("#password" + id).val(prompt("Enter new password:"))
     }
 </script>
-<script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

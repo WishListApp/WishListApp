@@ -62,7 +62,16 @@
         </thead>
         <tbody>
         <c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-            <tr>
+            <c:if test="${emp.priority==1}">
+                            <tr class="warning">
+                        </c:if>
+                        <c:if test="${emp.priority==5}">
+                            <tr class="success">
+                        </c:if>
+                        <c:if test="${emp.priority==10}">
+                            <tr class="info">
+                        </c:if>
+
                 <c:if test="${emp.url != ''}">
                     <td>
                         <div id="thumbwrap">

@@ -21,20 +21,23 @@
 <div class="container">
     <div class="table_header_left">
     <h2>Balance History</h2>
-    <p>Here yu can see history of your balance</p>
+    <p>Here you can see history of your balance:</p>
     </div>
     <div class="table_header_right">
-
-
+        <a href="/balance">
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                Balance settings
+            </button>
+        </a>
         <a href="/balexport">
-            <button type="button" class="btn btn-default btn-lg">
-                <span class="glyphicon" aria-hidden="true"></span>
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
                 Export
             </button>
-        </a>        
-        
+        </a>
     </div>
-    <table>
+    <table class="table table-striped">
         <tbody>
         <th>Changes</th>
         <th>Note</th>

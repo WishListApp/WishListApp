@@ -52,27 +52,27 @@ public class UserController {
 	private InputValidator InputValidator;
 
 	@GetMapping({ "/admin", "/admin/" })
-	public String admin(Model model) {
+	public String admin() {
 		return "admin";
 	}
 
 	@GetMapping({ "/admin/editCatList" })
-	public String editCatList(Model model) {
+	public String editCatList() {
 		return "editCatList";
 	}
 
 	@GetMapping({ "/admin/userList" })
-	public String userList(Model model) {
+	public String userList() {
 		return "userList";
 	}
 
 	@GetMapping("/admin/setPwd")
-	public String setPwd(Model model, String error, String remove) {
+	public String setPwd() {
 		return "redirect:/admin/users";
 	}
 
 	@GetMapping("/admin/renameCat")
-	public String renameCat(Model model, String error, String remove) {
+	public String renameCat() {
 		return "redirect:/admin/cat";
 	}
 
@@ -88,7 +88,7 @@ public class UserController {
 	}
 
 	@GetMapping("/admin/addCat")
-	public String addCat(Model model, String error, String remove) {
+	public String addCat() {
 		return "redirect:/admin/cat";
 	}
 
@@ -116,7 +116,7 @@ public class UserController {
 	}
 
 	@GetMapping("/admin/removeUser")
-	public String removeUser(Model model, String error, String remove) {
+	public String removeUser() {
 		return "redirect:/admin/users";
 	}
 
@@ -138,7 +138,7 @@ public class UserController {
 	}
 
 	@GetMapping("/archive")
-	public String archive(Model model, String error, String remove) {
+	public String archive() {
 		return "redirect:/archiveItemList";
 	}
 
@@ -151,7 +151,7 @@ public class UserController {
 	}
 
 	@GetMapping("/restore")
-	public String restore(Model model, String error, String remove) {
+	public String restore() {
 		return "redirect:/restoreList";
 	}
 
@@ -165,7 +165,7 @@ public class UserController {
 	}
 
 	@GetMapping("/remove")
-	public String remove(Model model, String error, String remove) {
+	public String remove() {
 		return "redirect:/home";
 	}
 
@@ -222,7 +222,7 @@ public class UserController {
 	}
 
 	@PostMapping("/add")
-	public String add(@ModelAttribute("Item") DBWishItems item, BindingResult bindingResult) {
+	public String add(@ModelAttribute("Item") DBWishItems item) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
@@ -246,7 +246,7 @@ public class UserController {
 	}
 
 	@PostMapping("/balance")
-	public String balance(@ModelAttribute("BalanceForm") Balance balance, BindingResult bindingResult) {
+	public String balance(@ModelAttribute("BalanceForm") Balance balance) {
 		float change = balance.getBalanceChange();
 		String note = balance.getNote();
 
@@ -323,12 +323,12 @@ public class UserController {
 	}
 
 	@GetMapping("/welcome")
-	public String welcome(Model model) {
+	public String welcome() {
 		return "welcome";
 	}
 
 	@GetMapping("/addItem")
-	public String addItem(Model model) {
+	public String addItem() {
 		return "addItem";
 	}
 
@@ -370,14 +370,8 @@ public class UserController {
 			}
 		}
 
-		List<Item> list = jdbcTemp.query(query, new RowMapper<Item>() {
-
-			@Override
-			public Item mapRow(ResultSet rs, int rowNum) throws SQLException {
-				return new Item(rs.getFloat("price"), rs.getString("name"));
-			}
-
-		});
+		List<Item> list = jdbcTemp.query(query,
+				(rs, rowNum) -> new Item(rs.getFloat("price"), rs.getString("name")));
 
 		String note = "You spent " + String.format(Locale.US, "%.2f", list.get(0).getPrice()) + " on "
 				+ list.get(0).getName();

@@ -158,7 +158,7 @@ public class UserController {
 
 	@PostMapping("/restore")
 	public String restoreItem(@ModelAttribute("Item") DBWishItems item) {
-		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` ( `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, `status`) SELECT `user_id`, `cat_id`, `name`, `priority`, `price`, `url`, 0 FROM `wishlist_items` WHERE `id` = "
+		String sql = "UPDATE `dr_wishlist`.`wishlist_items` SET `status` = '0' WHERE `wishlist_items`.`id` ="
 				+ item.getId();
 		jdbcTemp.execute(sql);
 
@@ -236,10 +236,11 @@ public class UserController {
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-
+		String url=item.getUrl();
+		if (url.contains("aliexpress.com")) {url=url.substring(0,5+url.indexOf(".html"));}
 		String sql = "INSERT INTO `dr_wishlist`.`wishlist_items` (`id`, `user_id`, `cat_id`, `name`, `priority`, `price` , url) "
 				+ "VALUES (NULL, " + userId + ", '" + item.getGroup() + "', '" + item.getName() + "', '"
-				+ item.getPriority() + "', '" + item.getPrice() + "','" + item.getUrl() + "');";
+				+ item.getPriority() + "', '" + item.getPrice() + "','" + url + "');";
 		jdbcTemp.execute(sql);
 
 		return "redirect:/itemList";
@@ -396,7 +397,7 @@ public class UserController {
 		int category = Integer.parseInt(request.getParameter("group"));
 		int priority = Integer.parseInt(request.getParameter("priority"));
 		String url = request.getParameter("url");
-
+		if (url.contains("aliexpress.com")) {url=url.substring(0,5+url.indexOf(".html"));}
 		String query = "UPDATE dr_wishlist.wishlist_items SET cat_id = " + category + ", name = '" + name
 				+ "', priority = " + priority + ", price = " + price + ", url = '" + url + "' WHERE id = " + id;
 		jdbcTemp.execute(query);

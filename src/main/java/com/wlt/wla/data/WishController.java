@@ -103,7 +103,7 @@ public class WishController {
         model.setViewName("userList");
 
         int page = getCurrentPage(request.getParameter("page"));
-        int itemsPerPage = 5;
+        int itemsPerPage = 15;
         int pageCount = (int) Math.ceil(empDao.getUlistEmpSize() * 1.0 / itemsPerPage);
 
         List<User> test = getPartOfUserList(page, itemsPerPage);
@@ -130,7 +130,7 @@ public class WishController {
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
 
         int page = getCurrentPage(request.getParameter("page"));
-        int itemsPerPage = 5;
+        int itemsPerPage = 15;
 
         String category = request.getParameter("category");
         List<DBWishItems> test;
@@ -160,7 +160,7 @@ public class WishController {
 
     @RequestMapping(value = "/restoreList")
     public ModelAndView restoreList(ModelAndView modelAndView, HttpServletRequest request) {
-        int itemsPerPage = 5;
+        int itemsPerPage = 15;
         int currentPage = getCurrentPage(request.getParameter("page"));
         int pageCount = (int) Math.ceil(empDao.getWlistRestoreSize() * 1.0 / itemsPerPage);
         modelAndView.addObject("currentPage", currentPage);
@@ -176,7 +176,7 @@ public class WishController {
     @RequestMapping(value = "/archiveItemList")
     public ModelAndView archiveItemList(ModelAndView modelAndView, HttpServletRequest request) {
         int currentPage = getCurrentPage(request.getParameter("page"));
-        int itemsPerPage = 5;
+        int itemsPerPage = 15;
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
         modelAndView.addObject("WlistArchiveEmp", getPartOfWListArchive(currentPage, itemsPerPage));
@@ -241,7 +241,7 @@ public class WishController {
 
     @GetMapping("/balanceHistory")
     public ModelAndView balanceHistory(ModelAndView modelAndView, HttpServletRequest request) {
-        int itemsPerPage = 8;
+        int itemsPerPage = 15;
 
         int currentPage = getCurrentPage(request.getParameter("page"));
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());

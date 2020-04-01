@@ -2,9 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@include file="adminheader.jsp"%>
 
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%@ include file="parts/commonHeadParts.jsp" %>
+    <title>Wish List</title>
+    <link rel="stylesheet" href="./resources/css/mainPage.css">
+</head>
+<body>
+<div id="header"><%@ include file="parts/adminheader.jsp" %></div>
 <div class="container">
 	<div class="table_header_left">
 		<h2>User list</h2>

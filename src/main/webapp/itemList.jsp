@@ -92,7 +92,7 @@
                             <form:form method="POST" action="${contextPath}/updatePrice" items="${WlistEmp}">
                                 <input type="hidden" name="id" value="${emp.id}" />
                                 <input type="hidden" name="url" value="${emp.url}" />
-                                <button class="btn-danger">Update Price</br>from URL</button>
+                                <button class="btn-danger">Update Price from URL</button>
                             </form:form>
                         </td>
 				    </c:if>

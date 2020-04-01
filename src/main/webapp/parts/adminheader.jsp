@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wish List</title>
-    <link rel="stylesheet" href="/resources/css/normalize.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/css/common.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/css/mainPage.css">
-</head>
-<body>
 	<header>
 		 <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -26,9 +15,9 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/admin/">Home</a></li>
-                        <li><a href="/admin/users">User list</a></li>
-                         <li><a href="/admin/cat">Categories</a></li> 
+                        <li class="" id="liHome"><a href="/admin/">Home</a></li>
+                        <li class="" id="liItems"><a href="/admin/users">User list</a></li>
+                        <li class="" id="liCats"><a href="/admin/cat">Categories</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -37,13 +26,13 @@
                                 <strong>${pageContext.request.userPrincipal.name}</strong>
                             </p>
                         </li>
-<!--                         <li> -->
-<!--                             <a href="http://localhost:8080/balance"> -->
-<!--                                 <button type="button" class="btn btn-default navbar-btn"> -->
-<!--                                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings -->
-<!--                                 </button> -->
-<!--                             </a> -->
-<!--                         </li> -->
+                         <li>
+                             <a href="/home">
+                                 <button type="button" class="btn btn-default navbar-btn">
+                                     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Exit admin panel
+                                 </button>
+                             </a>
+                         </li>
                         <li>
                             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                           	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -59,3 +48,12 @@
             </div>
          </nav>
 	</header>
+
+    <script>
+        $(document).ready(function(){
+            // get current URL path and assign 'active' class
+            var pathname = window.location.pathname;
+            $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+            $('ul li a').click(function(){ $('li a').removeClass("active"); $(this).addClass("active"); });
+        })
+        </script>

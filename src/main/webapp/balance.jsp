@@ -17,13 +17,13 @@
 </div>
 <div>
     <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
-        <h2 class="form-signin-heading">Alter Balance</h2>
-
+        <h2 class="form-signin-heading" id="updateBalanceForm">Alter Balance</h2>
         <spring:bind path="balanceChange">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <h3>Add/Subtract to/from balance</h3>
-                <form:input type="number" step="0.01" path="balanceChange" class="form-control"
-                            placeholder="Value to add/subtract"
+                <p id="textFieldAlert" style="color: red"></p>
+                <form:input type="number" path="balanceChange" class="form-control"
+                            placeholder="Value to add/subtract" id="input-number"
                             autofocus="true"></form:input>
                 <form:errors path="balanceChange"></form:errors>
             </div>
@@ -33,11 +33,28 @@
             <h3>Add note to changes in balance(optional)</h3>
             <form:textarea path="note" maxlength="200" rows="10" cols="10" cssClass="form-control"></form:textarea>
         </spring:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" id="submitBtn" type="submit" disabled>Submit</button>
     </form:form>
-
-
 </div>
+<script>
+    const inputField = document.getElementById("input-number");
+    inputField.addEventListener("change", function (e) {
+        if (e.target.value === '') {
+            e.target.value = "0";
+        }
+
+        if (parseFloat(e.target.value) > 10000 || parseFloat(e.target.value) < -10000) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("textFieldAlert").innerText = "You more than 10000 or less than -10000";
+        } else if (parseFloat(e.target.value) === 0) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("textFieldAlert").innerText = "You can't submit " + e.target.value;
+        } else {
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("textFieldAlert").innerText = "";
+        }
+
+    });
+</script>
 </body>
 </html>

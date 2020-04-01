@@ -23,14 +23,14 @@ public class WishController {
 
     @Autowired
     private WishListDao empDao;
-    
+
     @GetMapping("/export")
     public ModelAndView export(ModelAndView model) {
         model.addObject("WishListModXLS", empDao.WlistEmp());
         model.setViewName("excelView");
         return model;
     }
-    
+
     @GetMapping("/balexport")
     public ModelAndView balexport(ModelAndView model) {
         model.addObject("BalanceModXLS", empDao.getBalanceHistory());
@@ -38,18 +38,16 @@ public class WishController {
         model.setViewName("balView");
         return model;
     }
-    
-    
+
 
     @RequestMapping(value = "/admin/cat")
     public ModelAndView editCatlistEmp(ModelAndView model) {
 
-		model.setViewName("editCatList");
-		model.addObject("CatEmp", empDao.CatEmp());
+        model.setViewName("editCatList");
+        model.addObject("CatEmp", empDao.CatEmp());
 
-		return model;
-	}
-
+        return model;
+    }
 
 
     private List<User> getPartOfUserList(int page, int itemsPerPage) {

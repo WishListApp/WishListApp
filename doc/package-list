@@ -1,9 +1,0 @@
-com.wlt.wla
-com.wlt.wla.auth.model
-com.wlt.wla.auth.repository
-com.wlt.wla.auth.service
-com.wlt.wla.auth.validator
-com.wlt.wla.auth.web
-com.wlt.wla.data
-com.wlt.wla.export
-com.wlt.wla.parsers

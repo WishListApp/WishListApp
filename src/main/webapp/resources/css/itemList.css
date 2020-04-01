@@ -7,12 +7,11 @@ body {
     margin-top: 10px;
     margin-right: 10%;
 }
+
 .table_header_left {
     margin-top: 10px;
     float: left;
 }
-
-
 
 .menu_bar {
     width: 25%;
@@ -35,6 +34,7 @@ h1 {
     margin-left: 15%;
     margin-right: 15%;
 }
+
 .groups {
     background: #291d24;
 }
@@ -42,24 +42,42 @@ h1 {
 #thumbwrap {
 
 }
+
 .thumb {
-	float:left; /* must be floated for same cross browser position of larger image */
-	position:relative;
-	margin:3px;
+    float: left; /* must be floated for same cross browser position of larger image */
+    position: relative;
+    margin: 3px;
 }
-.thumb img { 
-	border:1px solid #000;
-	vertical-align:bottom;
+
+.thumb img {
+    border: 1px solid #000;
+    vertical-align: bottom;
 }
+
 .thumb:hover {
-	border:0; /* IE6 needs this to show large image */
-	z-index:1;
+    border: 0; /* IE6 needs this to show large image */
+    z-index: 1;
 }
-.thumb span { 
-	position:absolute;
-	visibility:hidden;
+
+.thumb span {
+    position: absolute;
+    visibility: hidden;
 }
-.thumb:hover span { 
-	visibility:visible;
-	top:37px; left:37px; 
+
+.thumb:hover span {
+    visibility: visible;
+    top: 37px;
+    left: 37px;
+}
+
+.orange {
+    color: orange;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: rgba(7, 17, 130, 1);
 }

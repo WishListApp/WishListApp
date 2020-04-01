@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
         //user.setRoles(new HashSet<>(roleRepository.findById(1l).orElse()));
         Role myRole = new Role();
         //This will by default new user give role 1
-        myRole.setId(1l);
-        myRole.setName("User");
+        myRole.setId(2l);
+        myRole.setName("ROLE_USER");
         Set<Role> myRoles = new HashSet<Role>();
         myRoles.add(myRole);
 		user.setRoles(myRoles);

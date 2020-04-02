@@ -326,7 +326,7 @@ public class UserController {
 		return "login";
 	}
 
-	@GetMapping({ "/" })
+	@GetMapping("/")
 	public String welcome(Model model) {
 		return "mainPage";
 	}

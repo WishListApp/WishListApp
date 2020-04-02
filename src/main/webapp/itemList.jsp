@@ -19,8 +19,8 @@
 </div>
 <div class="container">
     <div class="table_header_left">
-        <h2>Your WishList</h2>
-        <p>Here you can see, edit and delete items from your WishList:</p>
+        <h2>Your Wish List</h2>
+        <p>Here you can see, edit and delete items from your Wish List:</p>
     </div>
     <div class="table_header_right">
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addItemModal">
@@ -30,7 +30,7 @@
         <a href="/restore">
             <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-                Restore Item
+                Restore Items
             </button>
         </a>
         <a href="/archive">

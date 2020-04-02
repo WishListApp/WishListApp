@@ -1,22 +1,16 @@
 package com.wlt.wla.data;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import javax.sql.DataSource;
-
 import com.wlt.wla.auth.model.Balance;
 import com.wlt.wla.auth.model.DBWishItems;
-import com.wlt.wla.auth.model.Settings;
 import com.wlt.wla.auth.model.User;
 import com.wlt.wla.parsers.imgParsers;
-
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import javax.sql.DataSource;
+import java.util.List;
+import java.util.Locale;
 
 public class WishListDaoImpl implements WishListDao {
 
@@ -98,14 +92,6 @@ public class WishListDaoImpl implements WishListDao {
 							emp.setCat_name(rs.getString("cat_name"));
 							emp.setPriority_name(rs.getString("priority_name"));
 							emp.setUrl(rs.getString("url"));
-							// parseimg not necessary for export
-//                    imgParsers pp = new imgParsers();
-//                    if (rs.getString("url").contains("www.salidzini.lv/i/"))
-//                        emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
-//                    if (rs.getString("url").contains("aliexpress.com"))
-//                        emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-
-							// emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
 							return emp;
 						});
@@ -124,14 +110,6 @@ public class WishListDaoImpl implements WishListDao {
 						+ "WHERE STATUS =0 AND user.username = '" + getUsername() + "'\n"
 						+ "ORDER BY priority DESC, wishlist_items.id ASC\n" + "LIMIT " + limit + " OFFSET " + offset,
 
-//                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
-//                        "FROM `wishlist_items` , priority, user, item_cat\n" +
-//                        "WHERE priority.id = wishlist_items.priority\n" +
-//                        "AND user.username = '" + getUsername() + "'\n" +
-//                        "AND item_cat.id = wishlist_items.cat_id\n" +
-//                        "AND user.id = user_id\n" + "AND status = 0 " +
-//                        "ORDER BY priority DESC, wishlist_items.id ASC\n" +
-//                        "LIMIT " + limit + " OFFSET " + offset,
 				(rs, rowNum) -> {
 					DBWishItems emp = new DBWishItems();
 
@@ -147,14 +125,11 @@ public class WishListDaoImpl implements WishListDao {
 					emp.setUrl(rs.getString("url"));
 					emp.setUrlImg(rs.getString("img_url"));
 
-					// parseimg
-
-					if (rs.getString("img_url") == null) { // if in DB no stored img_url
+					if (rs.getString("img_url") == null) {
 						imgParsers pp = new imgParsers();
 						if (rs.getString("url").contains("www.salidzini.lv/i/")) {
 							String img = pp.getImgSalidzini(rs.getString("url"));
 							emp.setUrlImg(img);
-							// if result from parser received.
 							if (!img.equals("")) {
 								String sql = "REPLACE INTO `dr_wishlist`.`ImgSrc` (`items_id`, `img_url`) VALUES ('"
 										+ rs.getInt("id") + "', '" + img + "')";
@@ -164,7 +139,6 @@ public class WishListDaoImpl implements WishListDao {
 						if (rs.getString("url").contains("aliexpress.com")) {
 							String img = pp.getImgAlie(rs.getString("url"));
 							emp.setUrlImg(img);
-							// if result from parser received.
 							if (!img.equals("")) {
 								String sql = "REPLACE INTO `dr_wishlist`.`ImgSrc` (`items_id`, `img_url`) VALUES ('"
 										+ rs.getInt("id") + "', '" + img + "')";
@@ -200,14 +174,11 @@ public class WishListDaoImpl implements WishListDao {
 							emp.setCat_name(rs.getString("cat_name"));
 							emp.setPriority_name(rs.getString("priority_name"));
 							emp.setUrl(rs.getString("url"));
-							// parseimg
 							imgParsers pp = new imgParsers();
 							if (rs.getString("url").contains("www.salidzini.lv/i/"))
 								emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
 							if (rs.getString("url").contains("aliexpress.com"))
 								emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-
-							// emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
 							return emp;
 						});
@@ -288,14 +259,11 @@ public class WishListDaoImpl implements WishListDao {
 							emp.setCat_name(rs.getString("cat_name"));
 							emp.setPriority_name(rs.getString("priority_name"));
 							emp.setUrl(rs.getString("url"));
-							// parseimg
 							imgParsers pp = new imgParsers();
 							if (rs.getString("url").contains("www.salidzini.lv/i/"))
 								emp.setUrlImg(pp.getImgSalidzini(rs.getString("url")));
 							if (rs.getString("url").contains("aliexpress.com"))
 								emp.setUrlImg(pp.getImgAlie(rs.getString("url")));
-
-							// emp.setUrlImg("https://www.websitecodetutorials.com/code/images/jamie-small1big.jpg");
 
 							return emp;
 						});

@@ -19,10 +19,13 @@
 </div>
 <%@ include file="parts/changePassModal.jsp" %>
 
-<div>
+<div style="margin-left: 20%">
+    <div>
+        <h2>Hi, ${pageContext.request.userPrincipal.name}</h2>
+    </div>
     <div>
         <button class="btn btn-default btn-xs"
-                data-toggle="modal" data-target="#changePassModal">
+                data-toggle="modal" data-target="#changeUserPassModal">
             Change Password
         </button>
     </div>

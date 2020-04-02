@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./resources/css/itemList.css">
 </head>
 <body>
+<%@ include file="parts/changePassModal.jsp" %>
 <div id="header"><%@ include file="parts/adminheader.jsp" %></div>
 <div class="container">
     <div class="table_header_left">
@@ -24,12 +25,16 @@
                 <td>${emp.username}</td>
                 <td>
                     <div>
-                        <form:form id="setPwd" method="POST" name="setPwd" action="${contextPath}/admin/setPwd"
-                                   items="${UlistEmp}">
-                            <button class="btn-danger" onclick="save(${emp.id})">Set Password</button>
-                            <input type="hidden" name="password" id="password${emp.id}">
-                            <input type="hidden" name="id" value="${emp.id}"/>
-                        </form:form>
+<%--                        <form:form id="setPwd" method="POST" name="setPwd" action="${contextPath}/admin/setPwd"--%>
+<%--                                   items="${UlistEmp}">--%>
+<%--                            <button class="btn btn-danger" onclick="save(${emp.id})">Set Password</button>--%>
+<%--                            <input type="hidden" name="password" id="password${emp.id}">--%>
+<%--                            <input type="hidden" name="id" value="${emp.id}"/>--%>
+<%--                        </form:form>--%>
+                        <button class="btn btn-danger"
+                                data-toggle="modal" data-target="#changeAdminPassModal" data-id="${emp.id}">
+                            Change Password
+                        </button>
                     </div>
                 </td>
                 <td>
@@ -38,7 +43,7 @@
                             <form:form method="POST"
                                        action="${contextPath}/admin/removeUser" items="${UlistEmp}">
                                 <input type="hidden" name="id" value="${emp.id}"/>
-                                <button class="btn-danger"
+                                <button class="btn btn-danger"
                                         onclick="return confirm('Are you sure you want to delete ${emp.username}?');">
                                     Remove
                                 </button>
@@ -100,10 +105,12 @@
         </ul>
     </nav>
 </div>
-<script>
-    function save(id) {
-        $("#password" + id).val(prompt("Enter new password:"))
-    }
-</script>
 </body>
+<script>
+    $(document).ready(function () {
+        $('#changeAdminPassModal').on('show.bs.modal', function (e) {
+            document.getElementById("id-field").value = $(e.relatedTarget).data("id");
+        });
+    });
+</script>
 </html>

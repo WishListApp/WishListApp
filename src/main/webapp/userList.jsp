@@ -26,12 +26,6 @@
                 <td>${emp.username}</td>
                 <td>
                     <div>
-<%--                        <form:form id="setPwd" method="POST" name="setPwd" action="${contextPath}/admin/setPwd"--%>
-<%--                                   items="${UlistEmp}">--%>
-<%--                            <button class="btn btn-danger" onclick="save(${emp.id})">Set Password</button>--%>
-<%--                            <input type="hidden" name="password" id="password${emp.id}">--%>
-<%--                            <input type="hidden" name="id" value="${emp.id}"/>--%>
-<%--                        </form:form>--%>
                         <button class="btn btn-danger"
                                 data-toggle="modal" data-target="#changeAdminPassModal" data-id="${emp.id}">
                             Change Password

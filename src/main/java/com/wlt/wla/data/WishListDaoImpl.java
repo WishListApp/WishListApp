@@ -271,6 +271,7 @@ public class WishListDaoImpl implements WishListDao {
 		return list;
 	}
 
+	@Override
 	public int getUserId() {
 		int userId = 0;
 		String query = "SELECT id FROM dr_wishlist.user WHERE username=?";

@@ -118,6 +118,17 @@ public class UserController {
 		return "redirect:/admin/users";
 	}
 
+	@PostMapping("/setUserPwd")
+	public String setUserPwd(HttpServletRequest request) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String BPas = passwordEncoder.encode(request.getParameter("pass"));
+		String sql = "UPDATE `dr_wishlist`.`user` SET `password` = '" + BPas + "' WHERE `user`.`id` = " + id;
+		jdbcTemp.execute(sql);
+
+		return "redirect:/profile";
+	}
+
 	@GetMapping("/admin/removeUser")
 	public String removeUser(Model model, String error, String remove) {
 		return "redirect:/admin/users";

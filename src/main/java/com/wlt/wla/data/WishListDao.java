@@ -27,6 +27,7 @@ public interface WishListDao {
 	public int getBalanceHistorySize();
 	List<DBWishItems> WlistArchiveEmp(int limit, int offset);
 	public int getWlistArchiveSize();
+	public int getUserId();
 
 	
 	

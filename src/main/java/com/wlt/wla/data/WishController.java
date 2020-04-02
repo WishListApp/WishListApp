@@ -11,6 +11,7 @@ import com.wlt.wla.auth.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -252,4 +253,12 @@ public class WishController {
         return modelAndView;
     }
 
+    @GetMapping("/profile")
+    public ModelAndView profile(ModelAndView modelAndView) {
+        modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
+        modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
+        modelAndView.addObject("id", empDao.getUserId());
+        modelAndView.setViewName("profile");
+        return modelAndView;
+    }
 }

@@ -196,16 +196,6 @@ public class WishController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/balance")
-    public ModelAndView balance(ModelAndView model) {
-        model.addObject("BalanceForm", new Balance());
-        model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
-        model.addObject("currencyCode", empDao.getCurrencyCode());
-        model.setViewName("balance");
-
-        return model;
-    }
-
     @PostMapping("/itemEditPage")
     public ModelAndView itemEdit(ModelAndView model, HttpServletRequest request) {
         model.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
@@ -239,6 +229,7 @@ public class WishController {
 
     @GetMapping("/balanceHistory")
     public ModelAndView balanceHistory(ModelAndView modelAndView, HttpServletRequest request) {
+        modelAndView.addObject("BalanceForm", new Balance());
         int itemsPerPage = 15;
 
         int currentPage = getCurrentPage(request.getParameter("page"));

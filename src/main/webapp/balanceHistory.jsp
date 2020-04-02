@@ -5,6 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,12 +25,10 @@
     <p>Here you can see history of your balance:</p>
     </div>
     <div class="table_header_right">
-        <a href="/balance">
-            <button type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-                Balance settings
-            </button>
-        </a>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#balanceModal">
+            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+            Balance settings
+        </button>
         <a href="/balexport">
             <button type="button" class="btn btn-default">
                 <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
@@ -37,6 +36,7 @@
             </button>
         </a>
     </div>
+    <%@ include file="parts/balanceModal.jsp" %>
     <table class="table table-striped">
         <tbody>
         <th>Changes</th>

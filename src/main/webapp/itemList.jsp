@@ -61,16 +61,14 @@
         </thead>
         <tbody>
         <c:forEach var="emp" items="${WlistEmp}" varStatus="status">
-            <c:if test="${emp.priority==1}">
-                            <tr class="warning">
-                        </c:if>
-                        <c:if test="${emp.priority==5}">
-                            <tr class="success">
-                        </c:if>
-                        <c:if test="${emp.priority==10}">
-                            <tr class="info">
-                        </c:if>
-
+                <c:choose>
+                    <c:when test="${emp.price <= balance}">
+                        <tr class="success">
+                    </c:when>
+                    <c:otherwise>
+                       <tr class="warning">
+                    </c:otherwise>
+                    </c:choose>
                 <c:if test="${emp.url != ''}">
                     <td>
                         <div id="thumbwrap">
@@ -105,7 +103,7 @@
                 <td><c:if test="${emp.priority==1}">
                     <span style="color: red; "> ${emp.priority_name} </span>
                 </c:if> <c:if test="${emp.priority==5}">
-                    <span style="color: green; "> ${emp.priority_name} </span>
+                    <span style="color: orange; "> ${emp.priority_name} </span>
                 </c:if> <c:if test="${emp.priority==10}">
                     <span style="color: black; "> ${emp.priority_name} </span>
                 </c:if></td>

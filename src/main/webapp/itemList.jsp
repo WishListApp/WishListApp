@@ -112,7 +112,7 @@
                         <button class="btn btn-default btn-xs" data-name="${emp.name}" data-group="${emp.group}"
                                 data-priority="${emp.priority}" data-price="${emp.price}" data-url="${emp.url}"
                                 data-id="${emp.id}"
-                                data-toggle="modal" data-target="#editItemModal">
+                                data-toggle="modal" data-target="#editItemModal" style="padding: 7px 12px;font-size: 13px;">
                             Edit
                         </button>
                     </div>

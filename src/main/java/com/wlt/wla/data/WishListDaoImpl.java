@@ -85,7 +85,7 @@ public class WishListDaoImpl implements WishListDao {
 						+ "FROM `wishlist_items` , priority, user, item_cat\n"
 						+ "WHERE priority.id = wishlist_items.priority\n" + "AND user.username = '" + getUsername()
 						+ "'\n" + "AND item_cat.id = wishlist_items.cat_id\n" + "AND user.id = user_id\n"
-						+ "AND status = 0 " + "ORDER BY priority DESC, wishlist_items.id ASC\n", (rs, rowNum) -> {
+						+ "AND status = 0 " + "ORDER BY priority DESC, wishlist_items.name, wishlist_items.id ASC\n", (rs, rowNum) -> {
 							DBWishItems emp = new DBWishItems();
 
 							emp.setName(rs.getString("name"));
@@ -122,7 +122,7 @@ public class WishListDaoImpl implements WishListDao {
 						+ "INNER JOIN user ON user.id = user_id \n"
 						+ "INNER JOIN priority ON priority.id = wishlist_items.priority\n"
 						+ "WHERE STATUS =0 AND user.username = '" + getUsername() + "'\n"
-						+ "ORDER BY priority DESC, wishlist_items.id ASC\n" + "LIMIT " + limit + " OFFSET " + offset,
+						+ "ORDER BY priority DESC, wishlist_items.name, wishlist_items.id ASC\n" + "LIMIT " + limit + " OFFSET " + offset,
 
 //                "SELECT wishlist_items . * , item_cat.name AS cat_name, priority.name AS priority_name\n" +
 //                        "FROM `wishlist_items` , priority, user, item_cat\n" +
@@ -240,7 +240,7 @@ public class WishListDaoImpl implements WishListDao {
 						+ "FROM `wishlist_items` , priority, user, item_cat\n"
 						+ "WHERE priority.id = wishlist_items.priority\n" + "AND user.username = '" + getUsername()
 						+ "'\n" + "AND item_cat.id = wishlist_items.cat_id\n" + "AND user.id = user_id\n"
-						+ "AND status = 1 " + "ORDER BY priority DESC, wishlist_items.id ASC LIMIT " + limit
+						+ "AND status = 1 " + "ORDER BY priority DESC, wishlist_items.name, wishlist_items.id ASC LIMIT " + limit
 						+ " OFFSET " + offset, (rs, rowNum) -> {
 							DBWishItems emp = new DBWishItems();
 
@@ -274,7 +274,7 @@ public class WishListDaoImpl implements WishListDao {
 						+ "FROM `wishlist_items` , priority, user, item_cat\n"
 						+ "WHERE priority.id = wishlist_items.priority\n" + "AND user.username = '" + getUsername()
 						+ "'\n" + "AND item_cat.id = wishlist_items.cat_id\n" + "AND user.id = user_id\n"
-						+ "AND status = -1 " + "ORDER BY priority DESC, wishlist_items.id ASC LIMIT " + limit
+						+ "AND status = -1 " + "ORDER BY priority DESC, wishlist_items.name, wishlist_items.id ASC LIMIT " + limit
 						+ " OFFSET " + offset, (rs, rowNum) -> {
 							DBWishItems emp = new DBWishItems();
 

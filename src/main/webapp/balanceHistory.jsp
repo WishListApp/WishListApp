@@ -25,12 +25,12 @@
     <p>Here you can see history of your balance:</p>
     </div>
     <div class="table_header_right">
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#balanceModal">
+        <button type="button" class="btn btn-lg btn-default" data-toggle="modal" data-target="#balanceModal">
             <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
             Balance settings
         </button>
         <a href="/balexport">
-            <button type="button" class="btn btn-default">
+            <button type="button" class="btn btn-lg btn-default">
                 <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
                 Export
             </button>
@@ -53,26 +53,7 @@
 
         </tbody>
     </table>
-
-    <c:if test="${currentPage != 1}">
-        <td>
-            <a href="/balanceHistory?page=${currentPage - 1}">Previous</a>
-        </td>
-    </c:if>
-
-    <table>
-        <tbody>
-        <tr>
-            <c:forEach begin="1" end="${pageCount}" var="i">
-                <td>
-                    <a href="/balanceHistory?page=${i}">${i}</a>
-                </td>
-            </c:forEach>
-        </tr>
-        </tbody>
-    </table>
-
+    <%@ include file="parts/commonPagination.jsp" %>
 </div>
-
 </body>
 </html>

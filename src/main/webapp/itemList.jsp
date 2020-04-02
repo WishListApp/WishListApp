@@ -234,7 +234,7 @@
                 </li>
                 </c:otherwise>
             </c:choose>
-      </ul>
+        </ul>
     </nav>
 </div>
 </body>

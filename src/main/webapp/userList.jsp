@@ -51,19 +51,54 @@
         </tbody>
     </table>
 
-    <c:if test="${currentPage != 1}">
-        <td><a href="/itemList?page=${currentPage - 1}">Previous</a></td>
-    </c:if>
 
-    <table>
-        <tbody>
-        <tr>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <c:choose>
+                <c:when test="${currentPage != 1}">
+                    <li>
+                        <a href="/admin/users?page=${currentPage - 1}"aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="disabled">
+                        <a href="/admin/users?page=${currentPage - 1}"aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+
             <c:forEach begin="1" end="${pageCount}" var="i">
-                <td><a href="/admin/users?page=${i}">${i}</a></td>
+                <c:choose>
+                    <c:when test="${currentPage != i}">
+                        <li><a href="/admin/users?page=${i}">${i}</a></li>
+                    </c:when>
+                    <c:otherwise>
+                         <li class="active"><a href="/admin/users?page=${i}">${i}</a></li>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
-        </tr>
-        </tbody>
-    </table>
+            <c:choose>
+                <c:when test="${currentPage != pageCount}">
+                    <li>
+                        <a href="/admin/users?page=${currentPage - 1}"aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="disabled">
+                        <a href="/admin/users?page=${currentPage - 1}"aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </nav>
 </div>
 <script>
     function save(id) {

@@ -1,3 +1,5 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div id="balanceModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,7 +9,8 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <form:form method="POST" modelAttribute="BalanceForm" class="form-signin">
+                    <form:form method="POST" modelAttribute="BalanceForm" action="${contextPath}/balance"
+                               class="form-signin">
                         <h2 class="form-signin-heading" id="updateBalanceForm">Alter Balance</h2>
                         <spring:bind path="balanceChange">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
@@ -22,9 +25,11 @@
 
                         <spring:bind path="note">
                             <h3>Add note to changes in balance(optional)</h3>
-                            <form:textarea path="note" maxlength="200" rows="10" cols="10" cssClass="form-control"></form:textarea>
+                            <form:textarea path="note" maxlength="200" rows="10" cols="10"
+                                           cssClass="form-control"></form:textarea>
                         </spring:bind>
-                        <button class="btn btn-lg btn-primary btn-block" id="submitBtn" type="submit" disabled>Submit</button>
+                        <button class="btn btn-lg btn-primary btn-block" id="submitBtn" type="submit" disabled>Submit
+                        </button>
                         <button class="btn btn-lg btn-primary btn-block btn-danger" data-dismiss="modal">Cancel</button>
                     </form:form>
                 </div>
@@ -32,23 +37,23 @@
         </div>
     </div>
 </div>
-                <script>
-                    const inputField = document.getElementById("input-number");
-                    inputField.addEventListener("change", function (e) {
-                        if (e.target.value === '') {
-                            e.target.value = "0";
-                        }
+<script>
+    const inputField = document.getElementById("input-number");
+    inputField.addEventListener("change", function (e) {
+        if (e.target.value === '') {
+            e.target.value = "0";
+        }
 
-                        if (parseFloat(e.target.value) > 10000 || parseFloat(e.target.value) < -10000) {
-                            document.getElementById("submitBtn").disabled = true;
-                            document.getElementById("textFieldAlert").innerText = "You more than 10000 or less than -10000";
-                        } else if (parseFloat(e.target.value) === 0) {
-                            document.getElementById("submitBtn").disabled = true;
-                            document.getElementById("textFieldAlert").innerText = "You can't submit " + e.target.value;
-                        } else {
-                            document.getElementById("submitBtn").disabled = false;
-                            document.getElementById("textFieldAlert").innerText = "";
-                        }
+        if (parseFloat(e.target.value) > 10000 || parseFloat(e.target.value) < -10000) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("textFieldAlert").innerText = "You more than 10000 or less than -10000";
+        } else if (parseFloat(e.target.value) === 0) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("textFieldAlert").innerText = "You can't submit " + e.target.value;
+        } else {
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("textFieldAlert").innerText = "";
+        }
 
-                    });
-                </script>
+    });
+</script>

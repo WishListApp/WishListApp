@@ -125,10 +125,10 @@
                             <input type="hidden" name="id" value="${emp.id}">
                             <c:choose>
                                 <c:when test="${emp.price <= balance}">
-                                    <button class="btn-success" value="${emp.id}">Fulfill</button>
+                                    <button class="btn btn-success" value="${emp.id}">Fulfill</button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button class="btn-dark" disabled>Not enough balance</button>
+                                    <button class="btn btn-dark" disabled>Not enough balance</button>
                                 </c:otherwise>
                             </c:choose>
                         </form:form>
@@ -140,7 +140,7 @@
                                    items="${WlistEmp}">
                             <input type="hidden" name="id" value="${emp.id}"/>
 
-                            <button class="btn-danger"
+                            <button class="btn btn-danger"
                                     onclick="return confirm('Are you sure you want to delete this item?');">Remove
                             </button>
                         </form:form>

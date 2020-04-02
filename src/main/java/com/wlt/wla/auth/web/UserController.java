@@ -328,7 +328,7 @@ public class UserController {
 
 	@GetMapping("/")
 	public String welcome(Model model) {
-		return "mainPage";
+		return "redirect:/home";
 	}
 
 	@PostMapping("/fulfill")

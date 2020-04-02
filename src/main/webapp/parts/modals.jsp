@@ -47,7 +47,7 @@
                         <spring:bind path="price">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <form:input type="number" path="price" class="form-control"
-                                            placeholder="Item Price" autofocus="true" min="0.01"
+                                            placeholder="Item Price" autofocus="true" min="0.01" max="1000000"
                                             step="0.01"></form:input>
                                 <form:errors path="price"></form:errors>
                             </div>
@@ -117,7 +117,7 @@
                         <spring:bind path="price">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
                                 <form:input type="number" path="price" class="form-control" id="input-price"
-                                            placeholder="Item Price" autofocus="true" min="0.01"
+                                            placeholder="Item Price" autofocus="true" min="0.01" max="1000000"
                                             step="0.01"></form:input>
                                 <form:errors path="price"></form:errors>
                             </div>

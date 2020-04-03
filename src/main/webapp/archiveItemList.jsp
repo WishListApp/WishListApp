@@ -65,7 +65,7 @@
 								items="${WlistRestoreEmp}">
 								<input type="hidden" name="id" value="${emp.id}" />
 
-								<button class="btn-danger"
+								<button class="btn btn-danger"
 									onclick="return confirm('\t Are you sure you want to copy\n new instance of this item to Wish List?');">Copy into list</button>
 							</form:form>
 						</div>

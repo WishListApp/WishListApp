@@ -66,7 +66,7 @@
 								items="${WlistRestoreEmp}">
 								<input type="hidden" name="id" value="${emp.id}" />
 
-								<button class="btn-danger"
+								<button class="btn btn-danger"
 									onclick="return confirm('Are you sure you want to restore this item?');">Restore</button>
 							</form:form>
 						</div>

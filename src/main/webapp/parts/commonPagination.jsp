@@ -4,14 +4,14 @@
             <c:choose>
                 <c:when test="${currentPage != 1}">
                     <li>
-                        <a href="/admin/users?page=${currentPage - 1}"aria-label="Previous">
+                        <a href="${pageContext.request.contextPath}?page=${currentPage - 1}"aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="disabled">
-                        <a href="/admin/users?page=${currentPage - 1}"aria-label="Previous">
+                        <a href="${pageContext.request.contextPath}?page=${currentPage - 1}"aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -21,24 +21,24 @@
             <c:forEach begin="1" end="${pageCount}" var="i">
                 <c:choose>
                     <c:when test="${currentPage != i}">
-                        <li><a href="/admin/users?page=${i}">${i}</a></li>
+                        <li><a href="${pageContext.request.contextPath}?page=${i}">${i}</a></li>
                     </c:when>
                     <c:otherwise>
-                         <li class="active"><a href="/admin/users?page=${i}">${i}</a></li>
+                         <li class="active"><a href="${pageContext.request.contextPath}?page=${i}">${i}</a></li>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
             <c:choose>
                 <c:when test="${currentPage != pageCount}">
                     <li>
-                        <a href="/admin/users?page=${currentPage + 1}"aria-label="Next">
+                        <a href="${pageContext.request.contextPath}?page=${currentPage + 1}"aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li class="disabled">
-                        <a href="/admin/users?page=${currentPage + 1}"aria-label="Next">
+                        <a href="${pageContext.request.contextPath}?page=${currentPage + 1}"aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

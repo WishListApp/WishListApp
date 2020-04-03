@@ -18,7 +18,7 @@
         <h2>User list</h2>
         <p>Here you can see, edit and delete users</p>
     </div>
-    <%@ include file="parts/userPagination.jsp" %>
+    <%@ include file="parts/commonPagination.jsp" %>
     <table class="table table-striped">
         <tbody>
         <c:forEach var="emp" items="${UlistEmp}" varStatus="status">
@@ -51,7 +51,7 @@
         </tbody>
     </table>
 
-<%@ include file="parts/userPagination.jsp" %>
+<%@ include file="parts/commonPagination.jsp" %>
 
 </div>
 </body>

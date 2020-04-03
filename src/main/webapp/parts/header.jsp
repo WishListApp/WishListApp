@@ -52,7 +52,7 @@
 </header>
 
     <script>
-    var popoverCnt='<center><a href="/balance"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></br><a href="/admin"><button class="btn btn-default"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Admin</button></a></center>';
+    var popoverCnt='<center><a href="/balanceHistory"><button class="btn btn-default"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Balance</button></a></br><a href="/profile"><button class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</button></a></br><a href="/admin"><button class="btn btn-default"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Admin</button></a></center>';
     $(document).ready(function(){
         $('#popbutton').popover({
             title: "<center>Choose settings group</center>",

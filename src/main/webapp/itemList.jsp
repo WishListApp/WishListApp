@@ -53,6 +53,7 @@
             <th>Item Name</th>
             <th>Category</th>
             <th>Price</th>
+            <th></th>
             <th>Priority</th>
             <th>Edit</th>
             <th>Fulfill</th>
@@ -87,15 +88,15 @@
                 </c:if>
 
                 <td>${emp.cat_name}</td>
-                <td>${emp.priceStr} ${currencyCode}
-                    <c:if
+                <td>${emp.priceStr} ${currencyCode}</td>
+                <td>    <c:if
                             test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
 
                         <form:form method="POST" action="${contextPath}/updatePrice"
                                    items="${WlistEmp}">
                             <input type="hidden" name="id" value="${emp.id}"/>
                             <input type="hidden" name="url" value="${emp.url}"/>
-                            <button class="btn-danger">Update Price from URL</button>
+                            <button class="btn btn-danger">Update Price from URL</button>
                         </form:form>
                     </c:if>
 
@@ -148,7 +149,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <%@ include file="parts/itemPagination.jsp" %>
+    <%@ include file="parts/commonPagination.jsp" %>
 </div>
 </body>Ц
 <script>

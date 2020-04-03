@@ -127,6 +127,7 @@ header {
 .table_header_right {
     float: right;
     margin-top: 10px;
+    vertical-align: middle;
 }
 
 .table_header_left {

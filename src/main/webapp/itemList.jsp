@@ -18,6 +18,7 @@
     <%@ include file="parts/header.jsp" %>
 </div>
 <div class="container">
+    <div class="container">
     <div class="table_header_left">
         <h2>Your Wish List</h2>
         <p>Here you can see, edit and delete items from your Wish List:</p>
@@ -46,6 +47,7 @@
             </button>
         </a>
     </div>
+    </div>
     <%@ include file="parts/modals.jsp" %>
     <table class="table">
         <thead>
@@ -53,11 +55,11 @@
             <th>Item Name</th>
             <th>Category</th>
             <th>Price</th>
+            <th><center>Priority</center></th>
             <th></th>
-            <th>Priority</th>
-            <th>Edit</th>
-            <th>Fulfill</th>
-            <th>Remove</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -89,6 +91,17 @@
 
                 <td>${emp.cat_name}</td>
                 <td>${emp.priceStr} ${currencyCode}</td>
+                <td>
+                    <center>
+                        <c:if test="${emp.priority==1}">
+                                    <span style="color: black; "> ${emp.priority_name} </span>
+                                </c:if> <c:if test="${emp.priority==5}">
+                                    <span style="color: orange; "> ${emp.priority_name} </span>
+                                </c:if> <c:if test="${emp.priority==10}">
+                                    <span style="color: red; "> ${emp.priority_name} </span>
+                                </c:if>
+                    </center>
+                </td>
                 <td>    <c:if
                             test="${fn:contains(emp.url, 'www.aliexpress.com') || fn:contains(emp.url, 'www.salidzini.lv/i/')}">
 
@@ -96,18 +109,10 @@
                                    items="${WlistEmp}">
                             <input type="hidden" name="id" value="${emp.id}"/>
                             <input type="hidden" name="url" value="${emp.url}"/>
-                            <button class="btn btn-danger">Update Price from URL</button>
+                            <button class="btn btn-info">Update Price from URL</button>
                         </form:form>
                     </c:if>
-
                 </td>
-                <td><c:if test="${emp.priority==1}">
-                    <span style="color: black; "> ${emp.priority_name} </span>
-                </c:if> <c:if test="${emp.priority==5}">
-                    <span style="color: orange; "> ${emp.priority_name} </span>
-                </c:if> <c:if test="${emp.priority==10}">
-                    <span style="color: red; "> ${emp.priority_name} </span>
-                </c:if></td>
                 <td>
                     <div>
                         <button class="btn btn-default btn-xs" data-name="${emp.name}" data-group="${emp.group}"
@@ -120,6 +125,7 @@
                 </td>
                 <td>
                     <div>
+                        <center>
                         <form:form method="POST" action="${contextPath}/fulfill" items="${WlistEmp}">
                             <input type="hidden" name="id" value="${emp.id}">
                             <c:choose>
@@ -131,6 +137,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </form:form>
+                        </center>
                     </div>
                 </td>
                 <td>
@@ -151,7 +158,7 @@
     </table>
     <%@ include file="parts/commonPagination.jsp" %>
 </div>
-</body>Ц
+</body>
 <script>
     $(document).ready(function () {
         $('#editItemModal').on('show.bs.modal', function (e) {

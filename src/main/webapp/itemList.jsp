@@ -159,6 +159,7 @@
     <%@ include file="parts/commonPagination.jsp" %>
 </div>
 </body>
+
 <script>
     $(document).ready(function () {
         $('#editItemModal').on('show.bs.modal', function (e) {

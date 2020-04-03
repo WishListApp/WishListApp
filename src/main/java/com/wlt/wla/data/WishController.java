@@ -246,6 +246,7 @@ public class WishController {
 
     @GetMapping("/profile")
     public ModelAndView profile(ModelAndView modelAndView) {
+        modelAndView.addObject("fulfilledItemsCount", empDao.getFulfilledItemsCount());
         modelAndView.addObject("currencyCode", empDao.getCurrencyCode());
         modelAndView.addObject("balance", String.format(Locale.US, "%.2f", empDao.getBalance()));
         modelAndView.addObject("id", empDao.getUserId());

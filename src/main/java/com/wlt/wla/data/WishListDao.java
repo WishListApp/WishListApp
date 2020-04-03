@@ -28,6 +28,7 @@ public interface WishListDao {
 	List<DBWishItems> WlistArchiveEmp(int limit, int offset);
 	public int getWlistArchiveSize();
 	public int getUserId();
+	public int getFulfilledItemsCount();
 
 	
 	

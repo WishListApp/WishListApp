@@ -265,6 +265,10 @@ public class UserController {
 		float change = balance.getBalanceChange();
 		String note = balance.getNote();
 
+		if (note.equals("")) {
+			note = "You changed balance by " + change;
+		}
+
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 

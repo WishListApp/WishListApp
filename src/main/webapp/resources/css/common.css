@@ -124,3 +124,24 @@ header {
     line-height: 27px;
   }
 }
+.table_header_right {
+    float: right;
+    margin-top: 10px;
+}
+
+.table_header_left {
+    margin-top: 10px;
+    float: left;
+}
+.grid-container {
+    margin-left:150px;
+    margin-right:150px;
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+}
+.grid-item {
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}

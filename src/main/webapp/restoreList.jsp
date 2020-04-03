@@ -66,7 +66,7 @@
 								items="${WlistRestoreEmp}">
 								<input type="hidden" name="id" value="${emp.id}" />
 
-								<button class="btn-danger"
+								<button class="btn btn-danger"
 									onclick="return confirm('Are you sure you want to restore this item?');">Restore</button>
 							</form:form>
 						</div>
@@ -75,28 +75,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
-	<c:if test="${currentPage != 1}">
-		<td>
-			<a href="/restoreList?page=${currentPage - 1}">Previous</a>
-		</td>
-	</c:if>
-
-	<table>
-		<tbody>
-		<tr>
-			<c:forEach begin="1" end="${pageCount}" var="i">
-				<td>
-					<a href="/restoreList?page=${i}">${i}</a>
-				</td>
-			</c:forEach>
-		</tr>
-		</tbody>
-	</table>
-
+    <%@ include file="parts/commonPagination.jsp" %>
 </div>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

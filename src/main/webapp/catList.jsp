@@ -7,7 +7,6 @@
 <head>
     <%@ include file="parts/commonHeadParts.jsp" %>
     <title>Categories List</title>
-    <link rel="stylesheet" href="./resources/css/catList.css">
 </head>
 <body>
     <div id="header"><%@ include file="parts/header.jsp" %></div>

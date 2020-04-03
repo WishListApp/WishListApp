@@ -8,7 +8,6 @@
 <head>
         <title>Wish List</title>
         <%@ include file="parts/commonHeadParts.jsp" %>
-        <link rel="stylesheet" href="/resources/css/mainPage.css">
 </head>
 <body>
     <div id="header"><%@include file="parts/adminheader.jsp" %></div>
